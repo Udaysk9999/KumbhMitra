@@ -11,13 +11,14 @@ import {
  */
 export const getAllPlaces = async (req, res, next) => {
   try {
-    const { page = 1, limit = 20, category, search } = req.query;
+    const { page = 1, limit = 20, category, search, kumbhRelevant } = req.query;
 
     const result = await fetchAllPlaces({
       page,
       limit,
       category,
-      search
+      search,
+      kumbhRelevant
     });
 
     return res.status(200).json({
@@ -40,13 +41,14 @@ export const getAllPlaces = async (req, res, next) => {
  */
 export const getNearbyPlaces = async (req, res, next) => {
   try {
-    const { lat, lng, radius = 5000, category } = req.query;
+    const { lat, lng, radius = 5000, category, kumbhRelevant } = req.query;
 
     const places = await fetchNearbyPlaces({
       lat,
       lng,
       radius,
-      category
+      category,
+      kumbhRelevant
     });
 
     return res.status(200).json({

@@ -1,6 +1,47 @@
+import Place from '../models/Place.js';
 import { fetchAllPlaces, fetchNearbyPlaces } from './place.service.js';
 import { calculateRoute } from './routing.service.js';
-import { getAIProvider } from './ai/provider.js';
+import { getAIProvider, CATEGORY_KEYWORDS } from './ai/provider.js';
+
+/**
+ * Extract specific distinguishing search term, or return undefined if query is just asking for the category
+ */
+const extractSpecificSearchTerm = (query, category) => {
+  if (!query || typeof query !== 'string') return undefined;
+
+  const lower = query.toLowerCase();
+
+  // Special dietary tags
+  if (lower.includes('vegetarian') || lower.includes('veg food') || lower.includes('pure veg')) {
+    return 'vegetarian';
+  }
+  if (lower.includes('jain')) {
+    return 'jain';
+  }
+  if (lower.includes('misal')) {
+    return 'misal';
+  }
+  if (lower.includes('thali')) {
+    return 'thali';
+  }
+
+  // Remove common stop words and search fillers
+  let cleaned = lower
+    .replace(/\b(find|show|me|where|are|is|the|a|an|in|at|on|near|around|close|to|can|i|get|visit|give|what|some|please|tell|about|facilities|facility|spots?|places?|stations?|points?|waters?|center|centres?|services?|nashik|trimbakeshwar)\b/gi, ' ')
+    .trim();
+
+  // Remove category words
+  if (category) {
+    const catWords = (CATEGORY_KEYWORDS[category] || []).concat([category]);
+    for (const cw of catWords) {
+      const escaped = cw.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+      cleaned = cleaned.replace(new RegExp(`\\b${escaped}(s|es)?\\b`, 'gi'), ' ');
+    }
+  }
+
+  cleaned = cleaned.replace(/\s+/g, ' ').trim();
+  return cleaned.length > 2 ? cleaned : undefined;
+};
 
 /**
  * Process user natural language chat message and return factual information strictly
@@ -21,7 +62,7 @@ export const processUserMessage = async (message) => {
   const trimmedMessage = message.trim();
 
   // Retrieve all known places in DB for authoritative entity matching
-  const { places: allPlaces } = await fetchAllPlaces({ limit: 100 });
+  const allPlaces = await Place.find({}).lean();
 
   const provider = getAIProvider();
   const extraction = await provider.extractIntent(trimmedMessage, allPlaces);
@@ -167,28 +208,31 @@ export const processUserMessage = async (message) => {
     }
 
     case 'search_places': {
-      let searchFilter;
-      if (query) {
-        const specificWords = query.toLowerCase()
-          .replace(/(find|places|in|on|at|show|me|where|are|the|a|an|nashik|trimbakeshwar)/gi, '')
-          .trim();
-        if (specificWords && specificWords !== category && specificWords !== `${category}s`) {
-          searchFilter = specificWords;
-        }
-      }
+      // Ensure category is detected if missed
+      const effectiveCategory = category || provider.detectCategory(trimmedMessage);
+      const searchFilter = extractSpecificSearchTerm(query || trimmedMessage, effectiveCategory);
 
-      const { places } = await fetchAllPlaces({
-        category: category || undefined,
+      let { places } = await fetchAllPlaces({
+        category: effectiveCategory || undefined,
         search: searchFilter,
         limit: 20
       });
+
+      // If specific searchFilter returned 0 but effectiveCategory has places, fallback to category places
+      if ((!places || places.length === 0) && effectiveCategory) {
+        const fallback = await fetchAllPlaces({
+          category: effectiveCategory,
+          limit: 20
+        });
+        places = fallback.places;
+      }
 
       resultPlaces = places;
 
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'search_places',
-        context: { places, category }
+        context: { places, category: effectiveCategory }
       });
       break;
     }
