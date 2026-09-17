@@ -10,6 +10,7 @@
     "test": "node test-places-layer.js"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^2.1.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

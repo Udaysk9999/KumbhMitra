@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
-import MapContainer from '../components/MapContainer';
+import MapContainer from '../maps/MapContainer';
 import PlaceInfoPanel from '../components/PlaceInfoPanel';
 import AIAssistant from '../components/AIAssistant';
 import EmergencyPanel from '../components/EmergencyPanel';
@@ -108,6 +108,7 @@ export default function Home() {
           places={visiblePlaces}
           selectedPlace={selectedPlace}
           onSelectPlace={(place) => setSelectedPlace(place)}
+          onToggleMode={setMapMode}
         />
       </main>
 
