@@ -12,7 +12,7 @@ import { getAIProvider } from './ai/provider.js';
 export const processUserMessage = async (message) => {
   if (!message || typeof message !== 'string' || !message.trim()) {
     return {
-      reply: 'Please ask a question about places, pilgrimage sites, or routes in Nashik and Trimbakeshwar.',
+      reply: 'Please ask a question about pilgrimage sites, facilities, or routes in Nashik and Trimbakeshwar.',
       places: [],
       route: null
     };
@@ -20,35 +20,52 @@ export const processUserMessage = async (message) => {
 
   const trimmedMessage = message.trim();
 
-  // Retrieve all known places in DB for accurate entity matching
+  // Retrieve all known places in DB for authoritative entity matching
   const { places: allPlaces } = await fetchAllPlaces({ limit: 100 });
 
   const provider = getAIProvider();
-  const { intent, entities } = await provider.extractIntent(trimmedMessage, allPlaces);
+  const extraction = await provider.extractIntent(trimmedMessage, allPlaces);
+  const { intent, category, placeName, origin, destination, radius = 5000, query, mode = 'driving', reason } = extraction;
 
   let reply = '';
   let resultPlaces = [];
   let resultRoute = null;
 
   switch (intent) {
-    case 'out_of_scope': {
+    case 'unsupported': {
       resultPlaces = [];
       resultRoute = null;
       reply = await provider.generateResponse({
         message: trimmedMessage,
-        intent: 'out_of_scope',
-        context: { places: [] }
+        intent: 'unsupported',
+        context: { reason, query }
       });
       break;
     }
 
     case 'route': {
-      const { originPlace, destPlace, mode = 'driving', originQuery, destQuery } = entities;
+      // Check for missing origin or destination
+      if (!origin && !destination) {
+        reply = 'Please specify both an origin and a destination in Nashik or Trimbakeshwar to calculate a route.';
+        break;
+      }
+      if (!origin) {
+        reply = `Please specify an origin location in Nashik or Trimbakeshwar to calculate the route to ${destination}.`;
+        break;
+      }
+      if (!destination) {
+        reply = `Please specify a destination to calculate the route from ${origin} (for example: Trimbakeshwar Jyotirlinga Temple).`;
+        break;
+      }
+
+      // Resolve places against database
+      const originPlace = provider.findPlaceMatch(origin, allPlaces);
+      const destPlace = provider.findPlaceMatch(destination, allPlaces);
 
       if (!originPlace || !destPlace) {
         const missing = [];
-        if (!originPlace) missing.push(`'${originQuery || 'origin'}'`);
-        if (!destPlace) missing.push(`'${destQuery || 'destination'}'`);
+        if (!originPlace) missing.push(`'${origin}'`);
+        if (!destPlace) missing.push(`'${destination}'`);
         reply = `I could not find ${missing.join(' and ')} in our verified Nashik and Trimbakeshwar database. Route calculations are only available between known locations within Nashik and Trimbakeshwar.`;
         break;
       }
@@ -97,11 +114,15 @@ export const processUserMessage = async (message) => {
       break;
     }
 
-    case 'nearby': {
-      const { anchorPlace, category, radius = 5000 } = entities;
+    case 'nearby_places': {
+      if (!placeName) {
+        reply = 'Please specify a reference location in Nashik or Trimbakeshwar (such as Ram Kund or Kalaram Temple) to find nearby places.';
+        break;
+      }
 
+      const anchorPlace = provider.findPlaceMatch(placeName, allPlaces);
       if (!anchorPlace) {
-        reply = `I could not identify a valid reference location in Nashik or Trimbakeshwar to find nearby places. Please specify a known site like Ram Kund or Kalaram Temple.`;
+        reply = `I could not find '${placeName}' in our verified Nashik and Trimbakeshwar database to search nearby places.`;
         break;
       }
 
@@ -109,24 +130,29 @@ export const processUserMessage = async (message) => {
         lat: anchorPlace.location.coordinates[1],
         lng: anchorPlace.location.coordinates[0],
         radius,
-        category
+        category: category || undefined
       });
 
       resultPlaces = nearbyPlaces;
 
       reply = await provider.generateResponse({
         message: trimmedMessage,
-        intent: 'nearby',
+        intent: 'nearby_places',
         context: { places: nearbyPlaces, anchorPlace, category }
       });
       break;
     }
 
     case 'place_info': {
-      const { place } = entities;
+      if (!placeName) {
+        reply = 'Please specify the name of the place in Nashik or Trimbakeshwar you would like information about.';
+        break;
+      }
 
+      const place = provider.findPlaceMatch(placeName, allPlaces);
       if (!place) {
-        reply = `I do not have verified information for that location. AI KumbhMitra only provides verified information for places in Nashik and Trimbakeshwar.`;
+        reply = `I do not have verified information for '${placeName}'. AI KumbhMitra only provides verified information for places in Nashik and Trimbakeshwar.`;
+        resultPlaces = [];
         break;
       }
 
@@ -135,15 +161,12 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'place_info',
-        context: { place }
+        context: { place, placeName: place.name }
       });
       break;
     }
 
-    case 'category_search': {
-      const { category, query } = entities;
-
-      // Extract specific search sub-terms if any (e.g. "pizza" from "find pizza places")
+    case 'search_places': {
       let searchFilter;
       if (query) {
         const specificWords = query.toLowerCase()
@@ -154,22 +177,27 @@ export const processUserMessage = async (message) => {
         }
       }
 
-      const { places } = await fetchAllPlaces({ category, search: searchFilter, limit: 20 });
+      const { places } = await fetchAllPlaces({
+        category: category || undefined,
+        search: searchFilter,
+        limit: 20
+      });
 
       resultPlaces = places;
 
       reply = await provider.generateResponse({
         message: trimmedMessage,
-        intent: 'category_search',
+        intent: 'search_places',
         context: { places, category }
       });
       break;
     }
 
-    case 'general_search':
+    case 'general_question':
     default: {
-      const { query } = entities;
-      const cleaned = query.replace(/(find|places|in|on|at|show|me|where|are|the|a|an|nashik|trimbakeshwar)/gi, '').trim();
+      const cleaned = (query || trimmedMessage)
+        .replace(/(find|places|in|on|at|show|me|where|are|the|a|an|nashik|trimbakeshwar)/gi, '')
+        .trim();
 
       let places = [];
       if (cleaned) {
@@ -181,7 +209,7 @@ export const processUserMessage = async (message) => {
 
       reply = await provider.generateResponse({
         message: trimmedMessage,
-        intent: 'general_search',
+        intent: 'general_question',
         context: { places }
       });
       break;

@@ -1,8 +1,10 @@
 /**
  * AI Provider Abstraction Layer for AI KumbhMitra
  *
- * Provides an extensible interface for natural language understanding and response generation.
- * Supports Google Gemini API (GEMINI_API_KEY) with a deterministic RuleBasedAIProvider fallback.
+ * Provides structured intent extraction and response generation with Google Gemini integration
+ * and a deterministic RuleBasedAIProvider fallback.
+ *
+ * Strictly scoped to Nashik and Trimbakeshwar, Maharashtra, India.
  */
 
 /**
@@ -29,7 +31,27 @@ const OUT_OF_SCOPE_LOCATIONS = [
   'tokyo',
   'usa',
   'america',
-  'europe'
+  'europe',
+  'atlantis',
+  'hogwarts',
+  'narnia'
+];
+
+/**
+ * Keywords indicating prompt injection or fabrication requests
+ */
+const FABRICATION_KEYWORDS = [
+  'invent',
+  'fabricate',
+  'make up',
+  'create a fictional',
+  'fake place',
+  'fictional place',
+  'hallucinate',
+  'pretend there is',
+  'imagine a temple',
+  'magical powers',
+  'mythical temple'
 ];
 
 /**
@@ -66,25 +88,22 @@ export class AIProvider {
  * Rule-Based Provider: Fast, offline, deterministic intent parser and factual response builder
  */
 export class RuleBasedAIProvider extends AIProvider {
-  /**
-   * Check if query targets locations outside Nashik and Trimbakeshwar
-   */
-  isOutOfScope(text) {
+  isFabricationRequest(text) {
     const lower = text.toLowerCase();
-    for (const loc of OUT_OF_SCOPE_LOCATIONS) {
-      const regex = new RegExp(`\\b${loc}\\b`, 'i');
-      if (regex.test(lower)) {
-        return true;
-      }
-    }
-    return false;
+    return FABRICATION_KEYWORDS.some((kw) => lower.includes(kw));
   }
 
-  /**
-   * Find matching place from known places list
-   */
-  findPlaceMatch(text, knownPlaces = []) {
+  isOutOfScope(text) {
     const lower = text.toLowerCase();
+    return OUT_OF_SCOPE_LOCATIONS.some((loc) => {
+      const regex = new RegExp(`\\b${loc}\\b`, 'i');
+      return regex.test(lower);
+    });
+  }
+
+  findPlaceMatch(text, knownPlaces = []) {
+    if (!text || typeof text !== 'string') return null;
+    const lower = text.toLowerCase().trim();
 
     for (const place of knownPlaces) {
       const placeNameLower = place.name.toLowerCase();
@@ -113,9 +132,6 @@ export class RuleBasedAIProvider extends AIProvider {
     return null;
   }
 
-  /**
-   * Detect category keyword in text, ignoring anchor place name
-   */
   detectCategory(text, excludeText = '') {
     let cleanText = text.toLowerCase();
     if (excludeText) {
@@ -137,100 +153,167 @@ export class RuleBasedAIProvider extends AIProvider {
     const text = message.trim();
     const lower = text.toLowerCase();
 
-    // 1. Check for explicit out-of-scope locations
+    // 1. Fabrication protection
+    if (this.isFabricationRequest(text)) {
+      return {
+        intent: 'unsupported',
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text,
+        reason: 'fabrication_request'
+      };
+    }
+
+    // 2. Out-of-scope check
     if (this.isOutOfScope(text)) {
       return {
-        intent: 'out_of_scope',
-        entities: { query: text }
+        intent: 'unsupported',
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text,
+        reason: 'out_of_scope'
       };
     }
 
-    // 2. Route Intent: "route from X to Y", "how to go from X to Y", "directions from X to Y"
-    const routeRegex = /(?:route|directions?|way|navigate|how\s+to\s+go|drive|walk)\s+(?:from\s+)?(.+?)\s+(?:to|towards?)\s+(.+)/i;
-    const routeMatch = text.match(routeRegex);
-    if (routeMatch) {
-      const originQuery = routeMatch[1].trim();
-      const destQuery = routeMatch[2].trim();
+    // 3. Route Intent
+    const isRoutePrompt = /(?:route|directions?|way|navigate|how\s+to\s+go|drive|walk)\b/i.test(text);
+    if (isRoutePrompt) {
+      // Check for "from X to Y"
+      const fromToMatch = text.match(/(?:from)\s+([^,]+?)\s+(?:to|towards)\s+([^,?.!]+)/i);
+      if (fromToMatch) {
+        return {
+          intent: 'route',
+          category: null,
+          placeName: null,
+          origin: fromToMatch[1].trim(),
+          destination: fromToMatch[2].trim(),
+          radius: 5000,
+          query: text,
+          mode: lower.includes('walk') || lower.includes('foot') ? 'foot' : 'driving'
+        };
+      }
 
-      const originPlace = this.findPlaceMatch(originQuery, knownPlaces);
-      const destPlace = this.findPlaceMatch(destQuery, knownPlaces);
+      // Check for "route from X" (missing destination)
+      const fromMatch = text.match(/(?:from)\s+([^,?.!]+)/i);
+      if (fromMatch && !/(?:to|towards)\s+/i.test(text)) {
+        return {
+          intent: 'route',
+          category: null,
+          placeName: null,
+          origin: fromMatch[1].trim(),
+          destination: null,
+          radius: 5000,
+          query: text,
+          mode: lower.includes('walk') || lower.includes('foot') ? 'foot' : 'driving'
+        };
+      }
 
+      // Check for "route to Y" (missing origin)
+      const toMatch = text.match(/(?:to|towards)\s+([^,?.!]+)/i);
+      if (toMatch && !/(?:from)\s+/i.test(text)) {
+        return {
+          intent: 'route',
+          category: null,
+          placeName: null,
+          origin: null,
+          destination: toMatch[1].trim(),
+          radius: 5000,
+          query: text,
+          mode: lower.includes('walk') || lower.includes('foot') ? 'foot' : 'driving'
+        };
+      }
+
+      // Route with generic query
       return {
         intent: 'route',
-        entities: {
-          originQuery,
-          destQuery,
-          originPlace,
-          destPlace,
-          mode: lower.includes('walk') || lower.includes('foot') ? 'foot' : 'driving'
-        }
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
       };
     }
 
-    // 3. Nearby Intent: "places near X", "what is near X", "around X", "close to X"
-    const nearbyRegex = /(?:near|around|close\s+to|nearby)\s+(.+)/i;
-    const nearbyMatch = text.match(nearbyRegex);
-    if (nearbyMatch || lower.includes('near') || lower.includes('nearby') || lower.includes('around')) {
-      const anchorQuery = nearbyMatch ? nearbyMatch[1].replace(/[?.,!]/g, '').trim() : '';
-      const anchorPlace = this.findPlaceMatch(anchorQuery || text, knownPlaces);
-      const category = this.detectCategory(text, anchorPlace ? anchorPlace.name : anchorQuery);
+    // 4. Nearby Intent
+    const isNearbyPrompt = /(?:near|around|close\s+to|nearby)\b/i.test(text);
+    if (isNearbyPrompt) {
+      const anchorMatch = text.match(/(?:near|around|close\s+to|nearby)\s+([^,?.!]+)/i);
+      let anchorName = anchorMatch ? anchorMatch[1].trim() : null;
+
+      const matchedPlace = anchorName ? this.findPlaceMatch(anchorName, knownPlaces) : null;
+      const category = this.detectCategory(text, matchedPlace ? matchedPlace.name : (anchorName || ''));
 
       return {
-        intent: 'nearby',
-        entities: {
-          anchorQuery,
-          anchorPlace,
-          category,
-          radius: 5000
-        }
+        intent: 'nearby_places',
+        category,
+        placeName: matchedPlace ? matchedPlace.name : anchorName,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
       };
     }
 
-    // 4. Place Info Intent: "tell me about X", "what is X", "information about X"
-    const infoRegex = /(?:tell\s+me\s+about|information\s+(?:on|about)|info\s+(?:on|about)|details\s+(?:of|about|on)|what\s+is|when\s+does)\s+(.+)/i;
-    const infoMatch = text.match(infoRegex);
+    // 5. Place Info Intent
+    const infoMatch = text.match(/(?:tell\s+me\s+about|information\s+(?:on|about)|info\s+(?:on|about)|details\s+(?:of|about|on)|what\s+is|where\s+is|when\s+does)\s+([^,?.!]+)/i);
     if (infoMatch) {
-      const targetQuery = infoMatch[1].replace(/[?.,!]/g, '').trim();
+      const targetQuery = infoMatch[1].trim();
       const place = this.findPlaceMatch(targetQuery, knownPlaces);
       return {
         intent: 'place_info',
-        entities: {
-          targetQuery,
-          place
-        }
+        category: null,
+        placeName: place ? place.name : targetQuery,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
       };
     }
 
-    // Direct place mention without category keyword
+    // Direct place name match without category keywords
     const directPlace = this.findPlaceMatch(text, knownPlaces);
     if (directPlace && !this.detectCategory(text, directPlace.name)) {
       return {
         intent: 'place_info',
-        entities: {
-          targetQuery: directPlace.name,
-          place: directPlace
-        }
+        category: null,
+        placeName: directPlace.name,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
       };
     }
 
-    // 5. Category Search Intent
+    // 6. Search Places Intent
     const detectedCategory = this.detectCategory(text);
     if (detectedCategory) {
       return {
-        intent: 'category_search',
-        entities: {
-          category: detectedCategory,
-          query: text
-        }
+        intent: 'search_places',
+        category: detectedCategory,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
       };
     }
 
-    // 6. General Search
+    // 7. General Question or Unsupported
     return {
-      intent: 'general_search',
-      entities: {
-        query: text
-      }
+      intent: 'general_question',
+      category: null,
+      placeName: null,
+      origin: null,
+      destination: null,
+      radius: 5000,
+      query: text
     };
   }
 
@@ -245,7 +328,7 @@ export class RuleBasedAIProvider extends AIProvider {
         return `The estimated ${modeLabel} distance from ${originPlace.name} to ${destPlace.name} is ${route.distanceKm} km (approx. ${route.durationMins} minutes). Turn-by-turn route steps are provided below.`;
       }
 
-      case 'nearby': {
+      case 'nearby_places': {
         const { places, anchorPlace, category } = context;
         if (!anchorPlace) {
           return `I could not find the reference location in Nashik or Trimbakeshwar to search nearby places.`;
@@ -259,9 +342,9 @@ export class RuleBasedAIProvider extends AIProvider {
       }
 
       case 'place_info': {
-        const { place } = context;
+        const { place, placeName } = context;
         if (!place) {
-          return `I could not find verified information for that location in Nashik or Trimbakeshwar.`;
+          return `I do not have verified information for '${placeName || 'that location'}'. AI KumbhMitra only provides verified information for places in Nashik and Trimbakeshwar.`;
         }
         const hours = place.openingHours?.open && place.openingHours?.close
           ? `Opening hours: ${place.openingHours.open} - ${place.openingHours.close}.`
@@ -271,17 +354,24 @@ export class RuleBasedAIProvider extends AIProvider {
         return `${place.name} (${place.category.toUpperCase()}) located in Nashik/Trimbakeshwar. ${place.description || ''} ${address} ${hours} ${services}`.trim();
       }
 
-      case 'category_search': {
+      case 'search_places': {
         const { places, category } = context;
         if (!places || places.length === 0) {
-          return `No verified ${category} locations found in Nashik or Trimbakeshwar matching your request.`;
+          return `No verified ${category || 'matching'} locations found in Nashik or Trimbakeshwar matching your request.`;
         }
         const names = places.map((p) => p.name).join(', ');
-        return `Found ${places.length} ${category} location(s) in Nashik and Trimbakeshwar: ${names}.`;
+        return `Found ${places.length} ${category || 'matching'} location(s) in Nashik and Trimbakeshwar: ${names}.`;
       }
 
-      case 'out_of_scope':
-      case 'general_search':
+      case 'unsupported': {
+        const { reason } = context;
+        if (reason === 'fabrication_request') {
+          return `I cannot invent or fabricate places. AI KumbhMitra strictly provides verified, factual data for pilgrimage sites and services in Nashik and Trimbakeshwar from our official database.`;
+        }
+        return `I could not find any verified locations matching your request. AI KumbhMitra strictly covers verified pilgrimage locations and services in the Nashik and Trimbakeshwar region.`;
+      }
+
+      case 'general_question':
       default: {
         const { places } = context;
         if (!places || places.length === 0) {
@@ -305,18 +395,116 @@ export class GeminiAIProvider extends RuleBasedAIProvider {
     this.modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
   }
 
+  async extractIntent(message, knownPlaces = []) {
+    // Check first for explicit fabrication or out-of-scope attacks for fast rejection
+    if (this.isFabricationRequest(message)) {
+      return {
+        intent: 'unsupported',
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: message,
+        reason: 'fabrication_request'
+      };
+    }
+
+    if (this.isOutOfScope(message)) {
+      return {
+        intent: 'unsupported',
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: message,
+        reason: 'out_of_scope'
+      };
+    }
+
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
+      const prompt = `You are the NLU intent extractor for AI KumbhMitra (Nashik & Trimbakeshwar only).
+Extract the user intent and entities. Supported intents:
+- "search_places": finding places by category or keywords (e.g. temples, hospitals, parking)
+- "nearby_places": finding places near a specific reference place (e.g. near Ram Kund)
+- "place_info": asking about a specific place (e.g. tell me about Kalaram Temple)
+- "route": asking for directions/route between two places (e.g. route from X to Y)
+- "general_question": general inquiry about Kumbh Mela in Nashik/Trimbakeshwar
+- "unsupported": asking to invent/fabricate data, or asking about locations outside Nashik/Trimbakeshwar
+
+Known places in Nashik/Trimbakeshwar: ${knownPlaces.map((p) => p.name).join(', ')}.
+
+Respond ONLY with valid JSON in this exact structure without markdown or backticks:
+{
+  "intent": "search_places" | "nearby_places" | "place_info" | "route" | "general_question" | "unsupported",
+  "category": string or null,
+  "placeName": string or null,
+  "origin": string or null,
+  "destination": string or null,
+  "radius": 5000,
+  "query": string
+}
+
+User Message: "${message}"`;
+
+      const payload = {
+        contents: [{ role: 'user', parts: [{ text: prompt }] }],
+        generationConfig: {
+          temperature: 0.1,
+          responseMimeType: 'application/json'
+        }
+      };
+
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (!response.ok) {
+        throw new Error(`Gemini API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (rawText) {
+        const cleaned = rawText.replace(/```json|```/g, '').trim();
+        const parsed = JSON.parse(cleaned);
+        if (parsed && parsed.intent) {
+          return {
+            intent: parsed.intent,
+            category: parsed.category || null,
+            placeName: parsed.placeName || null,
+            origin: parsed.origin || null,
+            destination: parsed.destination || null,
+            radius: parsed.radius || 5000,
+            query: parsed.query || message
+          };
+        }
+      }
+
+      return super.extractIntent(message, knownPlaces);
+    } catch (err) {
+      // Fallback to rule-based parser on any Gemini error or quota limit
+      return super.extractIntent(message, knownPlaces);
+    }
+  }
+
   async generateResponse(params) {
     try {
       const { message, intent, context = {} } = params;
       const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
 
-      const systemPrompt = `You are AI KumbhMitra, a helpful, factual pilgrimage assistant for Kumbh Mela 2027 in Nashik and Trimbakeshwar, Maharashtra, India.
-IMPORTANT INSTRUCTIONS:
-- You ONLY provide verified information for Nashik and Trimbakeshwar.
-- NEVER fabricate places, routes, addresses, or services outside of provided database context.
-- If information does not exist in context, explicitly state that it is unavailable in Nashik and Trimbakeshwar.
-- Context data: ${JSON.stringify(context)}
-- User Intent: ${intent}`;
+      const systemPrompt = `You are AI KumbhMitra, a verified pilgrimage assistant for Kumbh Mela 2027 in Nashik and Trimbakeshwar, Maharashtra, India.
+CRITICAL SAFETY & GROUNDING RULES:
+1. Treat database/API context as authoritative.
+2. NEVER invent, hallucinate, or fabricate places, coordinates, opening hours, or routes.
+3. If information does not exist in context, explicitly inform the user that it is unavailable in our Nashik & Trimbakeshwar database.
+4. If the user asks you to invent or make up a place, politely decline.
+Context: ${JSON.stringify(context)}
+Intent: ${intent}`;
 
       const payload = {
         contents: [
@@ -350,10 +538,8 @@ IMPORTANT INSTRUCTIONS:
         return generatedText.trim();
       }
 
-      // Fall back to rule-based if empty response
       return super.generateResponse(params);
     } catch (error) {
-      console.warn('[GeminiAIProvider] Fallback to RuleBasedAIProvider:', error.message);
       return super.generateResponse(params);
     }
   }
