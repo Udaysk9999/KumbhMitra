@@ -2,9 +2,17 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import healthRoutes from "./routes/health.routes.js";
+import connectDB from "./config/db.js";
 
 // Load environment variables
 dotenv.config();
+
+// Connect to Database if configured
+if (process.env.MONGO_URI || process.env.MONGODB_URI) {
+  connectDB().catch((err) => {
+    console.error(`[MongoDB] Server startup connection warning: ${err.message}`);
+  });
+}
 
 const app = express();
 const PORT = process.env.PORT || 5000;
