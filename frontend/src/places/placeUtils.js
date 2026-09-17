@@ -11,20 +11,43 @@ export const CATEGORY_DEFINITIONS = {
   all: { id: 'all', label: 'All Places', icon: '📍', color: 'from-stone-600 to-stone-800' },
   temple: { id: 'temple', label: 'Temples', icon: '🛕', color: 'from-amber-600 to-orange-700' },
   ghat: { id: 'ghat', label: 'Ghats', icon: '🌊', color: 'from-sky-600 to-cyan-800' },
+  kumbh_zone: { id: 'kumbh_zone', label: 'Kumbh Zones', icon: '⛺', color: 'from-orange-600 to-red-700' },
+  akhada: { id: 'akhada', label: 'Akhadas', icon: '🚩', color: 'from-red-600 to-amber-700' },
+  ashram: { id: 'ashram', label: 'Ashrams', icon: '🕉️', color: 'from-amber-500 to-orange-700' },
+  dharamshala: { id: 'dharamshala', label: 'Dharamshalas', icon: '🏠', color: 'from-teal-600 to-cyan-800' },
+  bhakta_niwas: { id: 'bhakta_niwas', label: 'Bhakta Niwas', icon: '🛏️', color: 'from-sky-600 to-indigo-700' },
+  guest_house: { id: 'guest_house', label: 'Guest Houses', icon: '🏡', color: 'from-indigo-600 to-blue-700' },
   hotel: { id: 'hotel', label: 'Hotels', icon: '🏨', color: 'from-indigo-600 to-blue-800' },
   restaurant: { id: 'restaurant', label: 'Restaurants', icon: '🍛', color: 'from-orange-600 to-red-700' },
   shop: { id: 'shop', label: 'Shops', icon: '🏪', color: 'from-emerald-600 to-teal-800' },
   hospital: { id: 'hospital', label: 'Hospitals', icon: '🏥', color: 'from-rose-600 to-red-800' },
-  medical: { id: 'medical', label: 'Medical', icon: '🚑', color: 'from-red-600 to-rose-700' },
-  parking: { id: 'parking', label: 'Parking', icon: '🅿️', color: 'from-blue-600 to-indigo-800' },
+  medical: { id: 'medical', label: 'Medical', icon: '🏥', color: 'from-red-600 to-rose-700' },
+  ambulance: { id: 'ambulance', label: 'Ambulances', icon: '🚑', color: 'from-rose-600 to-red-700' },
+  blood_bank: { id: 'blood_bank', label: 'Blood Banks', icon: '🩸', color: 'from-red-700 to-rose-900' },
+  pharmacy: { id: 'pharmacy', label: 'Pharmacies', icon: '💊', color: 'from-emerald-600 to-teal-700' },
   police: { id: 'police', label: 'Police', icon: '🚓', color: 'from-slate-700 to-stone-900' },
   fire_station: { id: 'fire_station', label: 'Fire Station', icon: '🚒', color: 'from-red-700 to-orange-800' },
+  emergency: { id: 'emergency', label: 'Emergency', icon: '🚨', color: 'from-red-600 to-rose-800' },
+  parking: { id: 'parking', label: 'Parking', icon: '🅿️', color: 'from-blue-600 to-indigo-800' },
   transport: { id: 'transport', label: 'Transport', icon: '🚌', color: 'from-violet-600 to-purple-800' },
+  railway: { id: 'railway', label: 'Railway', icon: '🚆', color: 'from-blue-700 to-slate-900' },
+  bus_stand: { id: 'bus_stand', label: 'Bus Stands', icon: '🚏', color: 'from-violet-600 to-purple-800' },
   water_point: { id: 'water_point', label: 'Water Points', icon: '💧', color: 'from-teal-600 to-cyan-700' },
   toilet: { id: 'toilet', label: 'Restrooms', icon: '🚻', color: 'from-stone-600 to-stone-800' },
+  public_toilet: { id: 'public_toilet', label: 'Public Toilets', icon: '🚻', color: 'from-stone-600 to-stone-800' },
   help_center: { id: 'help_center', label: 'Help Centers', icon: 'ℹ️', color: 'from-amber-500 to-orange-600' },
   tourist: { id: 'tourist', label: 'Tourist Spots', icon: '📍', color: 'from-emerald-600 to-green-800' },
-  tourist_spot: { id: 'tourist_spot', label: 'Tourist Spots', icon: '📍', color: 'from-emerald-600 to-green-800' }
+  tourist_spot: { id: 'tourist_spot', label: 'Tourist Spots', icon: '📍', color: 'from-emerald-600 to-green-800' },
+  fort: { id: 'fort', label: 'Forts', icon: '🏰', color: 'from-amber-700 to-stone-800' },
+  cave: { id: 'cave', label: 'Caves', icon: '🪨', color: 'from-stone-600 to-zinc-800' },
+  waterfall: { id: 'waterfall', label: 'Waterfalls', icon: '🌊', color: 'from-cyan-600 to-blue-700' },
+  museum: { id: 'museum', label: 'Museums', icon: '🏛️', color: 'from-amber-600 to-yellow-800' },
+  nature: { id: 'nature', label: 'Nature', icon: '🌲', color: 'from-emerald-600 to-teal-800' },
+  viewpoint: { id: 'viewpoint', label: 'Viewpoints', icon: '🌄', color: 'from-orange-500 to-amber-700' },
+  government_facility: { id: 'government_facility', label: 'Civic & Govt', icon: '🏢', color: 'from-slate-600 to-gray-800' },
+  tourist_information: { id: 'tourist_information', label: 'Tourist Info', icon: 'ℹ️', color: 'from-cyan-600 to-sky-800' },
+  rest_area: { id: 'rest_area', label: 'Rest Areas', icon: '🛖', color: 'from-stone-500 to-zinc-700' },
+  other_public_facility: { id: 'other_public_facility', label: 'Public Facilities', icon: '🏛️', color: 'from-stone-600 to-stone-800' }
 };
 
 /**
@@ -117,8 +140,12 @@ export const normalizePlace = (raw) => {
     longitude = raw.longitude;
   }
 
+  const addressStr = typeof raw.address === 'object' && raw.address !== null
+    ? [raw.address.area, raw.address.city, raw.address.district, raw.address.state].filter(Boolean).join(', ')
+    : (typeof raw.address === 'string' ? raw.address : '');
+
   const region = raw.region || (
-    (raw.address && raw.address.toLowerCase().includes('trimbak')) || longitude < 73.65
+    (addressStr && addressStr.toLowerCase().includes('trimbak')) || longitude < 73.65
       ? 'Trimbakeshwar'
       : 'Nashik'
   );
@@ -153,7 +180,7 @@ export const normalizePlace = (raw) => {
     description: raw.description || 'Verified pilgrimage point of interest in Nashik/Trimbakeshwar.',
     imagePlaceholder,
     image: raw.image || null,
-    address: raw.address || `${region}, Maharashtra, India`,
+    address: addressStr || `${region}, Maharashtra, India`,
     phone: raw.phone || raw.contact || null,
     openingHours: formatOpeningHours(raw.openingHours),
     rating: typeof raw.rating === 'number' ? raw.rating : null,
