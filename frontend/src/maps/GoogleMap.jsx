@@ -10,7 +10,7 @@ let isOptionsConfigured = false;
 let librariesPromise = null;
 
 function getGoogleMapsLibraries(apiKey) {
-  if (!isOptionsConfigured) {
+  if (!isOptionsConfigured && apiKey) {
     setOptions({
       key: apiKey,
       v: 'weekly'
@@ -33,7 +33,6 @@ function getGoogleMapsLibraries(apiKey) {
         google: window.google
       }))
       .catch((err) => {
-        // Reset promise on failure to allow retry if requested
         librariesPromise = null;
         throw err;
       });
@@ -94,11 +93,8 @@ function createOverlayClass(google) {
 
 /**
  * Real Google Maps 2D Viewport Component
- my-feature-branch
- * Uses official @googlemaps/js-api-loader v2 functional API (setOptions + importLibrary)
-
- * Includes custom HTML markers and dynamic route polyline rendering
- main
+ * Uses official @googlemaps/js-api-loader functional API (setOptions + importLibrary)
+ * Includes custom HTML markers and dynamic route polyline rendering.
  */
 const GoogleMap = forwardRef(function GoogleMap({
   apiKey,
@@ -115,11 +111,12 @@ const GoogleMap = forwardRef(function GoogleMap({
   const overlaysRef = useRef(new Map());
   const routePolylineRef = useRef(null);
   const routeEndpointOverlaysRef = useRef({ start: null, dest: null });
+  const userLocationMarkerRef = useRef(null);
   const [googleMaps, setGoogleMaps] = useState(null);
   const [portals, setPortals] = useState([]);
   const [routePortals, setRoutePortals] = useState([]);
 
-  // Expose map controls to parent (zoom in, zoom out, recenter, fitPlaces)
+  // Expose map controls and camera helpers to parent
   useImperativeHandle(ref, () => ({
     zoomIn: () => {
       if (mapInstanceRef.current) {
@@ -153,8 +150,60 @@ const GoogleMap = forwardRef(function GoogleMap({
         mapInstanceRef.current.fitBounds(bounds, 50);
       }
     },
+    panTo: (latLng) => {
+      if (mapInstanceRef.current && latLng) {
+        mapInstanceRef.current.panTo(latLng);
+      }
+    },
+    setZoom: (zoom) => {
+      if (mapInstanceRef.current && typeof zoom === 'number') {
+        mapInstanceRef.current.setZoom(zoom);
+      }
+    },
+    fitToPlace: (placeOrCoords, zoom = 16) => {
+      if (!mapInstanceRef.current) return;
+      const lat = placeOrCoords?.latitude ?? placeOrCoords?.lat;
+      const lng = placeOrCoords?.longitude ?? placeOrCoords?.lng;
+      if (lat != null && lng != null) {
+        mapInstanceRef.current.panTo({ lat, lng });
+        mapInstanceRef.current.setZoom(zoom);
+      }
+    },
+    fitBoundsToRoute: (route, extraPadding = { top: 90, bottom: 90, left: 90, right: 90 }) => {
+      const LatLngBoundsClass =
+        googleMaps?.LatLngBounds ||
+        googleMaps?.maps?.LatLngBounds ||
+        window.google?.maps?.LatLngBounds;
+
+      if (!mapInstanceRef.current || !LatLngBoundsClass) return;
+      const targetRoute = route || activeRoute;
+      if (!targetRoute?.geometry?.coordinates?.length) return;
+      const bounds = new LatLngBoundsClass();
+      targetRoute.geometry.coordinates.forEach(([lng, lat]) => {
+        bounds.extend({ lat, lng });
+      });
+      mapInstanceRef.current.fitBounds(bounds, extraPadding);
+    },
+    setUserLocation: ({ lat, lng }) => {
+      const MarkerClass =
+        googleMaps?.Marker ||
+        googleMaps?.maps?.Marker ||
+        window.google?.maps?.Marker;
+
+      if (!mapInstanceRef.current || !MarkerClass) return;
+      if (userLocationMarkerRef.current) {
+        userLocationMarkerRef.current.setMap(null);
+      }
+      userLocationMarkerRef.current = new MarkerClass({
+        position: { lat, lng },
+        map: mapInstanceRef.current,
+        title: 'Your Location'
+      });
+      mapInstanceRef.current.panTo({ lat, lng });
+      mapInstanceRef.current.setZoom(15);
+    },
     getMap: () => mapInstanceRef.current
-  }), [googleMaps, places]);
+  }), [googleMaps, places, activeRoute]);
 
   // Initialize Google Maps API via setOptions and importLibrary
   useEffect(() => {
@@ -176,12 +225,9 @@ const GoogleMap = forwardRef(function GoogleMap({
       .then(({ google, mapsLib }) => {
         if (!isMounted || !mapContainerRef.current) return;
 
-        // Ensure google.maps is saved in state
         const mapsNamespace = google?.maps || mapsLib;
         setGoogleMaps(mapsNamespace);
 
- my-feature-branch
-        // Instantiate Google Map only if not already created for this DOM element
         if (!mapInstanceRef.current && mapContainerRef.current) {
           const MapClass = mapsNamespace.Map || mapsLib.Map;
           const map = new MapClass(mapContainerRef.current, {
@@ -190,7 +236,6 @@ const GoogleMap = forwardRef(function GoogleMap({
 
           mapInstanceRef.current = map;
 
-          // Track center coordinates for display
           const listener = map.addListener('center_changed', () => {
             const center = map.getCenter();
             if (center && onCoordinatesChange) {
@@ -202,23 +247,6 @@ const GoogleMap = forwardRef(function GoogleMap({
           });
           centerListenerRef.current = listener;
         }
-
-        const map = new google.maps.Map(mapContainerRef.current, {
-          ...DEFAULT_MAP_OPTIONS
-        });
-
-        mapInstanceRef.current = map;
-
-        map.addListener('center_changed', () => {
-          const center = map.getCenter();
-          if (center && onCoordinatesChange) {
-            onCoordinatesChange({
-              lat: center.lat(),
-              lng: center.lng()
-            });
-          }
-        });
- main
       })
       .catch((err) => {
         console.error('Failed to load Google Maps SDK:', err);
@@ -235,6 +263,10 @@ const GoogleMap = forwardRef(function GoogleMap({
       }
       if (window.gm_authFailure) {
         delete window.gm_authFailure;
+      }
+      if (userLocationMarkerRef.current) {
+        userLocationMarkerRef.current.setMap(null);
+        userLocationMarkerRef.current = null;
       }
     };
   }, [apiKey]);
@@ -287,12 +319,17 @@ const GoogleMap = forwardRef(function GoogleMap({
         item.place = place;
       }
 
+      const isRouteEndpoint =
+        activeRoute &&
+        (activeRoute.start?.id === place.id || activeRoute.destination?.id === place.id);
+
       newPortals.push(
         createPortal(
           <MapMarker
             key={place.id}
             place={place}
             isSelected={selectedPlace?.id === place.id}
+            highlighted={Boolean(isRouteEndpoint)}
             onClick={onSelectPlace}
           />,
           item.container
@@ -301,13 +338,25 @@ const GoogleMap = forwardRef(function GoogleMap({
     });
 
     setPortals(newPortals);
-  }, [googleMaps, places, selectedPlace, onSelectPlace]);
+  }, [googleMaps, places, selectedPlace, activeRoute, onSelectPlace]);
 
   // Synchronize Route Polyline and Route Endpoint Markers
   useEffect(() => {
     if (!googleMaps || !mapInstanceRef.current) return;
 
     const OverlayClass = createOverlayClass(googleMaps);
+    const PolylineClass =
+      googleMaps.Polyline ||
+      googleMaps.maps?.Polyline ||
+      window.google?.maps?.Polyline;
+    const LatLngClass =
+      googleMaps.LatLng ||
+      googleMaps.maps?.LatLng ||
+      window.google?.maps?.LatLng;
+    const LatLngBoundsClass =
+      googleMaps.LatLngBounds ||
+      googleMaps.maps?.LatLngBounds ||
+      window.google?.maps?.LatLngBounds;
 
     // If no active route, clean up polyline and endpoint overlays
     if (!activeRoute || !activeRoute.geometry?.coordinates) {
@@ -329,12 +378,12 @@ const GoogleMap = forwardRef(function GoogleMap({
 
     // Convert GeoJSON LineString [[lng, lat], ...] to google.maps.LatLng array
     const pathCoordinates = activeRoute.geometry.coordinates.map(
-      ([lng, lat]) => new googleMaps.LatLng(lat, lng)
+      ([lng, lat]) => new LatLngClass(lat, lng)
     );
 
     // Render or update Polyline
     if (!routePolylineRef.current) {
-      routePolylineRef.current = new googleMaps.Polyline({
+      routePolylineRef.current = new PolylineClass({
         path: pathCoordinates,
         geodesic: true,
         strokeColor: activeRoute.modeColor || '#d97706',
@@ -351,7 +400,7 @@ const GoogleMap = forwardRef(function GoogleMap({
     }
 
     // Fit map bounds to display the whole route
-    const routeBounds = new googleMaps.LatLngBounds();
+    const routeBounds = new LatLngBoundsClass();
     pathCoordinates.forEach((pt) => routeBounds.extend(pt));
     mapInstanceRef.current.fitBounds(routeBounds, {
       top: 90,
@@ -366,13 +415,13 @@ const GoogleMap = forwardRef(function GoogleMap({
       let startItem = routeEndpointOverlaysRef.current.start;
       if (!startItem) {
         const container = document.createElement('div');
-        const latLng = new googleMaps.LatLng(activeRoute.start.latitude, activeRoute.start.longitude);
+        const latLng = new LatLngClass(activeRoute.start.latitude, activeRoute.start.longitude);
         const overlay = new OverlayClass(latLng, container);
         overlay.setMap(mapInstanceRef.current);
         startItem = { container, overlay };
         routeEndpointOverlaysRef.current.start = startItem;
       } else {
-        startItem.overlay.setPosition(new googleMaps.LatLng(activeRoute.start.latitude, activeRoute.start.longitude));
+        startItem.overlay.setPosition(new LatLngClass(activeRoute.start.latitude, activeRoute.start.longitude));
       }
       newRoutePortals.push(
         createPortal(
@@ -393,13 +442,13 @@ const GoogleMap = forwardRef(function GoogleMap({
       let destItem = routeEndpointOverlaysRef.current.dest;
       if (!destItem) {
         const container = document.createElement('div');
-        const latLng = new googleMaps.LatLng(activeRoute.destination.latitude, activeRoute.destination.longitude);
+        const latLng = new LatLngClass(activeRoute.destination.latitude, activeRoute.destination.longitude);
         const overlay = new OverlayClass(latLng, container);
         overlay.setMap(mapInstanceRef.current);
         destItem = { container, overlay };
         routeEndpointOverlaysRef.current.dest = destItem;
       } else {
-        destItem.overlay.setPosition(new googleMaps.LatLng(activeRoute.destination.latitude, activeRoute.destination.longitude));
+        destItem.overlay.setPosition(new LatLngClass(activeRoute.destination.latitude, activeRoute.destination.longitude));
       }
       newRoutePortals.push(
         createPortal(

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useCallback } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
 import MapContainer from '../maps/MapContainer';
@@ -10,6 +10,7 @@ import EmergencyPanel from '../components/EmergencyPanel';
 import { PlacesLoadingView, PlacesEmptyView, ApiUnavailableNotice } from '../components/PlaceStateView';
 import { placeService, filterPlacesByCategory } from '../places';
 import { routeService } from '../services/routeService';
+import useMapCamera from '../hooks/useMapCamera';
 
 /**
  * Home Page Component
@@ -18,6 +19,9 @@ import { routeService } from '../services/routeService';
  * place preview/details panels, and the backend-ready route visualizer.
  */
 export default function Home() {
+  const mapRef = useRef(null);
+  const { panToPlace, fitRoute } = useMapCamera(mapRef);
+
   const [mapMode, setMapMode] = useState('2D');
   const [places, setPlaces] = useState(() => placeService.getPlacesSync());
   const [loading, setLoading] = useState(false);
@@ -112,6 +116,7 @@ export default function Home() {
 
     setSelectedPlace(place);
     setIsDetailsOpen(false);
+    panToPlace(place);
   };
 
   // Search selection handler -> opens details panel directly & pans map
@@ -129,6 +134,7 @@ export default function Home() {
 
     setSelectedPlace(place);
     setIsDetailsOpen(true);
+    panToPlace(place);
   };
 
   // Route calculation helper using backend-ready routeService
@@ -155,6 +161,7 @@ export default function Home() {
 
       if (response.success && response.data) {
         setActiveRoute(response.data);
+        fitRoute(response.data);
       } else {
         setRouteError(response.error || 'Failed to compute route between selected points.');
       }
@@ -163,7 +170,7 @@ export default function Home() {
     } finally {
       setRouteLoading(false);
     }
-  }, []);
+  }, [fitRoute]);
 
   // Trigger route planning for a destination
   const handleStartRoute = useCallback((dest) => {
@@ -280,6 +287,7 @@ export default function Home() {
         )}
 
         <MapContainer
+          ref={mapRef}
           mode={mapMode}
           places={visiblePlaces}
           selectedPlace={selectedPlace}

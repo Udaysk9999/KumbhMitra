@@ -49,8 +49,67 @@ const MapFallback = forwardRef(function MapFallback({
     resetView: () => {
       setZoomLevel(1);
       setPanOffset({ x: 0, y: 0 });
+    },
+    fitPlaces: () => {
+      setZoomLevel(1);
+      setPanOffset({ x: 0, y: 0 });
+    },
+    panTo: (coords) => {
+      if (!containerRef.current || !coords) return;
+      const lat = coords.latitude ?? coords.lat;
+      const lng = coords.longitude ?? coords.lng;
+      if (lat == null || lng == null) return;
+      const { xPercent, yPercent } = projectCoords(lat, lng);
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      const targetX = width * 0.5 - (xPercent / 100) * width * zoomLevel;
+      const targetY = height * 0.5 - (yPercent / 100) * height * zoomLevel;
+      setPanOffset({
+        x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
+        y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
+      });
+    },
+    setZoom: (z) => {
+      if (typeof z === 'number') {
+        setZoomLevel(Math.max(0.7, Math.min(2.5, z)));
+      }
+    },
+    fitToPlace: (placeOrCoords, zoom = 1.4) => {
+      if (!containerRef.current || !placeOrCoords) return;
+      const lat = placeOrCoords.latitude ?? placeOrCoords.lat;
+      const lng = placeOrCoords.longitude ?? placeOrCoords.lng;
+      if (lat == null || lng == null) return;
+      setZoomLevel(zoom);
+      const { xPercent, yPercent } = projectCoords(lat, lng);
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      const targetX = width * 0.5 - (xPercent / 100) * width * zoom;
+      const targetY = height * 0.5 - (yPercent / 100) * height * zoom;
+      setPanOffset({
+        x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
+        y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
+      });
+    },
+    fitBoundsToRoute: () => {
+      // Auto-fit is triggered reactively by activeRoute effect
+    },
+    setUserLocation: (coords) => {
+      if (!containerRef.current || !coords) return;
+      const lat = coords.latitude ?? coords.lat;
+      const lng = coords.longitude ?? coords.lng;
+      if (lat == null || lng == null) return;
+      setZoomLevel(1.4);
+      const { xPercent, yPercent } = projectCoords(lat, lng);
+      const width = containerRef.current.clientWidth;
+      const height = containerRef.current.clientHeight;
+      const targetX = width * 0.5 - (xPercent / 100) * width * 1.4;
+      const targetY = height * 0.5 - (yPercent / 100) * height * 1.4;
+      setPanOffset({
+        x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
+        y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
+      });
     }
-  }));
+  }), [zoomLevel]);
 
   // Pan to selected place
   useEffect(() => {
