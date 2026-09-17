@@ -1,39 +1,34 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import GoogleMap from './GoogleMap';
 import MapFallback from './MapFallback';
+import Map3D from './Map3D';
+import MapControls from '../components/MapControls';
+import MapLegend from '../components/MapLegend';
+import MapErrorState from '../components/MapErrorState';
 import { NASHIK_CENTER } from './mapConfig';
 
 /**
  * Main Interactive Map Container Component
- * Coordinates between Google Maps 2D mode, fallback GIS mode, and 3D preview mode.
+ * Seamlessly manages transitions between 2D interactive map (Google Map / Fallback GIS)
+ * and 3D Geographic Spatial View (Map3D).
+ * Preserves selected place, active route, filters, and discovery state across mode switches.
  */
-export default function MapContainer({
+const MapContainer = forwardRef(function MapContainer({
   mode = '2D',
   places = [],
   selectedPlace = null,
+  activeRoute = null,
   onSelectPlace,
   onToggleMode
-}) {
+}, ref) {
   const apiKey = import.meta.env.VITE_GOOGLE_MAPS_API_KEY || '';
   const [mapError, setMapError] = useState(apiKey ? null : 'MISSING_API_KEY');
+  const [userNotification, setUserNotification] = useState(null);
   const [currentCoords, setCurrentCoords] = useState(NASHIK_CENTER);
   const mapRef = useRef(null);
 
-  const handleZoomIn = () => {
-    mapRef.current?.zoomIn?.();
-  };
-
-  const handleZoomOut = () => {
-    mapRef.current?.zoomOut?.();
-  };
-
-  const handleResetView = () => {
-    mapRef.current?.resetView?.();
-  };
-
-  const handleFitPlaces = () => {
-    mapRef.current?.fitPlaces?.();
-  };
+  // Expose active map imperative handles to parent
+  useImperativeHandle(ref, () => mapRef.current, []);
 
   const getStatusMessage = () => {
     if (mapError === 'MISSING_API_KEY') {
@@ -48,9 +43,17 @@ export default function MapContainer({
   return (
     <div
       className="relative w-full h-full flex-1 overflow-hidden select-none bg-stone-100"
-      aria-label="Interactive Map Area"
+      aria-label="Interactive Map Viewport"
     >
-      {/* 2D MODE VIEWPORT */}
+      {/* Toast / Banner for location or map notifications */}
+      {userNotification && (
+        <MapErrorState
+          error={userNotification}
+          onDismiss={() => setUserNotification(null)}
+        />
+      )}
+
+      {/* 2D / 3D VIEWPORT SWITCHER */}
       {mode === '2D' ? (
         apiKey && !mapError ? (
           <GoogleMap
@@ -58,6 +61,7 @@ export default function MapContainer({
             apiKey={apiKey}
             places={places}
             selectedPlace={selectedPlace}
+            activeRoute={activeRoute}
             onSelectPlace={onSelectPlace}
             onError={(err) => setMapError(err)}
             onCoordinatesChange={(coords) => setCurrentCoords(coords)}
@@ -67,53 +71,42 @@ export default function MapContainer({
             ref={mapRef}
             places={places}
             selectedPlace={selectedPlace}
+            activeRoute={activeRoute}
             onSelectPlace={onSelectPlace}
             statusMessage={getStatusMessage()}
           />
         )
       ) : (
-        /* 3D MODE PLACEHOLDER (Phase 3 Scope) */
-        <div className="relative w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-stone-900 via-stone-800 to-stone-950 text-white">
-          <div className="max-w-md w-full p-6 rounded-2xl bg-stone-800/80 backdrop-blur-md border border-stone-700 shadow-2xl text-center space-y-4">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
-              🌐
-            </div>
-            <div>
-              <div className="inline-block px-2.5 py-0.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-amber-500/20 text-amber-300 border border-amber-500/30 mb-2">
-                Phase 3 Preview
-              </div>
-              <h2 className="text-xl font-extrabold text-white">
-                Immersive 3D Spatial View
-              </h2>
-              <p className="text-xs text-stone-300 mt-2 leading-relaxed">
-                Google 3D Photorealistic Tiles and Cesium/Three.js spatial terrain are scheduled for implementation in Phase 3.
-              </p>
-            </div>
-
-            <div className="p-3 bg-stone-900/60 rounded-xl border border-stone-700/80 text-[11px] text-stone-400 text-left space-y-1">
-              <div className="font-semibold text-stone-200">Current Scope:</div>
-              <div>• Nashik Godavari River Basin (2D Interactive)</div>
-              <div>• Trimbakeshwar Jyotirlinga Corridor (2D Interactive)</div>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => onToggleMode?.('2D')}
-              className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-amber-600/30"
-            >
-              Return to Interactive 2D Map
-            </button>
-          </div>
-        </div>
+        /* LIVE 3D GEOGRAPHIC SPATIAL ENGINE */
+        <Map3D
+          ref={mapRef}
+          places={places}
+          selectedPlace={selectedPlace}
+          activeRoute={activeRoute}
+          onSelectPlace={onSelectPlace}
+          onToggleMode={onToggleMode}
+        />
       )}
 
       {/* TOP-LEFT OVERLAY: Regional Map Info */}
       <div className="absolute top-20 left-4 z-20 pointer-events-none">
         <div className="bg-white/90 backdrop-blur-md px-3.5 py-2 rounded-xl border border-stone-200/90 shadow-sm">
           <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full ${apiKey && !mapError ? 'bg-emerald-500 animate-pulse' : 'bg-amber-500'}`}></span>
+            <span
+              className={`w-2.5 h-2.5 rounded-full ${
+                mode === '3D'
+                  ? 'bg-amber-500 animate-pulse'
+                  : apiKey && !mapError
+                  ? 'bg-emerald-500 animate-pulse'
+                  : 'bg-amber-500'
+              }`}
+            />
             <span className="text-xs font-bold text-stone-900 tracking-tight">
-              {apiKey && !mapError ? 'Google Maps 2D' : 'Local GIS Mode'}
+              {mode === '3D'
+                ? '3D Spatial Corridor'
+                : apiKey && !mapError
+                ? 'Google Maps 2D'
+                : 'Local GIS Mode'}
             </span>
             <span className="text-stone-300">|</span>
             <span className="text-[11px] font-semibold text-amber-800">
@@ -121,66 +114,61 @@ export default function MapContainer({
             </span>
           </div>
           <div className="text-[10px] text-stone-500 mt-0.5">
-            Showing {places.length} Kumbh locations • Click markers for intelligence
+            {activeRoute ? (
+              <span className="text-amber-700 font-semibold">
+                📍 Active Route: {activeRoute.start.name.split(' ')[0]} ➔ {activeRoute.destination.name.split(' ')[0]} ({activeRoute.distanceText})
+              </span>
+            ) : (
+              <span>
+                {mode === '3D'
+                  ? `Rendering ${places.length} places in 3D perspective • Click pins or presets`
+                  : `Showing ${places.length} Kumbh locations • Click markers for intelligence`}
+              </span>
+            )}
           </div>
         </div>
       </div>
 
-      {/* TOP-RIGHT OVERLAY: Mode Badge (Desktop/Tablet) */}
-      <div className="absolute top-20 right-4 z-20 pointer-events-none hidden sm:block">
-        <div className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-stone-200/90 shadow-sm flex items-center gap-2">
-          <span className={`w-2 h-2 rounded-full ${mode === '2D' ? 'bg-emerald-500' : 'bg-amber-500'}`}></span>
+      {/* TOP-RIGHT OVERLAY: Map Legend & Mode Indicator */}
+      <div className="absolute top-20 right-4 z-20 flex items-center gap-2">
+        <MapLegend places={places} />
+        <div className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-xl border border-stone-200/90 shadow-sm items-center gap-2 hidden sm:flex">
+          <span
+            className={`w-2 h-2 rounded-full ${
+              mode === '2D' ? 'bg-emerald-500' : 'bg-amber-500 animate-pulse'
+            }`}
+          />
           <span className="text-xs font-bold font-mono text-stone-800">
-            {mode === '2D' ? '2D Map Active' : '3D Mode Pending'}
+            {mode === '2D' ? '2D Map Active' : '3D Spatial Active'}
           </span>
         </div>
       </div>
 
-      {/* BOTTOM-LEFT: Coordinates Indicator */}
-      <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden sm:flex items-center gap-2">
-        <div className="bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-700 shadow-xs">
-          CENTER: {currentCoords.lat.toFixed(4)}° N, {currentCoords.lng.toFixed(4)}° E
+      {/* BOTTOM-LEFT: Coordinates Indicator (2D Mode) */}
+      {mode === '2D' && (
+        <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden md:flex items-center gap-2">
+          <div className="bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-700 shadow-xs">
+            CENTER: {currentCoords.lat.toFixed(4)}° N, {currentCoords.lng.toFixed(4)}° E
+          </div>
+          <div className="bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-700 shadow-xs">
+            CORRIDOR: NASHIK-TRIMBAK
+          </div>
         </div>
-        <div className="bg-white/90 backdrop-blur-md px-2 py-1 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-700 shadow-xs">
-          CORRIDOR: NASHIK-TRIMBAK
-        </div>
-      </div>
+      )}
 
-      {/* BOTTOM-RIGHT: Map Navigation Controls */}
-      <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-1.5">
-        <div className="bg-white/95 backdrop-blur-md rounded-xl border border-stone-200 shadow-md p-1 flex flex-col gap-1 text-sm font-bold text-stone-700">
-          <button
-            type="button"
-            onClick={handleZoomIn}
-            className="w-8 h-8 rounded-lg hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200"
-            aria-label="Zoom in"
-            title="Zoom In"
-          >
-            +
-          </button>
-          <div className="w-full h-px bg-stone-200"></div>
-          <button
-            type="button"
-            onClick={handleZoomOut}
-            className="w-8 h-8 rounded-lg hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200"
-            aria-label="Zoom out"
-            title="Zoom Out"
-          >
-            −
-          </button>
-        </div>
-
-        {/* Recenter / Fit All Places Button */}
-        <button
-          type="button"
-          onClick={handleFitPlaces}
-          className="bg-white/95 backdrop-blur-md rounded-xl border border-stone-200 shadow-md p-2 hover:bg-stone-100 flex items-center justify-center text-xs font-semibold text-stone-700 transition-colors"
-          title="Fit all places in view"
-          aria-label="Fit all places in view"
-        >
-          📍
-        </button>
+      {/* BOTTOM-RIGHT: Floating Navigation Controls */}
+      <div
+        className={`absolute right-4 z-20 transition-all duration-200 ${
+          activeRoute ? 'bottom-24 sm:bottom-4' : 'bottom-4'
+        }`}
+      >
+        <MapControls
+          mapRef={mapRef}
+          onLocationError={(msg) => setUserNotification(msg)}
+        />
       </div>
     </div>
   );
-}
+});
+
+export default MapContainer;
