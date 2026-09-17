@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import healthRoutes from "./routes/health.routes.js";
+import placeRoutes from "./routes/place.routes.js";
 import connectDB from "./config/db.js";
 
 // Load environment variables
@@ -24,6 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // API Routes
 app.use("/api", healthRoutes);
+app.use("/api/places", placeRoutes);
 
 // Fallback 404 Handler
 app.use((req, res) => {
@@ -34,9 +36,11 @@ app.use((req, res) => {
 });
 
 // Start Server
-app.listen(PORT, () => {
-  console.log(`[AI KumbhMitra Backend] Server running on port ${PORT}`);
-  console.log(`[AI KumbhMitra Backend] Health check: http://localhost:${PORT}/api/health`);
-});
+if (process.env.NODE_ENV !== "test") {
+  app.listen(PORT, () => {
+    console.log(`[AI KumbhMitra Backend] Server running on port ${PORT}`);
+    console.log(`[AI KumbhMitra Backend] Health check: http://localhost:${PORT}/api/health`);
+  });
+}
 
 export default app;
