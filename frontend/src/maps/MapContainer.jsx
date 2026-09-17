@@ -6,11 +6,13 @@ import { NASHIK_CENTER } from './mapConfig';
 /**
  * Main Interactive Map Container Component
  * Coordinates between Google Maps 2D mode, fallback GIS mode, and 3D preview mode.
+ * Forwards activeRoute geometry to both map backends.
  */
 export default function MapContainer({
   mode = '2D',
   places = [],
   selectedPlace = null,
+  activeRoute = null,
   onSelectPlace,
   onToggleMode
 }) {
@@ -25,10 +27,6 @@ export default function MapContainer({
 
   const handleZoomOut = () => {
     mapRef.current?.zoomOut?.();
-  };
-
-  const handleResetView = () => {
-    mapRef.current?.resetView?.();
   };
 
   const handleFitPlaces = () => {
@@ -48,7 +46,7 @@ export default function MapContainer({
   return (
     <div
       className="relative w-full h-full flex-1 overflow-hidden select-none bg-stone-100"
-      aria-label="Interactive Map Area"
+      aria-label="Interactive Map Viewport"
     >
       {/* 2D MODE VIEWPORT */}
       {mode === '2D' ? (
@@ -58,6 +56,7 @@ export default function MapContainer({
             apiKey={apiKey}
             places={places}
             selectedPlace={selectedPlace}
+            activeRoute={activeRoute}
             onSelectPlace={onSelectPlace}
             onError={(err) => setMapError(err)}
             onCoordinatesChange={(coords) => setCurrentCoords(coords)}
@@ -67,6 +66,7 @@ export default function MapContainer({
             ref={mapRef}
             places={places}
             selectedPlace={selectedPlace}
+            activeRoute={activeRoute}
             onSelectPlace={onSelectPlace}
             statusMessage={getStatusMessage()}
           />
@@ -75,7 +75,7 @@ export default function MapContainer({
         /* 3D MODE PLACEHOLDER (Phase 3 Scope) */
         <div className="relative w-full h-full flex flex-col items-center justify-center p-6 bg-gradient-to-b from-stone-900 via-stone-800 to-stone-950 text-white">
           <div className="max-w-md w-full p-6 rounded-2xl bg-stone-800/80 backdrop-blur-md border border-stone-700 shadow-2xl text-center space-y-4">
-            <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl">
+            <div className="w-14 h-14 mx-auto rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-2xl" aria-hidden="true">
               🌐
             </div>
             <div>
@@ -99,7 +99,7 @@ export default function MapContainer({
             <button
               type="button"
               onClick={() => onToggleMode?.('2D')}
-              className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-amber-600/30"
+              className="w-full py-2.5 px-4 rounded-xl bg-amber-600 hover:bg-amber-500 text-white font-semibold text-xs transition-colors shadow-lg shadow-amber-600/30 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-white"
             >
               Return to Interactive 2D Map
             </button>
@@ -121,7 +121,13 @@ export default function MapContainer({
             </span>
           </div>
           <div className="text-[10px] text-stone-500 mt-0.5">
-            Showing {places.length} Kumbh locations • Click markers for intelligence
+            {activeRoute ? (
+              <span className="text-amber-700 font-semibold">
+                📍 Active Route: {activeRoute.start.name.split(' ')[0]} ➔ {activeRoute.destination.name.split(' ')[0]} ({activeRoute.distanceText})
+              </span>
+            ) : (
+              <span>Showing {places.length} Kumbh locations • Click markers for intelligence</span>
+            )}
           </div>
         </div>
       </div>
@@ -137,7 +143,7 @@ export default function MapContainer({
       </div>
 
       {/* BOTTOM-LEFT: Coordinates Indicator */}
-      <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden sm:flex items-center gap-2">
+      <div className="absolute bottom-4 left-4 z-20 pointer-events-none hidden md:flex items-center gap-2">
         <div className="bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-lg border border-stone-200 text-[10px] font-mono text-stone-700 shadow-xs">
           CENTER: {currentCoords.lat.toFixed(4)}° N, {currentCoords.lng.toFixed(4)}° E
         </div>
@@ -148,11 +154,11 @@ export default function MapContainer({
 
       {/* BOTTOM-RIGHT: Map Navigation Controls */}
       <div className="absolute bottom-4 right-4 z-20 flex flex-col gap-1.5">
-        <div className="bg-white/95 backdrop-blur-md rounded-xl border border-stone-200 shadow-md p-1 flex flex-col gap-1 text-sm font-bold text-stone-700">
+        <div className="bg-white/95 backdrop-blur-md rounded-2xl border border-stone-200 shadow-md p-1 flex flex-col gap-1 text-sm font-bold text-stone-700">
           <button
             type="button"
             onClick={handleZoomIn}
-            className="w-8 h-8 rounded-lg hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200"
+            className="w-9 h-9 rounded-xl hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             aria-label="Zoom in"
             title="Zoom In"
           >
@@ -162,7 +168,7 @@ export default function MapContainer({
           <button
             type="button"
             onClick={handleZoomOut}
-            className="w-8 h-8 rounded-lg hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200"
+            className="w-9 h-9 rounded-xl hover:bg-stone-100 flex items-center justify-center transition-colors active:bg-stone-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
             aria-label="Zoom out"
             title="Zoom Out"
           >
@@ -174,7 +180,7 @@ export default function MapContainer({
         <button
           type="button"
           onClick={handleFitPlaces}
-          className="bg-white/95 backdrop-blur-md rounded-xl border border-stone-200 shadow-md p-2 hover:bg-stone-100 flex items-center justify-center text-xs font-semibold text-stone-700 transition-colors"
+          className="w-9 h-9 bg-white/95 backdrop-blur-md rounded-2xl border border-stone-200 shadow-md hover:bg-stone-100 flex items-center justify-center text-sm font-semibold text-stone-700 transition-colors cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500"
           title="Fit all places in view"
           aria-label="Fit all places in view"
         >

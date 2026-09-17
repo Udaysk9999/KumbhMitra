@@ -1,21 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { formatOpeningHours, formatAccessibility } from '../places/placeUtils';
 
 /**
- * Reusable Place Information Panel
- * Google Maps-style information drawer providing details on selected place.
+ * Place Information Panel Component
+ * Displays comprehensive details for a selected place.
+ * Includes "Get Directions" action integrating with RoutePanel.
  * Safely renders optional fields without displaying "undefined" or crashing on missing data.
  */
-export default function PlaceInfoPanel({ place, onClose }) {
-  const [routeStatus, setRouteStatus] = useState(null);
+export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
+  // Close on Escape key press
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        onClose?.();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
 
   if (!place) return null;
 
   const handleStartRoute = () => {
-    setRouteStatus('Route planning will be available in the routing phase.');
-    setTimeout(() => {
-      setRouteStatus(null);
-    }, 4500);
+    if (onGetDirections) {
+      onGetDirections(place);
+    }
   };
 
   const categoryLabel = place.categoryLabel || place.category || 'Pilgrimage Site';
@@ -32,11 +41,16 @@ export default function PlaceInfoPanel({ place, onClose }) {
 
   return (
     <aside
-      className="fixed inset-y-0 right-0 z-40 w-full sm:w-[420px] bg-white/95 backdrop-blur-md shadow-2xl border-l border-stone-200/90 flex flex-col transition-all duration-300 animate-in slide-in-from-right"
-      aria-label="Place Information Panel"
+      className="fixed inset-x-0 bottom-0 max-h-[78vh] sm:max-h-full sm:inset-y-0 sm:left-auto sm:right-0 z-40 w-full sm:w-[420px] bg-white/98 backdrop-blur-md shadow-2xl border-t sm:border-t-0 sm:border-l border-stone-200/90 rounded-t-3xl sm:rounded-none flex flex-col transition-all duration-300 animate-in slide-in-from-bottom-6 sm:slide-in-from-right"
+      aria-label={`Detailed information for ${place.name}`}
+      role="dialog"
+      aria-modal="false"
     >
+      {/* Mobile Drag Indicator Handle */}
+      <div className="w-12 h-1.5 bg-stone-300 rounded-full mx-auto mt-2.5 mb-1 sm:hidden" aria-hidden="true" />
+
       {/* Top Header Bar */}
-      <div className="p-4 border-b border-stone-200/80 flex items-center justify-between bg-stone-50/80">
+      <div className="px-5 py-3.5 border-b border-stone-200/80 flex items-center justify-between bg-stone-50/80">
         <div className="flex items-center gap-2">
           <span className="text-xl" aria-hidden="true">{categoryIcon}</span>
           <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 px-2.5 py-0.5 rounded-full border border-amber-200/70">
@@ -52,8 +66,9 @@ export default function PlaceInfoPanel({ place, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="p-1.5 rounded-lg text-stone-400 hover:text-stone-700 hover:bg-stone-200/60 transition-colors"
-          aria-label="Close place information panel"
+          className="p-1.5 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-200/60 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
+          aria-label="Close place details panel"
+          title="Close panel"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -61,20 +76,24 @@ export default function PlaceInfoPanel({ place, onClose }) {
         </button>
       </div>
 
-      {/* Scrollable Content */}
+      {/* Scrollable Content Area */}
       <div className="flex-1 overflow-y-auto p-5 space-y-5">
         
         {/* Visual Header / Image Placeholder */}
         <div 
-          style={{ background: bgStyle }}
-          className="w-full h-36 rounded-2xl flex flex-col justify-end p-4 text-white shadow-inner relative overflow-hidden bg-cover bg-center"
+          className="w-full h-40 rounded-2xl overflow-hidden relative shadow-inner flex flex-col justify-end p-4 border border-stone-200/60"
+          style={{ background: bgStyle, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-          <div className="absolute top-2 right-2 bg-black/40 backdrop-blur-sm text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-mono">
-            Kumbh 2027
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+          
+          <div className="relative z-10 text-white">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-amber-300">
+              {place.tagline || `${categoryLabel} in ${region}`}
+            </div>
+            <h1 className="text-lg sm:text-xl font-black text-white drop-shadow-md">
+              {place.name}
+            </h1>
           </div>
-          {place.tagline && (
-            <div className="text-xs font-medium opacity-90 drop-shadow-sm">{place.tagline}</div>
-          )}
         </div>
 
         {/* Title & Rating */}
@@ -83,7 +102,7 @@ export default function PlaceInfoPanel({ place, onClose }) {
             {place.name || 'Verified Location'}
           </h2>
 
-          <div className="mt-2 flex items-center gap-3 text-xs text-stone-600">
+          <div className="mt-2 flex items-center gap-3 text-xs text-stone-600 flex-wrap">
             {place.rating ? (
               <div className="flex items-center gap-1 font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
                 <span>⭐</span>
@@ -108,23 +127,16 @@ export default function PlaceInfoPanel({ place, onClose }) {
           </p>
         ) : null}
 
-        {/* Action Button: Start Route */}
+        {/* Action Button: Get Directions */}
         <div className="space-y-2">
           <button
             type="button"
             onClick={handleStartRoute}
-            className="w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-amber-600/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99]"
+            className="w-full py-3 px-4 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-semibold text-xs rounded-xl shadow-md shadow-amber-600/20 flex items-center justify-center gap-2 transition-all active:scale-[0.99] focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 cursor-pointer"
           >
             <span>🧭</span>
-            <span>Start Route</span>
+            <span>Get Directions / Plan Route</span>
           </button>
-
-          {/* Feedback banner for route action */}
-          {routeStatus && (
-            <div className="p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-blue-800 text-[11px] text-center font-medium animate-in fade-in duration-200">
-              ℹ️ {routeStatus}
-            </div>
-          )}
         </div>
 
         {/* Detailed Information Grid */}
@@ -239,7 +251,7 @@ export default function PlaceInfoPanel({ place, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="w-full py-2.5 px-4 rounded-xl border border-stone-300 text-stone-700 hover:bg-stone-200/60 font-semibold text-xs transition-colors"
+          className="w-full py-2.5 px-4 rounded-xl border border-stone-300 text-stone-700 hover:bg-stone-200/60 font-semibold text-xs transition-colors cursor-pointer"
         >
           Close Panel
         </button>
