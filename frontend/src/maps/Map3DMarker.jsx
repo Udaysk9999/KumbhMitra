@@ -14,6 +14,7 @@ const Map3DMarker = memo(function Map3DMarker({
   isHovered = false,
   isRouteStart = false,
   isRouteDest = false,
+  hasActiveSelection = false,
   heading = 25,
   tilt = 55,
   onClick,
@@ -61,6 +62,8 @@ const Map3DMarker = memo(function Map3DMarker({
       }}
       className={`absolute z-20 transition-all duration-200 ease-out select-none ${
         isSelected ? 'z-40' : isRouteStart || isRouteDest ? 'z-35' : isHovered ? 'z-30' : 'z-20'
+      } ${
+        hasActiveSelection && !isSelected && !isRouteStart && !isRouteDest && !isHovered ? 'opacity-65 hover:opacity-100' : 'opacity-100'
       }`}
     >
       {/* Ground Shadow & Pulse Ring */}

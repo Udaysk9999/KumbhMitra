@@ -160,6 +160,7 @@ const LandmarkVisual = memo(function LandmarkVisual({
   isHovered = false,
   isRouteStart = false,
   isRouteDest = false,
+  hasActiveSelection = false,
   heading = 25,
   tilt = 55,
   onClick,
@@ -189,6 +190,8 @@ const LandmarkVisual = memo(function LandmarkVisual({
       }}
       className={`absolute z-30 transition-all duration-200 ease-out select-none ${
         isSelected ? 'z-50 scale-110' : isHovered ? 'z-45 scale-105' : 'z-30'
+      } ${
+        hasActiveSelection && !isSelected && !isRouteStart && !isRouteDest && !isHovered ? 'opacity-80 hover:opacity-100' : 'opacity-100'
       }`}
     >
       {/* Ground Foundation Glow & Shadow */}

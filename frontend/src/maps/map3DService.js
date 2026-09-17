@@ -47,7 +47,7 @@ export const DEFAULT_3D_CAMERA = CAMERA_PRESETS_3D.nashikGodavari;
 /**
  * Compute optimal 3D camera settings for a specific place with category-aware tilt & zoom
  */
-export function computeCameraForPlace(place, currentHeading = 25) {
+export function computeCameraForPlace(place, currentHeading = 25, isMobile = false) {
   if (!place) return DEFAULT_3D_CAMERA;
 
   const lat = Number(place.latitude ?? place.lat ?? NASHIK_CENTER.lat);
@@ -71,6 +71,12 @@ export function computeCameraForPlace(place, currentHeading = 25) {
     zoom = 1.4;
   }
 
+  // Mobile viewport optimization: shallower tilt and wider FOV to avoid UI clipping
+  if (isMobile) {
+    tilt = Math.min(tilt, 46);
+    zoom = Math.max(1.1, zoom - 0.25);
+  }
+
   // Choose heading oriented towards central Godavari corridor
   let heading = currentHeading;
   if (lng < 73.65) {
@@ -91,9 +97,9 @@ export function computeCameraForPlace(place, currentHeading = 25) {
 }
 
 /**
- * Compute optimal 3D camera view for an active route
+ * Compute optimal 3D camera view for an active route with mobile optimization
  */
-export function computeCameraForRoute(route) {
+export function computeCameraForRoute(route, isMobile = false) {
   if (!route || !route.start || !route.destination) {
     return DEFAULT_3D_CAMERA;
   }
@@ -126,9 +132,15 @@ export function computeCameraForRoute(route) {
   else if (maxSpan > 0.04) zoom = 1.3;
   else zoom = 1.45;
 
+  let tilt = 48;
+  if (isMobile) {
+    zoom = Math.max(0.85, zoom - 0.18);
+    tilt = 42;
+  }
+
   return {
     center: { lat: midLat, lng: midLng },
-    tilt: 48,
+    tilt,
     heading: Math.round(bearing),
     zoom
   };

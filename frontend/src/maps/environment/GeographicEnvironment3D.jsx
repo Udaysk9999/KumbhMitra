@@ -455,4 +455,34 @@ const GeographicEnvironment3D = memo(function GeographicEnvironment3D() {
   );
 });
 
-export default GeographicEnvironment3D;
+class EnvironmentErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.warn('[GeographicEnvironment3D] Graceful recovery from render error:', error, info);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return null;
+    }
+    return this.props.children;
+  }
+}
+
+const SafeGeographicEnvironment3D = memo(function SafeGeographicEnvironment3D(props) {
+  return (
+    <EnvironmentErrorBoundary>
+      <GeographicEnvironment3D {...props} />
+    </EnvironmentErrorBoundary>
+  );
+});
+
+export default SafeGeographicEnvironment3D;
