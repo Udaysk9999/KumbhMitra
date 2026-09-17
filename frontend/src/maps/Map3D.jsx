@@ -11,6 +11,8 @@ import {
   project3DCoords
 } from './map3DService';
 import Map3DMarker from './Map3DMarker';
+import LandmarkVisual from './landmarks/LandmarkVisual';
+import { getLandmarkConfig } from './landmarks/landmarkConfig';
 import { buildSvgPathFromGeoJson } from '../routes/RouteLayer';
 
 /**
@@ -156,13 +158,35 @@ function Map3DCanvas({
           </svg>
         )}
 
-        {/* 3D Place Discovery Pins */}
+        {/* 3D Place Discovery Pins + Landmark Architectural Visuals */}
         {places.map((place) => {
           const isSelected = selectedPlace?.id === place.id;
           const isHovered = hoveredPlaceId === place.id;
           const isRouteStart = activeRoute?.start?.id === place.id;
           const isRouteDest = activeRoute?.destination?.id === place.id;
+          const landmarkConfig = getLandmarkConfig(place.id);
 
+          // Render architectural landmark visual for known landmarks
+          if (landmarkConfig) {
+            return (
+              <LandmarkVisual
+                key={`landmark-${place.id}`}
+                place={place}
+                landmarkConfig={landmarkConfig}
+                isSelected={isSelected}
+                isHovered={isHovered}
+                isRouteStart={isRouteStart}
+                isRouteDest={isRouteDest}
+                heading={heading}
+                tilt={tilt}
+                onClick={onSelectPlace}
+                onMouseEnter={(p) => setHoveredPlaceId(p.id)}
+                onMouseLeave={() => setHoveredPlaceId(null)}
+              />
+            );
+          }
+
+          // Standard 3D marker for all other places
           return (
             <Map3DMarker
               key={place.id}
