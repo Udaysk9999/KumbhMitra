@@ -11,6 +11,7 @@ import { NASHIK_CENTER, TRIMBAKESHWAR_COORDS, REGIONAL_BOUNDS } from './mapConfi
  */
 export const CAMERA_PRESETS_3D = {
   nashikGodavari: {
+    key: 'nashikGodavari',
     name: 'Nashik Godavari Basin (Ramkund)',
     center: NASHIK_CENTER,
     tilt: 55,
@@ -19,6 +20,7 @@ export const CAMERA_PRESETS_3D = {
     altitude: 600
   },
   trimbakeshwar: {
+    key: 'trimbakeshwar',
     name: 'Trimbakeshwar Jyotirlinga',
     center: TRIMBAKESHWAR_COORDS,
     tilt: 60,
@@ -27,6 +29,7 @@ export const CAMERA_PRESETS_3D = {
     altitude: 720
   },
   regionalOverview: {
+    key: 'regionalOverview',
     name: 'Nashik-Trimbak 3D Corridor',
     center: {
       lat: (NASHIK_CENTER.lat + TRIMBAKESHWAR_COORDS.lat) / 2,
@@ -42,7 +45,7 @@ export const CAMERA_PRESETS_3D = {
 export const DEFAULT_3D_CAMERA = CAMERA_PRESETS_3D.nashikGodavari;
 
 /**
- * Compute optimal 3D camera settings for a specific place
+ * Compute optimal 3D camera settings for a specific place with category-aware tilt & zoom
  */
 export function computeCameraForPlace(place, currentHeading = 25) {
   if (!place) return DEFAULT_3D_CAMERA;
@@ -50,22 +53,38 @@ export function computeCameraForPlace(place, currentHeading = 25) {
   const lat = Number(place.latitude ?? place.lat ?? NASHIK_CENTER.lat);
   const lng = Number(place.longitude ?? place.lng ?? NASHIK_CENTER.lng);
 
-  // Subtle contextual camera tilt based on location type
+  // Category-specific perspective tuning
   let tilt = 55;
-  let zoom = 16;
+  let zoom = 1.45;
 
-  if (place.category === 'temple' || place.category === 'ghat') {
+  if (place.category === 'temple') {
     tilt = 58;
-    zoom = 16.5;
+    zoom = 1.55;
+  } else if (place.category === 'ghat') {
+    tilt = 54;
+    zoom = 1.5;
   } else if (place.category === 'transport' || place.category === 'parking') {
-    tilt = 50;
-    zoom = 15.5;
+    tilt = 48;
+    zoom = 1.35;
+  } else if (place.category === 'hotel' || place.category === 'restaurant') {
+    tilt = 52;
+    zoom = 1.4;
+  }
+
+  // Choose heading oriented towards central Godavari corridor
+  let heading = currentHeading;
+  if (lng < 73.65) {
+    // Trimbakeshwar region -> orient east-northeast towards Brahmagiri ridge
+    heading = 40;
+  } else if (lat > 20.01) {
+    // Panchavati / Northern Nashik -> orient south-southeast
+    heading = 15;
   }
 
   return {
     center: { lat, lng },
     tilt,
-    heading: currentHeading,
+    heading,
     zoom,
     placeName: place.name || 'Selected Place'
   };
@@ -101,11 +120,11 @@ export function computeCameraForRoute(route) {
   const lngDiff = Math.abs(destLng - startLng);
   const maxSpan = Math.max(latDiff, lngDiff);
 
-  let zoom = 14;
-  if (maxSpan > 0.25) zoom = 11.5;
-  else if (maxSpan > 0.1) zoom = 12.5;
-  else if (maxSpan > 0.04) zoom = 14;
-  else zoom = 15.5;
+  let zoom = 1.25;
+  if (maxSpan > 0.25) zoom = 0.95;
+  else if (maxSpan > 0.1) zoom = 1.1;
+  else if (maxSpan > 0.04) zoom = 1.3;
+  else zoom = 1.45;
 
   return {
     center: { lat: midLat, lng: midLng },
