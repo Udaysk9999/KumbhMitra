@@ -12,6 +12,7 @@ export default function Header({
   onToggleMode,
   places,
   onSelectPlace,
+  onNearbySearch,
   onOpenAI,
   onOpenEmergency
 }) {
@@ -64,7 +65,7 @@ export default function Header({
 
         {/* Center: Search Interface */}
         <div className="w-full md:max-w-md lg:max-w-lg">
-          <SearchBar places={places} onSelectPlace={onSelectPlace} />
+          <SearchBar places={places} onSelectPlace={onSelectPlace} onNearbySearch={onNearbySearch} />
         </div>
 
         {/* Right: Mode Toggle + AI + Emergency Buttons (Desktop & Tablet) */}

@@ -27,8 +27,19 @@ const MapContainer = forwardRef(function MapContainer({
   const [currentCoords, setCurrentCoords] = useState(NASHIK_CENTER);
   const mapRef = useRef(null);
 
-  // Expose active map imperative handles to parent
-  useImperativeHandle(ref, () => mapRef.current, []);
+  // Expose active map imperative handles to parent dynamically
+  useImperativeHandle(ref, () => ({
+    zoomIn: () => mapRef.current?.zoomIn?.(),
+    zoomOut: () => mapRef.current?.zoomOut?.(),
+    resetView: () => mapRef.current?.resetView?.(),
+    fitPlaces: () => mapRef.current?.fitPlaces?.(),
+    panTo: (latLng) => mapRef.current?.panTo?.(latLng),
+    setZoom: (z) => mapRef.current?.setZoom?.(z),
+    fitToPlace: (placeOrCoords, zoom) => mapRef.current?.fitToPlace?.(placeOrCoords, zoom),
+    fitBoundsToRoute: (route, extraPadding) => mapRef.current?.fitBoundsToRoute?.(route, extraPadding),
+    setUserLocation: (loc) => mapRef.current?.setUserLocation?.(loc),
+    getMap: () => mapRef.current?.getMap?.()
+  }));
 
   const getStatusMessage = () => {
     if (mapError === 'MISSING_API_KEY') {
