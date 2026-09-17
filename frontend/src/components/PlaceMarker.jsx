@@ -3,18 +3,26 @@ import React from 'react';
 /**
  * Place Marker Component
  * Interactive map pin positioned on the map placeholder canvas.
+ * Safely handles dynamic coordinates and missing mapPosition fields.
  */
 export default function PlaceMarker({ place, isSelected, onClick }) {
+  if (!place) return null;
+
+  const top = place.mapPosition?.top || '50%';
+  const left = place.mapPosition?.left || '50%';
+  const categoryIcon = place.categoryIcon || '📍';
+  const categoryLabel = place.categoryLabel || place.category || 'Place';
+
   return (
     <div
-      style={{ top: place.mapPosition.top, left: place.mapPosition.left }}
+      style={{ top, left }}
       className="absolute -translate-x-1/2 -translate-y-1/2 z-10 transition-transform duration-200 hover:scale-110"
     >
       <button
         type="button"
         onClick={() => onClick(place)}
-        className={`group relative flex flex-col items-center focus:outline-none`}
-        aria-label={`Select ${place.name}, ${place.categoryLabel}`}
+        className="group relative flex flex-col items-center focus:outline-none"
+        aria-label={`Select ${place.name || 'place'}, ${categoryLabel}`}
       >
         {/* Pin Bubble */}
         <div
@@ -25,10 +33,10 @@ export default function PlaceMarker({ place, isSelected, onClick }) {
           }`}
         >
           <span className="text-sm leading-none" aria-hidden="true">
-            {place.categoryIcon}
+            {categoryIcon}
           </span>
           <span className="text-[11px] font-bold max-w-[120px] truncate">
-            {place.name}
+            {place.name || 'Location'}
           </span>
         </div>
 

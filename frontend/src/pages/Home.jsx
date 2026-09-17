@@ -1,15 +1,17 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Header from '../components/Header';
 import CategoryFilters from '../components/CategoryFilters';
 import MapContainer from '../components/MapContainer';
 import PlaceInfoPanel from '../components/PlaceInfoPanel';
 import AIAssistant from '../components/AIAssistant';
 import EmergencyPanel from '../components/EmergencyPanel';
-import { MOCK_PLACES } from '../constants/mockPlaces';
+import { PlacesLoadingView, PlacesEmptyView, ApiUnavailableNotice } from '../components/PlaceStateView';
+import { placeService, filterPlacesByCategory } from '../places';
 
 /**
  * Home Page Component
  * Main coordinator for the map-first AI KumbhMitra UI shell.
+ * Connects to the normalized place data layer with support for both mock and future backend API sources.
  */
 export default function Home() {
   const [mapMode, setMapMode] = useState('2D');
@@ -18,13 +20,49 @@ export default function Home() {
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isEmergencyOpen, setIsEmergencyOpen] = useState(false);
 
-  // Filter places based on active category
-  const visiblePlaces = useMemo(() => {
-    if (selectedCategory === 'all') {
-      return MOCK_PLACES;
+  // Place data layer states
+  const [places, setPlaces] = useState(() => placeService.getPlacesSync());
+  const [loading, setLoading] = useState(false);
+  const [apiError, setApiError] = useState(null);
+  const [showNotice, setShowNotice] = useState(false);
+
+  // Load places from placeService
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadPlaces() {
+      setLoading(true);
+      try {
+        const result = await placeService.getPlaces();
+        if (isMounted) {
+          setPlaces(result.places);
+          if (result.error) {
+            setApiError(result.error);
+            setShowNotice(true);
+          }
+        }
+      } catch (err) {
+        if (isMounted) {
+          setApiError(err.message);
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
     }
-    return MOCK_PLACES.filter((p) => p.category === selectedCategory);
-  }, [selectedCategory]);
+
+    loadPlaces();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  // Filter places based on active category using normalized place layer
+  const visiblePlaces = useMemo(() => {
+    return filterPlacesByCategory(places, selectedCategory);
+  }, [places, selectedCategory]);
 
   return (
     <div className="relative w-screen h-screen flex flex-col overflow-hidden bg-stone-100 text-stone-900">
@@ -33,7 +71,7 @@ export default function Home() {
       <Header
         mode={mapMode}
         onToggleMode={setMapMode}
-        places={MOCK_PLACES}
+        places={places}
         onSelectPlace={(place) => setSelectedPlace(place)}
         onOpenAI={() => setIsAIOpen(true)}
         onOpenEmergency={() => setIsEmergencyOpen(true)}
@@ -54,6 +92,17 @@ export default function Home() {
 
       {/* Main Map Viewport Area */}
       <main className="relative flex-1 w-full h-full pt-24 md:pt-28 flex flex-col">
+        {/* Loading Indicator */}
+        {loading && <PlacesLoadingView />}
+
+        {/* Empty Category Results Notice */}
+        {!loading && visiblePlaces.length === 0 && (
+          <PlacesEmptyView
+            categoryLabel={selectedCategory}
+            onReset={() => setSelectedCategory('all')}
+          />
+        )}
+
         <MapContainer
           mode={mapMode}
           places={visiblePlaces}
@@ -61,6 +110,14 @@ export default function Home() {
           onSelectPlace={(place) => setSelectedPlace(place)}
         />
       </main>
+
+      {/* Optional Notice when API is offline and using fallback */}
+      {showNotice && (
+        <ApiUnavailableNotice
+          error={apiError}
+          onDismiss={() => setShowNotice(false)}
+        />
+      )}
 
       {/* Reusable Place Information Panel */}
       {selectedPlace && (
