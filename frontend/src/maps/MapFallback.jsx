@@ -69,11 +69,36 @@ const MapFallback = forwardRef(function MapFallback({
     });
   }, [selectedPlace, zoomLevel, activeRoute]);
 
-  // Recenter when route changes to encompass start and destination
+  // Automatically fit map bounds and zoom when route changes
   useEffect(() => {
     if (!activeRoute || !containerRef.current) return;
-    const startProj = projectCoords(activeRoute.start.latitude, activeRoute.start.longitude);
-    const destProj = projectCoords(activeRoute.destination.latitude, activeRoute.destination.longitude);
+    const startLat = Number(activeRoute.start.latitude);
+    const startLng = Number(activeRoute.start.longitude);
+    const destLat = Number(activeRoute.destination.latitude);
+    const destLng = Number(activeRoute.destination.longitude);
+
+    const startProj = projectCoords(startLat, startLng);
+    const destProj = projectCoords(destLat, destLng);
+
+    // Calculate bounding box span
+    const dx = Math.abs(startProj.xPercent - destProj.xPercent);
+    const dy = Math.abs(startProj.yPercent - destProj.yPercent);
+    const maxSpan = Math.max(dx, dy);
+
+    // Dynamic zoom fitting: closer points get higher zoom, wider paths get wider overview
+    let optimalZoom = 1;
+    if (maxSpan > 45) {
+      optimalZoom = 0.95;
+    } else if (maxSpan > 25) {
+      optimalZoom = 1.15;
+    } else if (maxSpan > 10) {
+      optimalZoom = 1.4;
+    } else {
+      optimalZoom = 1.7;
+    }
+
+    setZoomLevel(optimalZoom);
+
     const midX = (startProj.xPercent + destProj.xPercent) / 2;
     const midY = (startProj.yPercent + destProj.yPercent) / 2;
 
@@ -81,14 +106,14 @@ const MapFallback = forwardRef(function MapFallback({
     const width = container.clientWidth;
     const height = container.clientHeight;
 
-    const targetX = width * 0.5 - (midX / 100) * width * zoomLevel;
-    const targetY = height * 0.5 - (midY / 100) * height * zoomLevel;
+    const targetX = width * 0.5 - (midX / 100) * width * optimalZoom;
+    const targetY = height * 0.5 - (midY / 100) * height * optimalZoom;
 
     setPanOffset({
       x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
       y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
     });
-  }, [activeRoute, zoomLevel]);
+  }, [activeRoute]);
 
   // Handle drag to pan
   const handleMouseDown = (e) => {

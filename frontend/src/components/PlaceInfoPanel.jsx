@@ -1,19 +1,11 @@
-<<<<<<< HEAD
-import React, { useState } from 'react';
-import { formatOpeningHours, formatAccessibility } from '../places/placeUtils';
-
-/**
- * Reusable Place Information Panel
- * Google Maps-style information drawer providing details on selected place.
- * Safely renders optional fields without displaying "undefined" or crashing on missing data.
-=======
 import React, { useEffect } from 'react';
+import { formatOpeningHours, formatAccessibility } from '../places/placeUtils';
 
 /**
  * Place Information Panel Component
  * Displays comprehensive details for a selected place.
  * Includes "Get Directions" action integrating with RoutePanel.
->>>>>>> 38212d7 (frontend 1)
+ * Safely renders optional fields without displaying "undefined" or crashing on missing data.
  */
 export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
   // Close on Escape key press
@@ -60,18 +52,9 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
       {/* Top Header Bar */}
       <div className="px-5 py-3.5 border-b border-stone-200/80 flex items-center justify-between bg-stone-50/80">
         <div className="flex items-center gap-2">
-<<<<<<< HEAD
           <span className="text-xl" aria-hidden="true">{categoryIcon}</span>
           <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 px-2.5 py-0.5 rounded-full border border-amber-200/70">
             {categoryLabel}
-=======
-          <span className="text-xl" aria-hidden="true">{place.categoryIcon || '📍'}</span>
-          <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-100/90 px-2.5 py-0.5 rounded-full border border-amber-200/70">
-            {place.categoryLabel || place.category}
-          </span>
-          <span className="text-[11px] font-medium text-stone-500">
-            {place.region}
->>>>>>> 38212d7 (frontend 1)
           </span>
           {region && (
             <span className="text-[11px] font-medium text-stone-500">
@@ -98,15 +81,19 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
         
         {/* Visual Header / Image Placeholder */}
         <div 
-          style={{ background: bgStyle }}
-          className="w-full h-36 rounded-2xl flex flex-col justify-end p-4 text-white shadow-inner relative overflow-hidden bg-cover bg-center"
+          className="w-full h-40 rounded-2xl overflow-hidden relative shadow-inner flex flex-col justify-end p-4 border border-stone-200/60"
+          style={{ background: bgStyle, backgroundSize: 'cover', backgroundPosition: 'center' }}
         >
-          <div className="absolute top-2 right-2 bg-black/40 backdrop-blur-sm text-[10px] uppercase tracking-wider px-2 py-0.5 rounded font-mono">
-            Kumbh 2027
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent pointer-events-none" />
+          
+          <div className="relative z-10 text-white">
+            <div className="text-[10px] font-bold uppercase tracking-widest text-amber-300">
+              {place.tagline || `${categoryLabel} in ${region}`}
+            </div>
+            <h1 className="text-lg sm:text-xl font-black text-white drop-shadow-md">
+              {place.name}
+            </h1>
           </div>
-          {place.tagline && (
-            <div className="text-xs font-medium opacity-90 drop-shadow-sm">{place.tagline}</div>
-          )}
         </div>
 
         {/* Title & Rating */}
@@ -115,8 +102,7 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
             {place.name || 'Verified Location'}
           </h2>
 
-<<<<<<< HEAD
-          <div className="mt-2 flex items-center gap-3 text-xs text-stone-600">
+          <div className="mt-2 flex items-center gap-3 text-xs text-stone-600 flex-wrap">
             {place.rating ? (
               <div className="flex items-center gap-1 font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
                 <span>⭐</span>
@@ -130,16 +116,6 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
               </>
             ) : null}
             <span className="text-stone-400">•</span>
-=======
-          <div className="mt-2 flex items-center gap-3 text-xs text-stone-600 flex-wrap">
-            <div className="flex items-center gap-1 font-semibold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200/60">
-              <span>⭐</span>
-              <span>{place.rating || '4.5'}</span>
-            </div>
-            <span className="text-stone-400">·</span>
-            <span>{place.reviewsCount || '1,000+ reviews'}</span>
-            <span className="text-stone-400">·</span>
->>>>>>> 38212d7 (frontend 1)
             <span className="text-emerald-700 font-medium">Verified Location</span>
           </div>
         </div>
@@ -170,7 +146,6 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
               Key Information
             </h3>
 
-<<<<<<< HEAD
             {/* Address */}
             {place.address && (
               <div className="flex items-start gap-3 text-xs">
@@ -179,24 +154,6 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
                   <div className="font-semibold text-stone-800">Address</div>
                   <div className="text-stone-600 mt-0.5">{place.address}</div>
                 </div>
-=======
-          {/* Address */}
-          <div className="flex items-start gap-3 text-xs">
-            <span className="text-base text-stone-400 mt-0.5" aria-hidden="true">📍</span>
-            <div>
-              <div className="font-semibold text-stone-800">Address</div>
-              <div className="text-stone-600 mt-0.5">{place.address}</div>
-            </div>
-          </div>
-
-          {/* Opening Hours */}
-          <div className="flex items-start gap-3 text-xs">
-            <span className="text-base text-stone-400 mt-0.5" aria-hidden="true">🕒</span>
-            <div>
-              <div className="font-semibold text-stone-800 flex items-center gap-1.5">
-                <span>Opening Hours</span>
-                <span className="text-[10px] text-stone-400 font-normal">(Demo Data)</span>
->>>>>>> 38212d7 (frontend 1)
               </div>
             )}
 
@@ -267,21 +224,13 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
         )}
 
         {/* Tags */}
-<<<<<<< HEAD
         {tags.length > 0 && (
-=======
-        {place.tags && place.tags.length > 0 && (
->>>>>>> 38212d7 (frontend 1)
           <div className="pt-2 border-t border-stone-200/80">
             <div className="text-[11px] font-semibold text-stone-400 uppercase tracking-wider mb-2">
               Keywords & Tags
             </div>
             <div className="flex flex-wrap gap-1.5">
-<<<<<<< HEAD
               {tags.map((tag, idx) => (
-=======
-              {place.tags.map((tag, idx) => (
->>>>>>> 38212d7 (frontend 1)
                 <span key={idx} className="text-[11px] bg-stone-100 text-stone-700 px-2 py-0.5 rounded-md border border-stone-200/60">
                   #{tag}
                 </span>
@@ -289,14 +238,11 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
             </div>
           </div>
         )}
-<<<<<<< HEAD
 
         {/* Verified Notice */}
         <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-[11px] text-amber-800">
           📍 <strong>Nashik & Trimbakeshwar Guide</strong>: Verified location data for the Simhastha Kumbh Mela corridor.
         </div>
-=======
->>>>>>> 38212d7 (frontend 1)
 
       </div>
 

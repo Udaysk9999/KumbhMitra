@@ -2,10 +2,10 @@
  * Centralized API service for AI KumbhMitra
  * 
  * Provides typed interface contracts for backend REST endpoints.
- * In Phase 2 Part 3, delegates to placeService abstraction which handles
- * local data now and backend HTTP fetch once MongoDB/Express APIs are live.
+ * Integrates place discovery and routing services with seamless offline/mock fallbacks.
  */
 import placeService from './placeService';
+import routeService from './routeService';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
@@ -48,11 +48,10 @@ export const apiService = {
   },
 
   /**
-   * Placeholder: Route planning (Phase 2 future)
+   * Calculate route between two locations using routeService
    */
-  async calculateRoute(origin, destination, mode = 'walking') {
-    console.info('[apiService:placeholder] calculateRoute called with:', { origin, destination, mode });
-    return { route: null, message: 'Routing calculations will be available in the routing phase.' };
+  async calculateRoute(origin, destination, mode = 'shuttle') {
+    return routeService.calculateRoute({ start: origin, destination, mode });
   },
 
   /**
