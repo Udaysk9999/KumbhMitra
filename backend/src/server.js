@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import healthRoutes from "./routes/health.routes.js";
 import placeRoutes from "./routes/place.routes.js";
 import routeRoutes from "./routes/route.routes.js";
+import aiRoutes from "./routes/ai.routes.js";
 import connectDB from "./config/db.js";
 import { notFoundHandler, errorHandler } from "./middleware/error.middleware.js";
 
@@ -48,6 +49,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/api", healthRoutes);
 app.use("/api/places", placeRoutes);
 app.use("/api/routes", routeRoutes);
+app.use("/api/ai", aiRoutes);
 
 // 404 Fallback Handler
 app.use(notFoundHandler);
