@@ -1,14 +1,56 @@
 import React, { useEffect, useRef, useState, useImperativeHandle, forwardRef } from 'react';
 import { createPortal } from 'react-dom';
-import { Loader } from '@googlemaps/js-api-loader';
+import { setOptions, importLibrary } from '@googlemaps/js-api-loader';
 import { DEFAULT_MAP_OPTIONS, NASHIK_CENTER } from './mapConfig';
 import MapMarker from './MapMarker';
+
+// Module-level singleton state to prevent duplicate script loading and multiple setOptions calls
+let isOptionsConfigured = false;
+let librariesPromise = null;
+
+function getGoogleMapsLibraries(apiKey) {
+  if (!isOptionsConfigured) {
+    setOptions({
+      key: apiKey,
+      v: 'weekly'
+    });
+    isOptionsConfigured = true;
+  }
+
+  if (!librariesPromise) {
+    librariesPromise = Promise.all([
+      importLibrary('maps'),
+      importLibrary('marker'),
+      importLibrary('places'),
+      importLibrary('geometry')
+    ])
+      .then(([mapsLib, markerLib, placesLib, geometryLib]) => ({
+        mapsLib,
+        markerLib,
+        placesLib,
+        geometryLib,
+        google: window.google
+      }))
+      .catch((err) => {
+        // Reset promise on failure to allow retry if requested
+        librariesPromise = null;
+        throw err;
+      });
+  }
+
+  return librariesPromise;
+}
 
 /**
  * Custom OverlayView container that renders React portals into Google Maps
  */
 function createOverlayClass(google) {
-  return class ReactMarkerOverlay extends google.maps.OverlayView {
+  const OverlayViewClass =
+    google?.maps?.OverlayView ||
+    google?.OverlayView ||
+    window.google?.maps?.OverlayView;
+
+  return class ReactMarkerOverlay extends OverlayViewClass {
     constructor(latLng, container) {
       super();
       this.latLng = latLng;
@@ -51,7 +93,7 @@ function createOverlayClass(google) {
 
 /**
  * Real Google Maps 2D Viewport Component
- * Uses official @googlemaps/js-api-loader and Google Maps JavaScript API
+ * Uses official @googlemaps/js-api-loader v2 functional API (setOptions + importLibrary)
  */
 const GoogleMap = forwardRef(function GoogleMap({
   apiKey,
@@ -63,11 +105,12 @@ const GoogleMap = forwardRef(function GoogleMap({
 }, ref) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const centerListenerRef = useRef(null);
   const overlaysRef = useRef(new Map());
   const [googleMaps, setGoogleMaps] = useState(null);
   const [portals, setPortals] = useState([]);
 
-  // Expose map controls to parent (zoom in, zoom out, recenter)
+  // Expose map controls to parent (zoom in, zoom out, recenter, fitPlaces)
   useImperativeHandle(ref, () => ({
     zoomIn: () => {
       if (mapInstanceRef.current) {
@@ -88,8 +131,13 @@ const GoogleMap = forwardRef(function GoogleMap({
       }
     },
     fitPlaces: () => {
-      if (mapInstanceRef.current && googleMaps && places.length > 0) {
-        const bounds = new googleMaps.LatLngBounds();
+      const LatLngBoundsClass =
+        googleMaps?.LatLngBounds ||
+        googleMaps?.maps?.LatLngBounds ||
+        window.google?.maps?.LatLngBounds;
+
+      if (mapInstanceRef.current && LatLngBoundsClass && places.length > 0) {
+        const bounds = new LatLngBoundsClass();
         places.forEach((p) => {
           bounds.extend({ lat: p.latitude, lng: p.longitude });
         });
@@ -99,7 +147,7 @@ const GoogleMap = forwardRef(function GoogleMap({
     getMap: () => mapInstanceRef.current
   }), [googleMaps, places]);
 
-  // Initialize Google Maps API
+  // Initialize Google Maps API via setOptions and importLibrary
   useEffect(() => {
     if (!apiKey) {
       onError?.('MISSING_API_KEY');
@@ -116,36 +164,35 @@ const GoogleMap = forwardRef(function GoogleMap({
       }
     };
 
-    const loader = new Loader({
-      apiKey,
-      version: 'weekly',
-      libraries: ['places', 'geometry']
-    });
-
-    loader
-      .load()
-      .then((google) => {
+    getGoogleMapsLibraries(apiKey)
+      .then(({ google, mapsLib }) => {
         if (!isMounted || !mapContainerRef.current) return;
 
-        setGoogleMaps(google);
+        // Ensure google.maps is saved in state
+        const mapsNamespace = google?.maps || mapsLib;
+        setGoogleMaps(mapsNamespace);
 
-        // Instantiate Google Map
-        const map = new google.maps.Map(mapContainerRef.current, {
-          ...DEFAULT_MAP_OPTIONS
-        });
+        // Instantiate Google Map only if not already created for this DOM element
+        if (!mapInstanceRef.current && mapContainerRef.current) {
+          const MapClass = mapsNamespace.Map || mapsLib.Map;
+          const map = new MapClass(mapContainerRef.current, {
+            ...DEFAULT_MAP_OPTIONS
+          });
 
-        mapInstanceRef.current = map;
+          mapInstanceRef.current = map;
 
-        // Track center coordinates for display
-        map.addListener('center_changed', () => {
-          const center = map.getCenter();
-          if (center && onCoordinatesChange) {
-            onCoordinatesChange({
-              lat: center.lat(),
-              lng: center.lng()
-            });
-          }
-        });
+          // Track center coordinates for display
+          const listener = map.addListener('center_changed', () => {
+            const center = map.getCenter();
+            if (center && onCoordinatesChange) {
+              onCoordinatesChange({
+                lat: center.lat(),
+                lng: center.lng()
+              });
+            }
+          });
+          centerListenerRef.current = listener;
+        }
       })
       .catch((err) => {
         console.error('Failed to load Google Maps SDK:', err);
@@ -156,17 +203,39 @@ const GoogleMap = forwardRef(function GoogleMap({
 
     return () => {
       isMounted = false;
+      if (centerListenerRef.current?.remove) {
+        centerListenerRef.current.remove();
+        centerListenerRef.current = null;
+      }
       if (window.gm_authFailure) {
         delete window.gm_authFailure;
       }
     };
   }, [apiKey]);
 
+  // Clean up overlays on unmount
+  useEffect(() => {
+    return () => {
+      overlaysRef.current.forEach((item) => {
+        try {
+          item.overlay?.setMap(null);
+        } catch (_) {
+          // ignore cleanup errors during unmount
+        }
+      });
+      overlaysRef.current.clear();
+    };
+  }, []);
+
   // Synchronize overlays and portals when places change
   useEffect(() => {
     if (!googleMaps || !mapInstanceRef.current) return;
 
     const OverlayClass = createOverlayClass(googleMaps);
+    const LatLngClass =
+      googleMaps.LatLng ||
+      googleMaps.maps?.LatLng ||
+      window.google?.maps?.LatLng;
     const currentOverlays = overlaysRef.current;
     const newPortals = [];
     const activePlaceIds = new Set(places.map((p) => p.id));
@@ -184,7 +253,7 @@ const GoogleMap = forwardRef(function GoogleMap({
       let item = currentOverlays.get(place.id);
       if (!item) {
         const container = document.createElement('div');
-        const latLng = new googleMaps.LatLng(place.latitude, place.longitude);
+        const latLng = new LatLngClass(place.latitude, place.longitude);
         const overlay = new OverlayClass(latLng, container);
         overlay.setMap(mapInstanceRef.current);
 
