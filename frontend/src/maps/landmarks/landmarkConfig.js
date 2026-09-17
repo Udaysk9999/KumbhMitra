@@ -18,7 +18,7 @@ export const LANDMARK_CONFIGS = {
     hasKalash: true,
     hasFlag: true,
     hasPillars: true,
-    elevationZ: 50
+    elevationZ: 6
   },
   place_ramkund: {
     placeId: 'place_ramkund',
@@ -32,7 +32,7 @@ export const LANDMARK_CONFIGS = {
     hasSteps: true,
     hasWaterBasin: true,
     hasDeepastambha: true,
-    elevationZ: 44
+    elevationZ: 4
   },
   place_kalaram: {
     placeId: 'place_kalaram',
@@ -47,7 +47,7 @@ export const LANDMARK_CONFIGS = {
     hasKalash: true,
     hasFlag: true,
     hasPillars: false,
-    elevationZ: 42
+    elevationZ: 4
   },
   place_cbs_transit: {
     placeId: 'place_cbs_transit',
@@ -60,7 +60,7 @@ export const LANDMARK_CONFIGS = {
     scale: 1.1,
     hasCanopy: true,
     hasTransitIcon: true,
-    elevationZ: 38
+    elevationZ: 3
   }
 };
 

@@ -170,10 +170,10 @@ const LandmarkVisual = memo(function LandmarkVisual({
 
   const { left, top } = project3DCoords(place.latitude, place.longitude);
 
-  // Compute elevation based on selected/hovered states
-  let baseElevation = landmarkConfig.elevationZ || 40;
-  if (isSelected) baseElevation += 16;
-  else if (isHovered) baseElevation += 8;
+  // Compute elevation based on selected/hovered states: grounded on terrain with subtle lift
+  let baseElevation = landmarkConfig.elevationZ || 4;
+  if (isSelected) baseElevation += 6;
+  else if (isHovered) baseElevation += 3;
 
   const placeName = place.name || 'Landmark';
   const badge = landmarkConfig.badge || place.categoryLabel || 'Landmark';

@@ -13,6 +13,7 @@ import {
 import Map3DMarker from './Map3DMarker';
 import LandmarkVisual from './landmarks/LandmarkVisual';
 import { getLandmarkConfig } from './landmarks/landmarkConfig';
+import GeographicEnvironment3D from './environment/GeographicEnvironment3D';
 import { buildSvgPathFromGeoJson } from '../routes/RouteLayer';
 
 /**
@@ -86,7 +87,7 @@ function Map3DCanvas({
       >
         {/* Terrain Base Plane & Geographic Grid */}
         <div
-          className="absolute inset-[-40%] rounded-3xl bg-stone-900/90 border-2 border-stone-800 shadow-2xl"
+          className="absolute inset-[-40%] rounded-3xl bg-stone-900/90 border-2 border-stone-800 shadow-2xl pointer-events-none"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(217, 119, 6, 0.08) 1px, transparent 1px),
@@ -94,51 +95,10 @@ function Map3DCanvas({
             `,
             backgroundSize: '40px 40px'
           }}
-        >
-          {/* Godavari River 3D Sacred Corridor Ribbon */}
-          <div
-            className="absolute top-[48%] left-[10%] right-[10%] h-14 bg-gradient-to-r from-sky-600/30 via-cyan-500/40 to-sky-600/30 rounded-full blur-xs border-y border-sky-400/40 flex items-center justify-between px-8"
-            style={{ transform: 'rotate(-4deg)' }}
-          >
-            <span className="text-[10px] font-mono tracking-widest text-sky-300/80 uppercase font-bold">
-              🌊 Godavari River Basin
-            </span>
-            <span className="text-[9px] font-mono tracking-wider text-cyan-300/70 uppercase">
-              Ramkund Sacred Snan Ghats
-            </span>
-          </div>
+        />
 
-          {/* Brahmagiri Hills Elevation Contour (Trimbakeshwar origin) */}
-          <div
-            className="absolute top-[50%] left-[10%] w-36 h-36 rounded-full border-2 border-amber-600/30 bg-amber-950/20 shadow-[0_0_25px_rgba(217,119,6,0.15)] flex flex-col items-center justify-center p-2 text-center"
-            style={{ transform: 'translateZ(12px)' }}
-          >
-            <span className="text-[10px] font-extrabold text-amber-400/90 uppercase tracking-wider">
-              ⛰️ Brahmagiri Hills
-            </span>
-            <span className="text-[8px] text-amber-500/60 font-mono mt-0.5">
-              Trimbakeshwar Corridor
-            </span>
-          </div>
-
-          {/* Nashik Urban Valley Zone */}
-          <div
-            className="absolute top-[36%] right-[14%] w-52 h-52 rounded-2xl border border-stone-700/50 bg-stone-800/30 flex flex-col justify-between p-3"
-            style={{ transform: 'translateZ(6px)' }}
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[9px] font-bold text-stone-300 uppercase tracking-wider">
-                🏙️ Nashik Urban Grid
-              </span>
-              <span className="text-[8px] font-mono text-stone-500">
-                Panchavati
-              </span>
-            </div>
-            <span className="text-[8px] text-stone-500 font-mono">
-              Godavari-Kapila Sangam
-            </span>
-          </div>
-        </div>
+        {/* 3D Geographic Environment: Godavari River Corridor, Brahmagiri Hills, Ground Plinths, Regional Corridor */}
+        <GeographicEnvironment3D />
 
         {/* 3D Active Route Polyline Layer */}
         {activeRoute && activeRoute.geometry?.coordinates && (
