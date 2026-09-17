@@ -3,6 +3,7 @@ import { createPortal } from 'react-dom';
 import { Loader } from '@googlemaps/js-api-loader';
 import { DEFAULT_MAP_OPTIONS, NASHIK_CENTER } from './mapConfig';
 import MapMarker from './MapMarker';
+import { RouteEndpointMarker } from '../routes/RouteLayer';
 
 /**
  * Custom OverlayView container that renders React portals into Google Maps
@@ -51,12 +52,13 @@ function createOverlayClass(google) {
 
 /**
  * Real Google Maps 2D Viewport Component
- * Uses official @googlemaps/js-api-loader and Google Maps JavaScript API
+ * Includes custom HTML markers and dynamic route polyline rendering
  */
 const GoogleMap = forwardRef(function GoogleMap({
   apiKey,
   places = [],
   selectedPlace = null,
+  activeRoute = null,
   onSelectPlace,
   onError,
   onCoordinatesChange
@@ -64,8 +66,11 @@ const GoogleMap = forwardRef(function GoogleMap({
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
   const overlaysRef = useRef(new Map());
+  const routePolylineRef = useRef(null);
+  const routeEndpointOverlaysRef = useRef({ start: null, dest: null });
   const [googleMaps, setGoogleMaps] = useState(null);
   const [portals, setPortals] = useState([]);
+  const [routePortals, setRoutePortals] = useState([]);
 
   // Expose map controls to parent (zoom in, zoom out, recenter)
   useImperativeHandle(ref, () => ({
@@ -108,7 +113,6 @@ const GoogleMap = forwardRef(function GoogleMap({
 
     let isMounted = true;
 
-    // Listen for authentication failure from Google Maps script
     window.gm_authFailure = () => {
       if (isMounted) {
         console.warn('Google Maps authentication failure: Check API key & billing in Google Cloud.');
@@ -129,14 +133,12 @@ const GoogleMap = forwardRef(function GoogleMap({
 
         setGoogleMaps(google);
 
-        // Instantiate Google Map
         const map = new google.maps.Map(mapContainerRef.current, {
           ...DEFAULT_MAP_OPTIONS
         });
 
         mapInstanceRef.current = map;
 
-        // Track center coordinates for display
         map.addListener('center_changed', () => {
           const center = map.getCenter();
           if (center && onCoordinatesChange) {
@@ -171,7 +173,6 @@ const GoogleMap = forwardRef(function GoogleMap({
     const newPortals = [];
     const activePlaceIds = new Set(places.map((p) => p.id));
 
-    // Remove overlays for places no longer visible
     currentOverlays.forEach((item, placeId) => {
       if (!activePlaceIds.has(placeId)) {
         item.overlay.setMap(null);
@@ -179,7 +180,6 @@ const GoogleMap = forwardRef(function GoogleMap({
       }
     });
 
-    // Create or retain overlays for visible places
     places.forEach((place) => {
       let item = currentOverlays.get(place.id);
       if (!item) {
@@ -194,7 +194,6 @@ const GoogleMap = forwardRef(function GoogleMap({
         item.place = place;
       }
 
-      // Create React Portal for marker
       newPortals.push(
         createPortal(
           <MapMarker
@@ -211,9 +210,124 @@ const GoogleMap = forwardRef(function GoogleMap({
     setPortals(newPortals);
   }, [googleMaps, places, selectedPlace, onSelectPlace]);
 
+  // Synchronize Route Polyline and Route Endpoint Markers
+  useEffect(() => {
+    if (!googleMaps || !mapInstanceRef.current) return;
+
+    const OverlayClass = createOverlayClass(googleMaps);
+
+    // If no active route, clean up polyline and endpoint overlays
+    if (!activeRoute || !activeRoute.geometry?.coordinates) {
+      if (routePolylineRef.current) {
+        routePolylineRef.current.setMap(null);
+        routePolylineRef.current = null;
+      }
+      if (routeEndpointOverlaysRef.current.start) {
+        routeEndpointOverlaysRef.current.start.overlay.setMap(null);
+        routeEndpointOverlaysRef.current.start = null;
+      }
+      if (routeEndpointOverlaysRef.current.dest) {
+        routeEndpointOverlaysRef.current.dest.overlay.setMap(null);
+        routeEndpointOverlaysRef.current.dest = null;
+      }
+      setRoutePortals([]);
+      return;
+    }
+
+    // Convert GeoJSON LineString [[lng, lat], ...] to google.maps.LatLng array
+    const pathCoordinates = activeRoute.geometry.coordinates.map(
+      ([lng, lat]) => new googleMaps.LatLng(lat, lng)
+    );
+
+    // Render or update Polyline
+    if (!routePolylineRef.current) {
+      routePolylineRef.current = new googleMaps.Polyline({
+        path: pathCoordinates,
+        geodesic: true,
+        strokeColor: activeRoute.modeColor || '#d97706',
+        strokeOpacity: 0.9,
+        strokeWeight: 5,
+        map: mapInstanceRef.current
+      });
+    } else {
+      routePolylineRef.current.setPath(pathCoordinates);
+      routePolylineRef.current.setOptions({
+        strokeColor: activeRoute.modeColor || '#d97706',
+        map: mapInstanceRef.current
+      });
+    }
+
+    // Fit map bounds to display the whole route
+    const routeBounds = new googleMaps.LatLngBounds();
+    pathCoordinates.forEach((pt) => routeBounds.extend(pt));
+    mapInstanceRef.current.fitBounds(routeBounds, {
+      top: 90,
+      bottom: 90,
+      left: 90,
+      right: 90
+    });
+
+    // Create / update Start endpoint overlay (A)
+    const newRoutePortals = [];
+    if (activeRoute.start) {
+      let startItem = routeEndpointOverlaysRef.current.start;
+      if (!startItem) {
+        const container = document.createElement('div');
+        const latLng = new googleMaps.LatLng(activeRoute.start.latitude, activeRoute.start.longitude);
+        const overlay = new OverlayClass(latLng, container);
+        overlay.setMap(mapInstanceRef.current);
+        startItem = { container, overlay };
+        routeEndpointOverlaysRef.current.start = startItem;
+      } else {
+        startItem.overlay.setPosition(new googleMaps.LatLng(activeRoute.start.latitude, activeRoute.start.longitude));
+      }
+      newRoutePortals.push(
+        createPortal(
+          <RouteEndpointMarker
+            key="route-start"
+            type="start"
+            label="A"
+            placeName={activeRoute.start.name}
+            onClick={() => onSelectPlace?.(activeRoute.start)}
+          />,
+          startItem.container
+        )
+      );
+    }
+
+    // Create / update Destination endpoint overlay (B)
+    if (activeRoute.destination) {
+      let destItem = routeEndpointOverlaysRef.current.dest;
+      if (!destItem) {
+        const container = document.createElement('div');
+        const latLng = new googleMaps.LatLng(activeRoute.destination.latitude, activeRoute.destination.longitude);
+        const overlay = new OverlayClass(latLng, container);
+        overlay.setMap(mapInstanceRef.current);
+        destItem = { container, overlay };
+        routeEndpointOverlaysRef.current.dest = destItem;
+      } else {
+        destItem.overlay.setPosition(new googleMaps.LatLng(activeRoute.destination.latitude, activeRoute.destination.longitude));
+      }
+      newRoutePortals.push(
+        createPortal(
+          <RouteEndpointMarker
+            key="route-dest"
+            type="dest"
+            label="B"
+            placeName={activeRoute.destination.name}
+            onClick={() => onSelectPlace?.(activeRoute.destination)}
+          />,
+          destItem.container
+        )
+      );
+    }
+
+    setRoutePortals(newRoutePortals);
+  }, [googleMaps, activeRoute, onSelectPlace]);
+
   // Pan to selected place when selection changes
   useEffect(() => {
-    if (!mapInstanceRef.current || !selectedPlace) return;
+    if (!mapInstanceRef.current || !selectedPlace || activeRoute) return;
 
     const targetCoords = {
       lat: selectedPlace.latitude,
@@ -222,24 +336,21 @@ const GoogleMap = forwardRef(function GoogleMap({
 
     mapInstanceRef.current.panTo(targetCoords);
 
-    // Smoothly zoom in if zoomed out
     const currentZoom = mapInstanceRef.current.getZoom() || 13;
     if (currentZoom < 15) {
       mapInstanceRef.current.setZoom(15);
     }
-  }, [selectedPlace]);
+  }, [selectedPlace, activeRoute]);
 
   return (
     <div className="relative w-full h-full">
-      {/* Map Viewport Canvas */}
       <div
         ref={mapContainerRef}
         className="w-full h-full bg-stone-100"
         aria-label="Google Map Viewport"
       />
-
-      {/* Render Portal Markers */}
       {portals}
+      {routePortals}
     </div>
   );
 });

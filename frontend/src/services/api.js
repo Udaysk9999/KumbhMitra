@@ -2,9 +2,10 @@
  * Centralized API service for AI KumbhMitra
  * 
  * Provides typed interface contracts for backend REST endpoints.
- * In Phase 1 Part 2, these are placeholder hooks ready for backend integration
- * in upcoming phases without requiring refactoring in UI components.
+ * In Phase 2 Part 3, delegates to placeService abstraction which handles
+ * local data now and backend HTTP fetch once MongoDB/Express APIs are live.
  */
+import placeService from './placeService';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
 
@@ -26,31 +27,28 @@ export const apiService = {
   },
 
   /**
-   * Future: Retrieve places with optional category & bounding box filters
+   * Retrieve places with category and search filters
    */
   async getPlaces(params = {}) {
-    console.info('[apiService:placeholder] getPlaces called with params:', params);
-    return { data: [], message: 'Backend places API will be connected in database phase.' };
+    return placeService.getPlaces(params);
   },
 
   /**
-   * Future: Retrieve place details by unique ID
+   * Retrieve place details by unique ID
    */
   async getPlaceById(id) {
-    console.info('[apiService:placeholder] getPlaceById called for:', id);
-    return { data: null, message: 'Backend place detail API will be connected in database phase.' };
+    return placeService.getPlaceById(id);
   },
 
   /**
-   * Future: Search places by text query and category
+   * Search places by text query and category
    */
   async searchPlaces(query, category = 'all') {
-    console.info('[apiService:placeholder] searchPlaces called with:', { query, category });
-    return { results: [], message: 'Backend search API will be connected in database phase.' };
+    return placeService.getPlaces({ query, category });
   },
 
   /**
-   * Future: Calculate multi-modal route between coordinates
+   * Placeholder: Route planning (Phase 2 future)
    */
   async calculateRoute(origin, destination, mode = 'walking') {
     console.info('[apiService:placeholder] calculateRoute called with:', { origin, destination, mode });
@@ -58,7 +56,7 @@ export const apiService = {
   },
 
   /**
-   * Future: Send natural language prompt to AI assistant service
+   * Placeholder: AI Assistant prompt (Phase 2 future)
    */
   async askAI(prompt, context = {}) {
     console.info('[apiService:placeholder] askAI called with:', { prompt, context });

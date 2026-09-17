@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, forwardRef, useImperativeHandle } from 'react';
 import MapMarker from './MapMarker';
 import { REGIONAL_BOUNDS } from './mapConfig';
+import { RouteEndpointMarker, buildSvgPathFromGeoJson } from '../routes/RouteLayer';
 
 /**
  * Coordinate Projection Helper
@@ -27,10 +28,12 @@ function projectCoords(lat, lng) {
  * MapFallback Component
  * Active when Google Maps API key is pending configuration or when offline.
  * Projects real geographic coordinates into an interactive, zoomable, pannable GIS canvas.
+ * Includes interactive route visualizer layer.
  */
 const MapFallback = forwardRef(function MapFallback({
   places = [],
   selectedPlace = null,
+  activeRoute = null,
   onSelectPlace,
   statusMessage = 'Configuration Notice: Add VITE_GOOGLE_MAPS_API_KEY in frontend/.env to load live Google Maps satellite/street tiles.'
 }, ref) {
@@ -51,7 +54,7 @@ const MapFallback = forwardRef(function MapFallback({
 
   // Pan to selected place
   useEffect(() => {
-    if (!selectedPlace || !containerRef.current) return;
+    if (!selectedPlace || !containerRef.current || activeRoute) return;
     const { xPercent, yPercent } = projectCoords(selectedPlace.latitude, selectedPlace.longitude);
     const container = containerRef.current;
     const width = container.clientWidth;
@@ -64,7 +67,28 @@ const MapFallback = forwardRef(function MapFallback({
       x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
       y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
     });
-  }, [selectedPlace, zoomLevel]);
+  }, [selectedPlace, zoomLevel, activeRoute]);
+
+  // Recenter when route changes to encompass start and destination
+  useEffect(() => {
+    if (!activeRoute || !containerRef.current) return;
+    const startProj = projectCoords(activeRoute.start.latitude, activeRoute.start.longitude);
+    const destProj = projectCoords(activeRoute.destination.latitude, activeRoute.destination.longitude);
+    const midX = (startProj.xPercent + destProj.xPercent) / 2;
+    const midY = (startProj.yPercent + destProj.yPercent) / 2;
+
+    const container = containerRef.current;
+    const width = container.clientWidth;
+    const height = container.clientHeight;
+
+    const targetX = width * 0.5 - (midX / 100) * width * zoomLevel;
+    const targetY = height * 0.5 - (midY / 100) * height * zoomLevel;
+
+    setPanOffset({
+      x: Math.max(-width * 0.8, Math.min(width * 0.8, targetX)),
+      y: Math.max(-height * 0.8, Math.min(height * 0.8, targetY))
+    });
+  }, [activeRoute, zoomLevel]);
 
   // Handle drag to pan
   const handleMouseDown = (e) => {
@@ -104,20 +128,22 @@ const MapFallback = forwardRef(function MapFallback({
       }`}
       aria-label="Interactive GIS Fallback Map"
     >
-      {/* Top Banner: API Status Guidance */}
-      <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 pointer-events-none max-w-xl w-[90%] sm:w-auto">
-        <div className="bg-amber-50/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-amber-300 shadow-md flex items-start gap-2.5 text-stone-800">
-          <span className="text-base leading-none mt-0.5" aria-hidden="true">🔑</span>
-          <div className="text-xs">
-            <div className="font-bold text-amber-900">
-              Google Maps API Integration Active
-            </div>
-            <div className="text-[11px] text-amber-800/90 mt-0.5 leading-snug">
-              {statusMessage}
+      {/* Top Banner: API Status Guidance (Only if no active route is covering it) */}
+      {!activeRoute && (
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 z-30 pointer-events-none max-w-xl w-[90%] sm:w-auto">
+          <div className="bg-amber-50/95 backdrop-blur-md px-4 py-2.5 rounded-2xl border border-amber-300 shadow-md flex items-start gap-2.5 text-stone-800">
+            <span className="text-base leading-none mt-0.5" aria-hidden="true">🔑</span>
+            <div className="text-xs">
+              <div className="font-bold text-amber-900">
+                Google Maps API Integration Active
+              </div>
+              <div className="text-[11px] text-amber-800/90 mt-0.5 leading-snug">
+                {statusMessage}
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      )}
 
       {/* Pannable & Zoomable Canvas Plane */}
       <div
@@ -140,13 +166,12 @@ const MapFallback = forwardRef(function MapFallback({
           }}
         />
 
-        {/* Nashik-Trimbakeshwar Corridor Vector Guide */}
+        {/* Topography and River Corridor Vector Guide */}
         <svg
           className="absolute inset-0 w-full h-full pointer-events-none opacity-40"
           preserveAspectRatio="none"
           viewBox="0 0 1000 600"
         >
-          {/* Godavari River Sacred Path from Trimbakeshwar to Nashik */}
           <path
             d="M 210,480 Q 420,380 650,330 T 920,290"
             fill="none"
@@ -159,23 +184,56 @@ const MapFallback = forwardRef(function MapFallback({
             GODAVARI RIVER BASIN
           </text>
           
-          {/* Trimbak - Nashik NH-848 Pilgrimage Highway Corridor */}
           <path
             d="M 210,480 L 630,340"
             fill="none"
             stroke="#d97706"
             strokeWidth="4"
             strokeDasharray="8 6"
-            opacity="0.6"
+            opacity="0.5"
           />
           <text x="350" y="430" fill="#b45309" fontSize="10" fontWeight="bold">
             TRIMBAK - NASHIK HIGHWAY (SH-30 / NH-848)
           </text>
         </svg>
 
-        {/* Real Coordinates Geographic Markers */}
+        {/* ACTIVE ROUTE VISUALIZATION LAYER (SVG Polyline) */}
+        {activeRoute && activeRoute.geometry?.coordinates && (
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none z-20"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
+          >
+            {/* Route Glow / Shadow */}
+            <path
+              d={buildSvgPathFromGeoJson(activeRoute.geometry.coordinates, projectCoords)}
+              fill="none"
+              stroke="#000000"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              opacity="0.15"
+            />
+            {/* Main Polyline */}
+            <path
+              d={buildSvgPathFromGeoJson(activeRoute.geometry.coordinates, projectCoords)}
+              fill="none"
+              stroke={activeRoute.modeColor || '#d97706'}
+              strokeWidth="1.2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeDasharray={activeRoute.modeDashArray !== 'none' ? '2, 1' : 'none'}
+            />
+          </svg>
+        )}
+
+        {/* Normal Geographic Place Markers */}
         {places.map((place) => {
           const { left, top } = projectCoords(place.latitude, place.longitude);
+          // If route active and this place is start or destination, endpoint markers take visual priority
+          if (activeRoute && (place.id === activeRoute.start.id || place.id === activeRoute.destination.id)) {
+            return null;
+          }
           return (
             <div
               key={place.id}
@@ -190,6 +248,36 @@ const MapFallback = forwardRef(function MapFallback({
             </div>
           );
         })}
+
+        {/* Active Route Endpoint Markers (A & B) */}
+        {activeRoute && (
+          <>
+            <div
+              style={projectCoords(activeRoute.start.latitude, activeRoute.start.longitude)}
+              className="absolute -translate-x-1/2 -translate-y-full z-30"
+            >
+              <RouteEndpointMarker
+                type="start"
+                label="A"
+                placeName={activeRoute.start.name}
+                onClick={() => onSelectPlace?.(activeRoute.start)}
+              />
+            </div>
+
+            <div
+              style={projectCoords(activeRoute.destination.latitude, activeRoute.destination.longitude)}
+              className="absolute -translate-x-1/2 -translate-y-full z-30"
+            >
+              <RouteEndpointMarker
+                type="dest"
+                label="B"
+                placeName={activeRoute.destination.name}
+                onClick={() => onSelectPlace?.(activeRoute.destination)}
+              />
+            </div>
+          </>
+        )}
+
       </div>
     </div>
   );
