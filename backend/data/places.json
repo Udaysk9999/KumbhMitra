@@ -1,0 +1,6389 @@
+[
+  {
+    "name": "Ram Kund Ghat",
+    "category": "ghat",
+    "subcategory": "Sacred Bathing Kund",
+    "description": "Sacred bathing ghat where millions take the holy dip during Kumbh Mela and Shahi Snan rituals. Believed to be the sacred spot where Lord Rama bathed during his exile.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7904,
+        20.0059
+      ]
+    },
+    "address": {
+      "area": "Panchavati, Godavari Riverbank",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 0000",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Changing Rooms",
+      "Drinking Water",
+      "Life Guard Station",
+      "Lost & Found Booth",
+      "Security CCTV"
+    ],
+    "services": [
+      "Holy Dip",
+      "Godavari Aarti",
+      "Changing Rooms",
+      "Life Guard Post",
+      "Lost & Found Booth"
+    ],
+    "tags": [
+      "ghat",
+      "pilgrimage",
+      "ramkund",
+      "godavari",
+      "shahi snan",
+      "kumbh mela",
+      "panchavati"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Municipal Corporation & District Gazetteer"
+  },
+  {
+    "name": "Kalaram Temple",
+    "category": "temple",
+    "subcategory": "Historical Hindu Temple",
+    "description": "Historic 18th-century black stone temple dedicated to Lord Rama, Lakshmana, and Sita; central architectural and spiritual icon of Panchavati heritage pilgrimage.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7925,
+        20.0078
+      ]
+    },
+    "address": {
+      "area": "Panchavati Main Chowk",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 1234",
+    "openingHours": {
+      "open": "05:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Shoe Counter",
+      "Drinking Water",
+      "Prasad Counter",
+      "Queue Shades",
+      "Rest Benches"
+    ],
+    "services": [
+      "Darshan",
+      "Pooja Booking",
+      "Prasad Counter",
+      "Shoe Keeping Facility",
+      "Drinking Water"
+    ],
+    "tags": [
+      "temple",
+      "lord rama",
+      "panchavati",
+      "heritage",
+      "darshan",
+      "pilgrimage"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Kalaram Mandir Sansthan Trust"
+  },
+  {
+    "name": "Sita Gufa",
+    "category": "cave",
+    "subcategory": "Sacred Pilgrimage Cave",
+    "description": "Ancient underground cave shrine near the five banyan trees (Panchavati) where Goddess Sita stayed and prayed during exile, and from where Ravana abducted her.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7938,
+        20.0084
+      ]
+    },
+    "address": {
+      "area": "Panchavati, Near Kalaram Temple",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 4500",
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Shoe Counter",
+      "Drinking Water",
+      "Security Guard",
+      "Information Board"
+    ],
+    "services": [
+      "Cave Darshan",
+      "Heritage Guide",
+      "Prasad"
+    ],
+    "tags": [
+      "cave",
+      "temple",
+      "sita gufa",
+      "panchavati",
+      "ramayana",
+      "historical"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Panchavati Devasthan Trust"
+  },
+  {
+    "name": "Kapaleshwar Temple",
+    "category": "temple",
+    "subcategory": "Shiva Temple",
+    "description": "Unique Shiva temple directly overlooking Ram Kund where Lord Shiva is worshipped without a Nandi statue, commemorating his penance to atone for Brahmhatya.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7901,
+        20.0068
+      ]
+    },
+    "address": {
+      "area": "Opposite Ramkund, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 7890",
+    "openingHours": {
+      "open": "05:00",
+      "close": "21:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Drinking Water",
+      "Shoe Keeping",
+      "Security"
+    ],
+    "services": [
+      "Rudrabhishek",
+      "Daily Aarti",
+      "Darshan"
+    ],
+    "tags": [
+      "temple",
+      "shiva",
+      "kapaleshwar",
+      "ramkund",
+      "panchavati"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Kapaleshwar Mandir Trust"
+  },
+  {
+    "name": "Sundarnarayan Temple",
+    "category": "temple",
+    "subcategory": "Vishnu Temple",
+    "description": "Magnificent 1756 Hemadpanthi-style temple dedicated to Lord Vishnu, oriented so the rising sun rays touch the deities feet on spring equinox.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7908,
+        20.0048
+      ]
+    },
+    "address": {
+      "area": "Near Ahilyabai Holkar Bridge, Godavari Riverbank",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 3344",
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Drinking Water",
+      "Rest Garden",
+      "Information Plaques"
+    ],
+    "services": [
+      "Darshan",
+      "Vishnu Sahasranama Archana",
+      "Prasad"
+    ],
+    "tags": [
+      "temple",
+      "vishnu",
+      "sundarnarayan",
+      "hemadpanthi",
+      "heritage",
+      "riverbank"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Archaeological Survey & Nashik Heritage Cell"
+  },
+  {
+    "name": "Shri Gora Ram Mandir",
+    "category": "temple",
+    "subcategory": "Rama Temple",
+    "description": "Revered temple featuring white marble idols of Lord Rama, Lakshmana, and Sita, contrasting with the black stone Kalaram Temple.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7915,
+        20.0062
+      ]
+    },
+    "address": {
+      "area": "Panchavati Karanja",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Shoe Counter",
+      "Drinking Water"
+    ],
+    "services": [
+      "Darshan",
+      "Bhajan Kirtan"
+    ],
+    "tags": [
+      "temple",
+      "rama",
+      "panchavati",
+      "gora ram"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Local Trust Records"
+  },
+  {
+    "name": "Naroshankar Temple",
+    "category": "temple",
+    "subcategory": "Historic Shiva Temple",
+    "description": "Renowned 18th-century temple on the Godavari banks famous for the historic Naroshankar Bell (Naroshankar Ghanta) won by the Marathas at the Battle of Vasai.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7913,
+        20.0052
+      ]
+    },
+    "address": {
+      "area": "Godavari Ghat Promenade, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 5566",
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Riverfront Promenade",
+      "Bell Tower",
+      "Security"
+    ],
+    "services": [
+      "Darshan",
+      "Aarti",
+      "Heritage Photography Viewpoint"
+    ],
+    "tags": [
+      "temple",
+      "shiva",
+      "naroshankar",
+      "bell of vasai",
+      "ghat",
+      "heritage"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "ASI / Maharashtra Heritage Records"
+  },
+  {
+    "name": "Tapovan Laxman Rekha Mandir",
+    "category": "temple",
+    "subcategory": "Ramayana Pilgrimage Site",
+    "description": "Sacred grove and temple complex where sage penances took place and where Lakshmana drew the legendary Laxman Rekha protecting Goddess Sita.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8115,
+        20.0028
+      ]
+    },
+    "address": {
+      "area": "Tapovan Forest Area, Kapil Dhara Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Rest Area",
+      "Drinking Water",
+      "Forest Garden Walk"
+    ],
+    "services": [
+      "Darshan",
+      "Spiritual Meditation"
+    ],
+    "tags": [
+      "temple",
+      "tapovan",
+      "ramayana",
+      "lakshman rekha",
+      "spiritual"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Tapovan Parishad Trust"
+  },
+  {
+    "name": "Muktidham Temple",
+    "category": "temple",
+    "subcategory": "Pilgrimage Complex",
+    "description": "Pure white Makrana marble temple replicating the 12 Jyotirlingas and 4 Dham pilgrimage shrines, featuring wall engravings of the 18 chapters of the Bhagavad Gita.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8375,
+        19.9535
+      ]
+    },
+    "address": {
+      "area": "Gayatri Nagar, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 246 1234",
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Locker Room",
+      "Dharamshala",
+      "Prasad Stall",
+      "Clean Washrooms",
+      "Parking"
+    ],
+    "services": [
+      "Darshan",
+      "Bhagavad Gita Audio Tour",
+      "Prasad",
+      "Guest Accommodation"
+    ],
+    "tags": [
+      "temple",
+      "muktidham",
+      "nashik road",
+      "jyotirlinga replicas",
+      "bhagavad gita"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Muktidham Trust"
+  },
+  {
+    "name": "Someshwar Temple",
+    "category": "temple",
+    "subcategory": "Ancient Shiva Temple",
+    "description": "One of the oldest Shiva temples situated picturesque along the Godavari riverbanks near Someshwar Waterfall, offering tranquil surroundings and sacred bathing ghats.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.738,
+        20.0267
+      ]
+    },
+    "address": {
+      "area": "Someshwar, Gangapur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 234 1100",
+    "openingHours": {
+      "open": "05:30",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Parking",
+      "River Promenade",
+      "Boating Point",
+      "Drinking Water"
+    ],
+    "services": [
+      "Darshan",
+      "Maha Shivratri Mela",
+      "Puja"
+    ],
+    "tags": [
+      "temple",
+      "shiva",
+      "someshwar",
+      "gangapur road",
+      "waterfall"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Someshwar Devasthan"
+  },
+  {
+    "name": "Navshya Ganpati Temple",
+    "category": "temple",
+    "subcategory": "Ganesh Temple",
+    "description": "Revered 400-year-old temple established by the Peshwas on the banks of Godavari, famous as Navshya (wish-fulfilling) Lord Ganesha shrine.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.754,
+        20.015
+      ]
+    },
+    "address": {
+      "area": "Anandvalli, Gangapur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 234 7890",
+    "openingHours": {
+      "open": "05:30",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Garden",
+      "Parking",
+      "Drinking Water",
+      "Prasad Counter"
+    ],
+    "services": [
+      "Darshan",
+      "Ganesh Puja",
+      "Modak Prasad"
+    ],
+    "tags": [
+      "temple",
+      "ganpati",
+      "anandvalli",
+      "gangapur road",
+      "peshwa history"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Navshya Ganpati Sansthan"
+  },
+  {
+    "name": "Trimbakeshwar Jyotirlinga Temple",
+    "category": "temple",
+    "subcategory": "Jyotirlinga Temple",
+    "description": "One of the twelve supreme Jyotirlingas of Lord Shiva, featuring a unique three-faced linga representing Brahma, Vishnu, and Rudra. Primary religious epicentre for the Simhastha Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5302,
+        19.9324
+      ]
+    },
+    "address": {
+      "area": "Trimbak Town Center, Foothills of Brahmagiri",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 215",
+    "openingHours": {
+      "open": "05:30",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "VIP Passes",
+      "Security Lockers",
+      "Prasad Counter",
+      "Shoe Keeping",
+      "Wheelchair Ramp"
+    ],
+    "services": [
+      "VIP Darshan Pass",
+      "Narayan Nagbali Pooja",
+      "Tripindi Shradh",
+      "Security Escort",
+      "Kushavarta Kund Access"
+    ],
+    "tags": [
+      "temple",
+      "jyotirlinga",
+      "trimbakeshwar",
+      "shiva",
+      "kumbh mela",
+      "brahmagiri"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Shri Trimbakeshwar Sansthan Trust"
+  },
+  {
+    "name": "Kushavarta Kund",
+    "category": "ghat",
+    "subcategory": "Sacred Water Kund",
+    "description": "Sacred quadrilateral reservoir where sage Gautama redirected the holy Godavari; primary Shahi Snan bathing kund for sadhus and millions of devotees during Trimbakeshwar Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5328,
+        19.9332
+      ]
+    },
+    "address": {
+      "area": "Main Temple Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 216",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Stone Ghat Steps",
+      "Changing Rooms",
+      "Drinking Water",
+      "Life Guards",
+      "Safety Railings"
+    ],
+    "services": [
+      "Holy Bathing",
+      "Pind Daan Rituals",
+      "Shahi Snan Ceremony",
+      "Aarti"
+    ],
+    "tags": [
+      "ghat",
+      "kund",
+      "kushavarta",
+      "trimbakeshwar",
+      "shahi snan",
+      "godavari origin"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Municipal Council & Sansthan Trust"
+  },
+  {
+    "name": "Sant Nivruttinath Temple & Samadhi",
+    "category": "temple",
+    "subcategory": "Varkari Samadhi Mandir",
+    "description": "Sacred Samadhi shrine of Sant Nivruttinath, elder brother and spiritual guru of Sant Dnyaneshwar Maharaj; focal pilgrimage shrine for millions of Varkari devotees.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5255,
+        19.9372
+      ]
+    },
+    "address": {
+      "area": "Nivruttinath Galli",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 456",
+    "openingHours": {
+      "open": "05:00",
+      "close": "21:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Dharamshala",
+      "Bhojanalaya (Annadaan)",
+      "Drinking Water",
+      "Shoe Stand"
+    ],
+    "services": [
+      "Samadhi Darshan",
+      "Akhand Haripath",
+      "Dindi Coordination",
+      "Annadaan Meals"
+    ],
+    "tags": [
+      "temple",
+      "nivruttinath",
+      "samadhi",
+      "varkari",
+      "trimbakeshwar",
+      "dnyaneshwar"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Sant Nivruttinath Maharaj Sansthan Trust"
+  },
+  {
+    "name": "Gangadwar (Godavari Origin)",
+    "category": "tourist_spot",
+    "subcategory": "Sacred Water Source",
+    "description": "Sacred rocky cave on the face of Brahmagiri Mountain where holy River Godavari first cascades down into continuous rock reservoirs from sage Gautama penance.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5186,
+        19.9287
+      ]
+    },
+    "address": {
+      "area": "Brahmagiri Hill Steps Route",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Stone Steps Pathway",
+      "Water Springs",
+      "Rest Stalls"
+    ],
+    "services": [
+      "Ganga Pujan",
+      "Holy Water Collection",
+      "Brahmagiri Trekking Guide"
+    ],
+    "tags": [
+      "godavari origin",
+      "gangadwar",
+      "brahmagiri",
+      "pilgrimage",
+      "trimbakeshwar"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Forest Dept & Trimbakeshwar Sansthan"
+  },
+  {
+    "name": "Gorakhnath Gufa Trimbakeshwar",
+    "category": "cave",
+    "subcategory": "Nath Sampradaya Cave Shrine",
+    "description": "Ancient rock cave sanctum where Mahayogi Gorakhnath and fellow Navnath siddhas meditated, central to Nath tradition rituals and sadhu visits.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5218,
+        19.9315
+      ]
+    },
+    "address": {
+      "area": "Brahmagiri Foothills",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Footpath Track",
+      "Information Board"
+    ],
+    "services": [
+      "Cave Darshan",
+      "Dhuni Pujan"
+    ],
+    "tags": [
+      "cave",
+      "gorakhnath",
+      "nath sampradaya",
+      "brahmagiri",
+      "trimbakeshwar"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Navnath Sampradaya Archives"
+  },
+  {
+    "name": "Anjaneri Temple (Hanuman Birthplace)",
+    "category": "temple",
+    "subcategory": "Sacred Birthplace Shrine",
+    "description": "Ancient hilltop temple dedicated to Anjani Mata and Lord Hanuman, revered across Hinduism as the sacred birthplace of Lord Hanuman atop Anjaneri mountain.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5828,
+        19.9192
+      ]
+    },
+    "address": {
+      "area": "Anjaneri Plateau, Nashik-Trimbak Road",
+      "city": "Anjaneri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Parking",
+      "Drinking Water Stalls",
+      "Trek Guide Post"
+    ],
+    "services": [
+      "Darshan",
+      "Hanuman Jayanti Festival",
+      "Plateau Trekking Guide"
+    ],
+    "tags": [
+      "temple",
+      "hanuman",
+      "birthplace",
+      "anjaneri",
+      "trekking",
+      "nature"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maharashtra Tourism & Anjaneri Sansthan"
+  },
+  {
+    "name": "Saptashrungi Devi Temple",
+    "category": "temple",
+    "subcategory": "Shaktipeeth Shrine",
+    "description": "One of the three and a half revered Shaktipeeths of Maharashtra; colossal 8-foot-tall eighteen-armed goddess idol carved into high cliff face on seven-peaked mountain.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.9048,
+        20.3928
+      ]
+    },
+    "address": {
+      "area": "Saptashrungi Gad, Vani Hills, Kalwan Taluka",
+      "city": "Saptashrungi",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2592 253 351",
+    "openingHours": {
+      "open": "05:00",
+      "close": "21:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Funicular Ropeway Trolley",
+      "Steps Shed",
+      "Bhakta Niwas",
+      "Prasad Hall",
+      "Medical Post"
+    ],
+    "services": [
+      "VIP Darshan",
+      "Funicular Ticket Counter",
+      "Chandi Havan",
+      "Free Meal Bhojanalaya"
+    ],
+    "tags": [
+      "temple",
+      "shaktipeeth",
+      "saptashrungi",
+      "devi",
+      "vani",
+      "gad"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Shri Saptashrung Nivasini Devi Trust"
+  },
+  {
+    "name": "Balaji Temple (Gangapur Road)",
+    "category": "temple",
+    "subcategory": "Tirupati Balaji Replica Shrine",
+    "description": "Sprawling temple complex built in authentic South Indian architectural style modeled on Tirumala Tirupati, situated near Someshwar on Gangapur Road.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7345,
+        20.0285
+      ]
+    },
+    "address": {
+      "area": "Someshwar Falls Road, Gangapur",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Landscaped Gardens",
+      "Parking",
+      "Prasad Stall",
+      "Drinking Water"
+    ],
+    "services": [
+      "Suprabhatam",
+      "Laddu Prasad",
+      "Darshan"
+    ],
+    "tags": [
+      "temple",
+      "balaji",
+      "gangapur road",
+      "someshwar",
+      "tirupati style"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Balaji Temple Trust Nashik"
+  },
+  {
+    "name": "Panchavati Ghat",
+    "category": "ghat",
+    "subcategory": "Riverfront Bathing Ghat",
+    "description": "Paved stone embankment along Godavari with wide ghat steps accommodating thousands of daily bathers and pilgrims undertaking ancestral rituals.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.791,
+        20.0056
+      ]
+    },
+    "address": {
+      "area": "Panchavati Riverfront, Opposite Ramkund",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Changing Cubicles",
+      "Life Buoy Rings",
+      "High Mast Lighting"
+    ],
+    "services": [
+      "Holy Dip",
+      "Snan",
+      "Pooja Platforms"
+    ],
+    "tags": [
+      "ghat",
+      "panchavati",
+      "godavari",
+      "bathing ghat",
+      "kumbh"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Municipal Corporation"
+  },
+  {
+    "name": "Sita Kund Ghat",
+    "category": "ghat",
+    "subcategory": "Holy Bathing Kund",
+    "description": "Sacred adjoining kund on the Godavari riverbed where Goddess Sita performed her daily rituals during exile in Panchavati.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7902,
+        20.0061
+      ]
+    },
+    "address": {
+      "area": "Ramkund Precinct, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Safety Railings",
+      "Lighting",
+      "Changing Space"
+    ],
+    "services": [
+      "Holy Snan",
+      "Pooja"
+    ],
+    "tags": [
+      "ghat",
+      "sita kund",
+      "ramkund",
+      "godavari",
+      "bathing"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Riverfront Cell"
+  },
+  {
+    "name": "Lakshman Ghat",
+    "category": "ghat",
+    "subcategory": "River Bathing Ghat",
+    "description": "Dedicated bathing ghat section next to Ram Kund consecrated to Lord Lakshmana, equipped with safety cordons for mass bathing.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7909,
+        20.0058
+      ]
+    },
+    "address": {
+      "area": "Panchavati Riverside",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Changing Rooms",
+      "Life Guard Post"
+    ],
+    "services": [
+      "Holy Bathing",
+      "Ancestral Offerings"
+    ],
+    "tags": [
+      "ghat",
+      "lakshman ghat",
+      "ramkund",
+      "bathing"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC"
+  },
+  {
+    "name": "Gandhi Talav (Gandhi Ghat)",
+    "category": "ghat",
+    "subcategory": "Memorial Kund & Ghat",
+    "description": "Large reservoir section of the Godavari riverbed directly adjacent to Ramkund where Mahatma Gandhi ashes were immersed in 1948, marked by a memorial stupa.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7907,
+        20.0051
+      ]
+    },
+    "address": {
+      "area": "Between Ramkund and Holkar Bridge, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Promenade Seating",
+      "Memorial Column",
+      "Drinking Water Fountain"
+    ],
+    "services": [
+      "Sightseeing",
+      "Evening Godavari Aarti Viewing"
+    ],
+    "tags": [
+      "ghat",
+      "gandhi talav",
+      "ramkund",
+      "memorial",
+      "promenade"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Heritage Archives"
+  },
+  {
+    "name": "Holkar Bridge Riverfront Ghat",
+    "category": "ghat",
+    "subcategory": "Historic Stone Bridge Ghat",
+    "description": "Extensive stone ghat built below the 18th-century Ahilyabai Holkar bridge, supporting crowd dispersion and Shahi Snan pedestrian flows.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.792,
+        20.0039
+      ]
+    },
+    "address": {
+      "area": "Ahilyabai Holkar Bridge, Old Nashik-Panchavati Border",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Broad Walkways",
+      "Street Lighting",
+      "CCTV Security"
+    ],
+    "services": [
+      "Crowd Transit",
+      "Riverfront Walkway"
+    ],
+    "tags": [
+      "ghat",
+      "holkar bridge",
+      "riverfront",
+      "godavari"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Public Works"
+  },
+  {
+    "name": "Talkuteshwar Ghat",
+    "category": "ghat",
+    "subcategory": "Old Nashik Bathing Ghat",
+    "description": "Upstream Godavari riverbank ghat near the ancient Talkuteshwar temple providing relaxed bathing space away from central Ram Kund congestion.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7885,
+        20.0072
+      ]
+    },
+    "address": {
+      "area": "Old Nashik Riverbank",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Changing Cubicle",
+      "Stone Steps"
+    ],
+    "services": [
+      "Holy Dip",
+      "Shiv Pujan"
+    ],
+    "tags": [
+      "ghat",
+      "talkuteshwar",
+      "godavari",
+      "old nashik"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Local Revenue Records"
+  },
+  {
+    "name": "Godavari-Kapila Sangam (Tapovan)",
+    "category": "ghat",
+    "subcategory": "Holy River Confluence",
+    "description": "Confluence of holy Godavari and Kapila rivers in Tapovan; highly auspicious snan location mentioned in sacred Puranas.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.818,
+        20.001
+      ]
+    },
+    "address": {
+      "area": "Tapovan Sangam Ghat Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Ghat Steps",
+      "Natural Sand Banks",
+      "Safety Railings"
+    ],
+    "services": [
+      "Sangam Snan",
+      "Pind Daan",
+      "Aarti"
+    ],
+    "tags": [
+      "ghat",
+      "sangam",
+      "kapila",
+      "godavari",
+      "tapovan",
+      "snan"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Tapovan Devasthan"
+  },
+  {
+    "name": "Harihar Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort",
+    "description": "Iconic triangular hill fort in the Trimbak range famous worldwide for its near 80-degree rock-cut steps etched directly into vertical cliffs. Historic Maratha defence stronghold.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5042,
+        19.9044
+      ]
+    },
+    "address": {
+      "area": "Harshewadi / Nirgudpada, Trimbak Range",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Parking",
+      "Local Village Guides",
+      "Water Cisterns at Summit"
+    ],
+    "services": [
+      "Historical Sightseeing",
+      "Trekking (Daylight only)"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "harihar",
+      "rock-cut steps",
+      "trimbak"
+    ],
+    "importance": 5,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Archaeological Survey & Maharashtra Tourism"
+  },
+  {
+    "name": "Ramshej Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort",
+    "description": "Renowned hill fort where Maratha warriors under Chhatrapati Sambhaji Maharaj heroically held off the imperial Mughal army siege for over five years.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8185,
+        20.1065
+      ]
+    },
+    "address": {
+      "area": "Asovali Village, Dindori Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Parking",
+      "Ram Temple at Top",
+      "Water Tanks"
+    ],
+    "services": [
+      "Heritage Trek",
+      "Panoramic Valley View"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "ramshej",
+      "dindori"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Archaeological Survey of India"
+  },
+  {
+    "name": "Aundha Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort",
+    "description": "Steep hill fort located in the Kawanai-Igatpuri belt of the Western Ghats south of Trimbakeshwar, offering commanding vantage views of the Trimbak plateau.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5938,
+        19.7825
+      ]
+    },
+    "address": {
+      "area": "Near Kawanai Village, Igatpuri-Nashik Range",
+      "city": "Igatpuri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Trailhead"
+    ],
+    "services": [
+      "Historical Exploration",
+      "Trekking"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "aundha",
+      "kawanai"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "District Gazetteer Nashik"
+  },
+  {
+    "name": "Anjaneri Fort",
+    "category": "fort",
+    "subcategory": "Historical Hill Fort & Sanctuary",
+    "description": "High plateau fort and ecological sanctuary rising above Anjaneri village, housing the revered birthplace temple of Lord Hanuman and numerous Jain cave temples.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5855,
+        19.9175
+      ]
+    },
+    "address": {
+      "area": "Anjaneri Hills, Trimbak Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Forest Department Checkpost",
+      "Plateau Lake",
+      "Ancient Stone Carvings"
+    ],
+    "services": [
+      "Eco-Trek",
+      "Pilgrimage",
+      "Historical Exploration"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "anjaneri",
+      "hanuman"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maharashtra Forest Department"
+  },
+  {
+    "name": "Brahmagiri Fort",
+    "category": "fort",
+    "subcategory": "Ancient Hill Fort & Sacred Mountain",
+    "description": "Mountain fortress atop Brahmagiri Mountain overlooking Trimbakeshwar, fortified by Marathas and Peshwas to secure the sacred Godavari origin pass.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.518,
+        19.927
+      ]
+    },
+    "address": {
+      "area": "Brahmagiri Mountain Summit",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Stone Steps Pathway",
+      "Ancient Fort Gates",
+      "Water Cisterns"
+    ],
+    "services": [
+      "Heritage Trail",
+      "Sacred Origin Visit"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "brahmagiri",
+      "trimbakeshwar"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "ASI / District Gazetteer"
+  },
+  {
+    "name": "Tringalwadi Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort",
+    "description": "Historic fort located near Tringalwadi lake with 10th-century Jain rock-cut caves carved into its base, overseeing the ancient trade route connecting Nashik to Konkan.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5312,
+        19.7215
+      ]
+    },
+    "address": {
+      "area": "Tringalwadi Village, Near Igatpuri",
+      "city": "Igatpuri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Tringalwadi Dam View",
+      "Base Trailhead"
+    ],
+    "services": [
+      "Trekking",
+      "Jain Cave Exploration"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "tringalwadi",
+      "caves"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Archaeological Survey of India"
+  },
+  {
+    "name": "Salher Fort",
+    "category": "fort",
+    "subcategory": "Highest Mountain Fort in Maharashtra",
+    "description": "Highest hill fort in Maharashtra (1,567 m) and site of the legendary Battle of Salher (1672) where Shivaji Maharaj army decisively defeated the Mughal Empire in open battle.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.938,
+        20.7225
+      ]
+    },
+    "address": {
+      "area": "Salher Village, Baglan / Satana Region",
+      "city": "Satana",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Stay",
+      "Caves for Trekker Shelter",
+      "Water Springs"
+    ],
+    "services": [
+      "Historical Battlefield Trail",
+      "Highest Peak Trek"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "salher",
+      "highest fort",
+      "battlefield"
+    ],
+    "importance": 5,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra State Archaeology Dept"
+  },
+  {
+    "name": "Mulher Fort",
+    "category": "fort",
+    "subcategory": "Historic Twin Fort Complex",
+    "description": "Impressive fort complex in Baglan range with extensive fortifications, temple ruins, rock water tanks, and deep Maratha history alongside Mora and Hargad forts.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        74.0535,
+        20.7602
+      ]
+    },
+    "address": {
+      "area": "Mulher Village, Baglan Taluka",
+      "city": "Satana",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Trailhead",
+      "Historic Temple Ruins"
+    ],
+    "services": [
+      "Trekking",
+      "Fort Architecture Study"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "mulher",
+      "baglan"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "ASI / Maharashtra Heritage"
+  },
+  {
+    "name": "Salota Fort",
+    "category": "fort",
+    "subcategory": "Twin Hill Fort to Salher",
+    "description": "Steep hill fort immediately adjacent to Salher Fort across the Col, famous for its five consecutive rock-cut gates and sheer cliffs.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.9455,
+        20.718
+      ]
+    },
+    "address": {
+      "area": "Salher-Salota Col, Baglan Range",
+      "city": "Satana",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Rock-Cut Gateways"
+    ],
+    "services": [
+      "Endurance Trekking",
+      "Historic Architecture"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "salota",
+      "baglan"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "State Archaeology Department"
+  },
+  {
+    "name": "Kavnai Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort & Kapiladhara Sanctuary",
+    "description": "Historic hill fort located near the sacred Kapildhara Tirtha lake; features ancient stone gateways and panoramic views of Western Ghats ridges.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.611,
+        19.7895
+      ]
+    },
+    "address": {
+      "area": "Kavnai Village, Igatpuri Border",
+      "city": "Igatpuri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Kapildhara Ashram Base",
+      "Water Cisterns"
+    ],
+    "services": [
+      "Pilgrim Trek",
+      "Scenic Viewpoint"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "kavnai",
+      "kapildhara"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "District Gazetteer"
+  },
+  {
+    "name": "Bahula Fort",
+    "category": "fort",
+    "subcategory": "Military Post Hill Fort",
+    "description": "Small strategically located hill fort near Vilholi on the Mumbai-Nashik highway used by Maratha armies to watch traffic through the Thal Ghat pass.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.742,
+        19.905
+      ]
+    },
+    "address": {
+      "area": "Vilholi / Ambad Southern Range",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Highway Proximity Trailhead"
+    ],
+    "services": [
+      "Day Trekking",
+      "Lookout Viewpoint"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "bahula",
+      "vilholi"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "District Gazetteers Department"
+  },
+  {
+    "name": "Dhodap Fort",
+    "category": "fort",
+    "subcategory": "Second Highest Hill Fort in Maharashtra",
+    "description": "Massive mountain fortress (1,472 m) featuring a distinctive natural rock needle (Cow Cliff / Machi) and extensive Peshwa-era mint, granaries, and cliff-cut staircases.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        74.0325,
+        20.378
+      ]
+    },
+    "address": {
+      "area": "Hatti Village, Chandwad-Kalwan Range",
+      "city": "Chandwad",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Hatti Base Village",
+      "Summit Water Springs",
+      "Peshwa Ruins"
+    ],
+    "services": [
+      "Mountain Trekking",
+      "Historical Exploration"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "dhodap",
+      "chandwad",
+      "second highest"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "State Archaeology Department"
+  },
+  {
+    "name": "Achala Fort",
+    "category": "fort",
+    "subcategory": "Hill Fort",
+    "description": "Strategically placed cliff fort in the northern Dindori belt defending the pass leading from Khandesh into Nashik plains.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.9875,
+        20.4855
+      ]
+    },
+    "address": {
+      "area": "Achala Village, Dindori-Surgana Boundary",
+      "city": "Dindori",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Trail"
+    ],
+    "services": [
+      "Trekking",
+      "Heritage Observation"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "achala",
+      "dindori"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "District Gazetteer"
+  },
+  {
+    "name": "Ahivant Fort",
+    "category": "fort",
+    "subcategory": "Twin Hill Fort to Achala",
+    "description": "Expansive plateau fort adjacent to Achala Fort, noted for its twin gates, expansive top plateau with multiple ponds, and dramatic views of the Saptashrungi range.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.992,
+        20.478
+      ]
+    },
+    "address": {
+      "area": "Ahivantwadi, Dindori-Vani Range",
+      "city": "Dindori",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Plateau Water Tanks",
+      "Stone Gateway Ruins"
+    ],
+    "services": [
+      "Trekking",
+      "Nature Walk"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "ahivant",
+      "dindori"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "State Archaeology Department"
+  },
+  {
+    "name": "Bitangad Fort",
+    "category": "fort",
+    "subcategory": "Pinnacle Hill Fort",
+    "description": "Striking volcanic pinnacle hill fort situated on the southern border ridge of Nashik district overlooking Kalsubai-Harishchandragad sanctuary.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.648,
+        19.682
+      ]
+    },
+    "address": {
+      "area": "Bitangad Village, Igatpuri Boundary",
+      "city": "Igatpuri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Base Village Pathway"
+    ],
+    "services": [
+      "Trekking",
+      "Summit Viewpoint"
+    ],
+    "tags": [
+      "fort",
+      "historical",
+      "trekking",
+      "viewpoint",
+      "bitangad",
+      "igatpuri"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "District Gazetteers"
+  },
+  {
+    "name": "Pandav Leni (Trirashmi Caves)",
+    "category": "cave",
+    "subcategory": "Ancient Buddhist Rock-Cut Caves",
+    "description": "Group of 24 ancient Buddhist rock-cut caves dating between 3rd century BCE and 2nd century CE, carved into Trirashmi Hill featuring Viharas, Chaityas, and Brahmi inscriptions.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7485,
+        19.9405
+      ]
+    },
+    "address": {
+      "area": "Trirashmi Hill, Mumbai-Agra National Highway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 259 5522",
+    "openingHours": {
+      "open": "08:30",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Ticket Counter",
+      "Paved Steps with Railings",
+      "Drinking Water",
+      "Parking",
+      "ASI Guidebooks"
+    ],
+    "services": [
+      "Archaeological Exploration",
+      "Guided Heritage Tour",
+      "Photography Viewpoint"
+    ],
+    "tags": [
+      "cave",
+      "tourist_spot",
+      "historical",
+      "buddhist",
+      "pandav leni",
+      "trirashmi",
+      "heritage"
+    ],
+    "importance": 5,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Archaeological Survey of India (ASI)"
+  },
+  {
+    "name": "Dadasaheb Phalke Smarak",
+    "category": "museum",
+    "subcategory": "Memorial & Cultural Complex",
+    "description": "Expansive 29-acre memorial honoring Dadasaheb Phalke, father of Indian cinema; features musical fountain, exhibition gallery, landscaped Mughal gardens, and meditation center.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.749,
+        19.938
+      ]
+    },
+    "address": {
+      "area": "Pandav Leni Foothills, Mumbai-Agra Highway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 259 8833",
+    "openingHours": {
+      "open": "10:00",
+      "close": "20:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Museum Exhibition Hall",
+      "Children Play Park",
+      "Musical Dancing Fountain",
+      "Parking",
+      "Food Kiosks"
+    ],
+    "services": [
+      "Cinema Heritage Exhibition",
+      "Gardens Visit",
+      "Fountain Show"
+    ],
+    "tags": [
+      "museum",
+      "tourist_spot",
+      "dadasaheb phalke",
+      "cinema history",
+      "memorial",
+      "gardens"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Nashik Municipal Corporation"
+  },
+  {
+    "name": "Coin Museum (IIRNS)",
+    "category": "museum",
+    "subcategory": "Numismatic Research Museum",
+    "description": "Premier Asian numismatic museum established by the Indian Institute of Research in Numismatic Studies; displays exhaustive historical Indian coinage from ancient punch-marked coins to colonial eras.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.578,
+        19.9245
+      ]
+    },
+    "address": {
+      "area": "Anjaneri Village, Nashik-Trimbakeshwar Road",
+      "city": "Anjaneri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 220 541",
+    "openingHours": {
+      "open": "09:30",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Coin Cast Gallery",
+      "Library",
+      "Diorama Workshops",
+      "Car Parking",
+      "Bookstore"
+    ],
+    "services": [
+      "Numismatic Tours",
+      "Research Archives",
+      "Educational Exhibits"
+    ],
+    "tags": [
+      "museum",
+      "tourist_spot",
+      "coin museum",
+      "numismatics",
+      "anjaneri",
+      "heritage"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Indian Institute of Research in Numismatic Studies"
+  },
+  {
+    "name": "Gargoti Mineral Museum",
+    "category": "museum",
+    "subcategory": "Natural Science & Zeolite Gem Museum",
+    "description": "World-renowned geological museum housing the worlds largest private collection of rare natural zeolites, mineral crystals, and lunar rocks from the Deccan Traps.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.945,
+        19.865
+      ]
+    },
+    "address": {
+      "area": "MIDC Industrial Area, Malegaon Road",
+      "city": "Sinnar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2551 230 400",
+    "openingHours": {
+      "open": "10:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Souvenir Shop",
+      "Air-conditioned Galleries",
+      "Parking",
+      "Restrooms"
+    ],
+    "services": [
+      "Geology Guided Tours",
+      "Crystal Gallery"
+    ],
+    "tags": [
+      "museum",
+      "tourist_spot",
+      "gargoti",
+      "minerals",
+      "geology",
+      "crystals"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Superb Minerals / Gargoti Museum"
+  },
+  {
+    "name": "Someshwar Waterfall (Dudhsagar Nashik)",
+    "category": "waterfall",
+    "subcategory": "Natural River Waterfall",
+    "description": "Scenic 10-meter waterfall on the Godavari river course surrounded by lush rocky cliffs and gardens; popular recreational and nature site in Nashik.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.736,
+        20.029
+      ]
+    },
+    "address": {
+      "area": "Someshwar, Near Balaji Mandir, Gangapur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "19:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Viewing Deck",
+      "Parking",
+      "Snack Kiosks",
+      "River Walkway"
+    ],
+    "services": [
+      "Nature Sightseeing",
+      "Photography Point",
+      "Seasonal Cascade Viewing"
+    ],
+    "tags": [
+      "waterfall",
+      "nature",
+      "tourist_spot",
+      "dudhsagar",
+      "someshwar",
+      "gangapur road"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra Tourism"
+  },
+  {
+    "name": "Dugarwadi Waterfall",
+    "category": "waterfall",
+    "subcategory": "Dense Forest Waterfall",
+    "description": "Breathtaking wilderness waterfall located near Sapgaon along the Trimbakeshwar road, cascading into a deep emerald pool amidst Sahyadri rainforests.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.498,
+        19.972
+      ]
+    },
+    "address": {
+      "area": "Sapgaon Road, Trimbakeshwar Taluka",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "17:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Forest Trailhead",
+      "Parking Area"
+    ],
+    "services": [
+      "Forest Trekking",
+      "Monsoon Sightseeing"
+    ],
+    "tags": [
+      "waterfall",
+      "nature",
+      "tourist_spot",
+      "dugarwadi",
+      "trimbak",
+      "wilderness"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra Forest Department"
+  },
+  {
+    "name": "Vihigaon Waterfall (Ashoka Falls)",
+    "category": "waterfall",
+    "subcategory": "Cascading Mountain Waterfall",
+    "description": "Famous monsoon waterfall in a deep forested valley in the Western Ghats south-west of Nashik, popular for rappelling and natural monsoon scenery.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.528,
+        19.699
+      ]
+    },
+    "address": {
+      "area": "Vihigaon Village, Western Ghats",
+      "city": "Igatpuri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Local Village Parking",
+      "Trek Trail"
+    ],
+    "services": [
+      "Waterfall Viewing",
+      "Adventure Tourism"
+    ],
+    "tags": [
+      "waterfall",
+      "nature",
+      "tourist_spot",
+      "vihigaon",
+      "ashoka falls"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra Tourism Development Corporation"
+  },
+  {
+    "name": "Gangapur Dam & Backwaters",
+    "category": "nature",
+    "subcategory": "Reservoir & Boating Hub",
+    "description": "Massive earthen dam constructed across River Godavari in 1954; backwaters form a vast lake offering boating, water sports, and tranquil sunset views.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.682,
+        20.038
+      ]
+    },
+    "address": {
+      "area": "Gangapur Village Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "MTDC Boat Club",
+      "Speed Boating",
+      "Jet Ski Pier",
+      "Parking",
+      "Cafeteria"
+    ],
+    "services": [
+      "Boating",
+      "Water Sports",
+      "Lake Sightseeing"
+    ],
+    "tags": [
+      "nature",
+      "tourist_spot",
+      "gangapur dam",
+      "boating",
+      "lake",
+      "godavari"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Water Resources Dept & MTDC"
+  },
+  {
+    "name": "Godavari Riverfront Promenade",
+    "category": "nature",
+    "subcategory": "Urban Riverside Walkway",
+    "description": "Paved scenic river promenade extending from Victoria Bridge to Gandhi Talav with trees, heritage lamp posts, and vantage points for the evening Godavari Maha Aarti.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7915,
+        20.0045
+      ]
+    },
+    "address": {
+      "area": "Panchavati Riverbank Promenade",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Public Benches",
+      "Lighting",
+      "Waste Bins",
+      "Security Posts"
+    ],
+    "services": [
+      "Pedestrian Walkway",
+      "Riverfront Sightseeing"
+    ],
+    "tags": [
+      "nature",
+      "riverfront",
+      "godavari",
+      "promenade",
+      "panchavati"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Smart City Project"
+  },
+  {
+    "name": "Brahmagiri Peak Viewpoint",
+    "category": "viewpoint",
+    "subcategory": "Mountain Summit Panoramic Point",
+    "description": "Summit vantage point atop Brahmagiri Mountain offering 360-degree vistas across Trimbakeshwar valley, Upper Vaitarna reservoir, and Sahyadri ranges.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.516,
+        19.929
+      ]
+    },
+    "address": {
+      "area": "Brahmagiri Mountain Summit",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "17:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Stone Marker",
+      "Natural Seating Rocks"
+    ],
+    "services": [
+      "Panoramic Photography",
+      "Cloud Observation"
+    ],
+    "tags": [
+      "viewpoint",
+      "nature",
+      "brahmagiri",
+      "trimbakeshwar",
+      "valley view"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Forest Range"
+  },
+  {
+    "name": "Anjaneri Plateau Scenic Viewpoint",
+    "category": "viewpoint",
+    "subcategory": "Ecological Plateau Lookout",
+    "description": "Expansive volcanic tableland viewpoint rich in rare wildflowers and monsoon waterfalls overlooking the Trimbakeshwar-Nashik scenic mountain highway.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.587,
+        19.916
+      ]
+    },
+    "address": {
+      "area": "Anjaneri Upper Plateau",
+      "city": "Anjaneri",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "18:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": false,
+      "seniorFriendly": false
+    },
+    "facilities": [
+      "Natural Ecological Trail"
+    ],
+    "services": [
+      "Bird Watching",
+      "Plateau Viewing"
+    ],
+    "tags": [
+      "viewpoint",
+      "nature",
+      "anjaneri",
+      "plateau",
+      "scenic"
+    ],
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Forest Department"
+  },
+  {
+    "name": "Saptashrungi Gad Viewpoint",
+    "category": "viewpoint",
+    "subcategory": "High Cliff Panoramic Point",
+    "description": "Spectacular cliff-edge observation deck overlooking the deep Kalwan valley and Khandesh plains from 1,230 meters elevation.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.906,
+        20.394
+      ]
+    },
+    "address": {
+      "area": "Temple Ridge, Saptashrungi Gad",
+      "city": "Saptashrungi",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Safety Railings",
+      "Telescope Viewpoint",
+      "Benches"
+    ],
+    "services": [
+      "Valley View",
+      "Sunrise Observation"
+    ],
+    "tags": [
+      "viewpoint",
+      "nature",
+      "saptashrungi",
+      "cliff",
+      "valley view"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Devasthan Trust"
+  },
+  {
+    "name": "Makhmalabad Agro Riverfront",
+    "category": "tourist_spot",
+    "subcategory": "Agro-Tourism & Nature Riverfront",
+    "description": "Tranquil countryside agro-tourism region situated along the serene upper curves of the Godavari river, celebrated for fruit orchards and peaceful riverside walks.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.775,
+        20.032
+      ]
+    },
+    "address": {
+      "area": "Makhmalabad Road, Northern Suburbs",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "07:00",
+      "close": "19:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Fruit Farms",
+      "River Walk Path"
+    ],
+    "services": [
+      "Agro Tourism",
+      "Orchard Tours"
+    ],
+    "tags": [
+      "tourist_spot",
+      "nature",
+      "makhmalabad",
+      "agro tourism",
+      "godavari"
+    ],
+    "importance": 3,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra Agro Tourism Board"
+  },
+  {
+    "name": "Sadhugram Tapovan Sector 1",
+    "category": "kumbh_zone",
+    "subcategory": "Kumbh Pilgrim Tent City",
+    "description": "Official mega holding zone and tent encampment grounds erected in Tapovan for millions of visiting sadhus, akharas, and pilgrims during Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.812,
+        20.008
+      ]
+    },
+    "address": {
+      "area": "Sadhugram Sector 1, Tapovan Grounds",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 253 1000",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Temporary Power Grid",
+      "Water Lines",
+      "Sanitation Blocks",
+      "Disaster Control Post",
+      "Ambulance Station"
+    ],
+    "services": [
+      "Camp Allotment",
+      "Pilgrim Transit Hub",
+      "Community Kitchen Access"
+    ],
+    "tags": [
+      "kumbh_zone",
+      "sadhugram",
+      "tapovan",
+      "camp",
+      "kumbh mela",
+      "tent city"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Kumbh Mela Authority"
+  },
+  {
+    "name": "Sadhugram Tapovan Sector 2",
+    "category": "kumbh_zone",
+    "subcategory": "Kumbh Pilgrim Tent City",
+    "description": "Secondary vast holding ground and akhada residential zone equipped with community amenities, dining pandals, and security perimeters for Simhastha Kumbh.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.816,
+        20.006
+      ]
+    },
+    "address": {
+      "area": "Sadhugram Sector 2, Outer Ring Road, Tapovan",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 253 1002",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Water Points",
+      "Toilets",
+      "Police Chowki",
+      "Fire Tender Post"
+    ],
+    "services": [
+      "Tent Pitching",
+      "Security Escort",
+      "Sanitation"
+    ],
+    "tags": [
+      "kumbh_zone",
+      "sadhugram",
+      "tapovan",
+      "kumbh mela"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Kumbh Cell"
+  },
+  {
+    "name": "Akhada Parishad Camp Grounds",
+    "category": "kumbh_zone",
+    "subcategory": "All India Akhada Headquarters Camp",
+    "description": "Designated administrative and ceremonial encampment sector for the All India Akhada Parishad, the apex body coordinating Shahi Snan processions.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.814,
+        20.009
+      ]
+    },
+    "address": {
+      "area": "Tapovan Central Grounds",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Procession Staging Area",
+      "Public Address System",
+      "VIP Security"
+    ],
+    "services": [
+      "Akhada Coordination",
+      "Shahi Snan Timing Coordination"
+    ],
+    "tags": [
+      "kumbh_zone",
+      "akhada parishad",
+      "shahi snan",
+      "tapovan"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Akhil Bharatiya Akhada Parishad"
+  },
+  {
+    "name": "Shri Panchayati Akhada Mahanirvani",
+    "category": "akhada",
+    "subcategory": "Sanyasi Akhada",
+    "description": "Major historic monastic order of the Dashanami Sanyasis possessing hereditary precedence during holy Shahi Snan royal dips in Nashik.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8105,
+        20.0075
+      ]
+    },
+    "address": {
+      "area": "Sadhugram Enclave, Tapovan",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Prayer Hall",
+      "Dharma Dhuni",
+      "Guest Quarters"
+    ],
+    "services": [
+      "Spiritual Discourse",
+      "Shahi Snan Participation",
+      "Prasad"
+    ],
+    "tags": [
+      "akhada",
+      "mahanirvani",
+      "sadhugram",
+      "sanyasi",
+      "kumbh mela"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Akhada Parishad Records"
+  },
+  {
+    "name": "Shri Panchayati Akhada Bada Udasin",
+    "category": "akhada",
+    "subcategory": "Udasin Akhada",
+    "description": "Prominent monastic order of the Udasin tradition founded by Shri Chandracharya, maintaining deep spiritual roots in Panchavati and Tapovan.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.809,
+        20.0065
+      ]
+    },
+    "address": {
+      "area": "Panchavati Extension, Near Tapovan Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Havansala",
+      "Bhojansala",
+      "Dharamshala Rooms"
+    ],
+    "services": [
+      "Spiritual Satsang",
+      "Annadaan"
+    ],
+    "tags": [
+      "akhada",
+      "bada udasin",
+      "panchavati",
+      "kumbh mela"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Akhada Records"
+  },
+  {
+    "name": "Shri Panch Dashnam Juna Akhada Camp",
+    "category": "akhada",
+    "subcategory": "Naga Sanyasi Akhada",
+    "description": "The largest and oldest order of Naga sanyasis, centered at Trimbakeshwar for the sacred Shaiva Shahi Snan at Kushavarta Kund.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.534,
+        19.934
+      ]
+    },
+    "address": {
+      "area": "Near Kushavarta Kund, Temple Precinct",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Dhuni Chowk",
+      "Sadhus Camp",
+      "Security Enclosure"
+    ],
+    "services": [
+      "Shaivite Rituals",
+      "Shahi Snan Leading Procession"
+    ],
+    "tags": [
+      "akhada",
+      "juna akhada",
+      "naga sadhus",
+      "trimbakeshwar",
+      "kushavarta"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Juna Akhada Trust"
+  },
+  {
+    "name": "Shri Niranjani Akhada Trimbakeshwar",
+    "category": "akhada",
+    "subcategory": "Dashanami Sanyasi Akhada",
+    "description": "Eminent scholarly monastic akhada holding key ceremonial rights during Simhastha Kumbh bathings in Trimbakeshwar.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.535,
+        19.9355
+      ]
+    },
+    "address": {
+      "area": "Temple Bypass Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "05:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Satsang Hall",
+      "Monastery Rooms"
+    ],
+    "services": [
+      "Shahi Snan Rituals",
+      "Vedanta Lectures"
+    ],
+    "tags": [
+      "akhada",
+      "niranjani",
+      "trimbakeshwar",
+      "kumbh"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Niranjani Akhada Trust"
+  },
+  {
+    "name": "Kailas Math Ashram",
+    "category": "ashram",
+    "subcategory": "Vedic Learning & Spiritual Ashram",
+    "description": "Centuries-old Vedic institution and monastery in Trimbakeshwar providing traditional Sanskrit and Vedanta education along with pilgrim stay.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5285,
+        19.935
+      ]
+    },
+    "address": {
+      "area": "Brahmagiri Foothills",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 118",
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Veda Pathshala",
+      "Library",
+      "Pilgrim Rooms",
+      "Dining Hall"
+    ],
+    "services": [
+      "Vedic Education",
+      "Accommodation",
+      "Meditation Sessions"
+    ],
+    "tags": [
+      "ashram",
+      "kailas math",
+      "trimbakeshwar",
+      "vedas",
+      "pilgrim stay"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Kailas Math Sansthan"
+  },
+  {
+    "name": "Swami Samarth Ashram Trimbakeshwar",
+    "category": "ashram",
+    "subcategory": "Spiritual Center & Bhakta Niwas",
+    "description": "Serene spiritual campus dedicated to Akkalkot Swami Samarth Maharaj, providing spiritual discourses and clean budget accommodation for pilgrims.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5365,
+        19.931
+      ]
+    },
+    "address": {
+      "area": "Anjaneri Road Crossing",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 789",
+    "openingHours": {
+      "open": "05:30",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Spiritual Hall",
+      "Bhakta Niwas Rooms",
+      "Canteen",
+      "Parking"
+    ],
+    "services": [
+      "Darshan",
+      "Daily Aarti",
+      "Affordable Lodging"
+    ],
+    "tags": [
+      "ashram",
+      "swami samarth",
+      "trimbakeshwar",
+      "bhakta niwas",
+      "stay"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Swami Samarth Seva Trust"
+  },
+  {
+    "name": "Tapovan Ashram",
+    "category": "ashram",
+    "subcategory": "Hermitage & Meditation Center",
+    "description": "Peaceful hermitage nestled among ancient trees in Tapovan where sadhus and yogis reside throughout the year.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.813,
+        20.004
+      ]
+    },
+    "address": {
+      "area": "Tapovan Forest Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Meditation Rooms",
+      "Garden"
+    ],
+    "services": [
+      "Yoga Classes",
+      "Spiritual Guidance"
+    ],
+    "tags": [
+      "ashram",
+      "tapovan",
+      "meditation",
+      "nashik"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Tapovan Ashram"
+  },
+  {
+    "name": "Geeta Mandir Ashram",
+    "category": "ashram",
+    "subcategory": "Spiritual Center",
+    "description": "Prominent educational and spiritual ashram in Panchavati dedicated to spreading teachings of the Bhagavad Gita.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.794,
+        20.009
+      ]
+    },
+    "address": {
+      "area": "Near Kalaram Mandir, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "06:00",
+      "close": "21:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Lecture Hall",
+      "Library",
+      "Drinking Water"
+    ],
+    "services": [
+      "Gita Discourses",
+      "Pilgrim Guidance"
+    ],
+    "tags": [
+      "ashram",
+      "geeta mandir",
+      "panchavati",
+      "gita"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Geeta Mandir Trust"
+  },
+  {
+    "name": "Maheshwari Dharamshala Panchavati",
+    "category": "dharamshala",
+    "subcategory": "Pilgrim Choultry",
+    "description": "Large community dharamshala offering clean, subsidized lodging and pure vegetarian dining for families and pilgrim groups visiting Panchavati.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7915,
+        20.0085
+      ]
+    },
+    "address": {
+      "area": "Sita Gufa Road, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 2288",
+    "openingHours": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "AC/Non-AC Rooms",
+      "Dormitory",
+      "Elevator",
+      "Pure Veg Canteen",
+      "RO Drinking Water"
+    ],
+    "services": [
+      "Subsidized Lodging",
+      "Bhojanalaya Meals",
+      "Luggage Storage"
+    ],
+    "tags": [
+      "dharamshala",
+      "panchavati",
+      "pilgrim stay",
+      "accommodation",
+      "budget"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maheshwari Pragati Mandal"
+  },
+  {
+    "name": "Trimbakeshwar Sansthan Dharamshala",
+    "category": "dharamshala",
+    "subcategory": "Temple Trust Rest House",
+    "description": "Official guest accommodations operated by the Trimbakeshwar Temple Trust providing safe and economical shelter within walking distance of the Jyotirlinga.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.531,
+        19.933
+      ]
+    },
+    "address": {
+      "area": "Near East Gate, Jyotirlinga Temple",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 214",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Dormitory Beds",
+      "Family Rooms",
+      "Security Desk",
+      "Drinking Water"
+    ],
+    "services": [
+      "Trust Room Booking",
+      "Cloakroom"
+    ],
+    "tags": [
+      "dharamshala",
+      "trimbakeshwar",
+      "trust",
+      "accommodation",
+      "budget"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Shri Trimbakeshwar Sansthan Trust"
+  },
+  {
+    "name": "Trimbakeshwar Temple Bhakta Niwas",
+    "category": "bhakta_niwas",
+    "subcategory": "Devotee Pilgrim Guest House",
+    "description": "Modern multi-storey devotee lodging facility with over 150 rooms run by the temple trust with elevator, solar hot water, and wheelchair access.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5315,
+        19.9315
+      ]
+    },
+    "address": {
+      "area": "South Gate Ring Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 218",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Elevator",
+      "Hot Water",
+      "Wheelchair Ramp",
+      "Security Surveillance",
+      "Dining Hall"
+    ],
+    "services": [
+      "Online & Counter Room Booking",
+      "Luggage Cloakroom",
+      "Information Desk"
+    ],
+    "tags": [
+      "bhakta_niwas",
+      "accommodation",
+      "trimbakeshwar",
+      "temple stay",
+      "devotees"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Sansthan Trust"
+  },
+  {
+    "name": "Saptashrungi Bhakta Niwas",
+    "category": "bhakta_niwas",
+    "subcategory": "Hilltop Devotee Rest Complex",
+    "description": "High-capacity devotee rest house complex atop Saptashrungi Gad mountain operated by the temple trust offering thousands of beds.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.9055,
+        20.392
+      ]
+    },
+    "address": {
+      "area": "Temple Approach Road, Saptashrungi Gad",
+      "city": "Saptashrungi",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2592 253 352",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Hot Water",
+      "Dormitories",
+      "Family Suites",
+      "Free Bhojanalaya Access"
+    ],
+    "services": [
+      "Room Booking",
+      "Prasad Coupon Counters"
+    ],
+    "tags": [
+      "bhakta_niwas",
+      "saptashrungi",
+      "vani",
+      "accommodation",
+      "pilgrim stay"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Saptashrungi Devasthan"
+  },
+  {
+    "name": "MTDC Holiday Resort Guest House",
+    "category": "guest_house",
+    "subcategory": "Government Tourism Guest House",
+    "description": "Official Maharashtra Tourism Development Corporation resort featuring cottages, lawns, and multi-cuisine restaurant in central Nashik.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7985,
+        19.992
+      ]
+    },
+    "address": {
+      "area": "Golf Club Ground Road, Trimbak Naka",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 0059",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Parking",
+      "Restaurant",
+      "Conference Hall",
+      "Lawns",
+      "Tourist Information Desk"
+    ],
+    "services": [
+      "Government Room Booking",
+      "Sightseeing Assistance",
+      "Car Rental"
+    ],
+    "tags": [
+      "guest_house",
+      "hotel",
+      "mtdc",
+      "government",
+      "tourism resort",
+      "nashik"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maharashtra Tourism Development Corporation"
+  },
+  {
+    "name": "Government Circuit House Nashik",
+    "category": "guest_house",
+    "subcategory": "Official State VIP Guest House",
+    "description": "Principal state government VIP circuit house used for civil dignitaries, administrative officials, and visiting judicial authorities during Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.778,
+        19.9985
+      ]
+    },
+    "address": {
+      "area": "Near Collectorate Office, Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 2411",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "High Security",
+      "VIP Suites",
+      "Conference Rooms",
+      "Power Backup"
+    ],
+    "services": [
+      "Government Protocol Accommodation"
+    ],
+    "tags": [
+      "guest_house",
+      "circuit house",
+      "government",
+      "pwd",
+      "vip"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Public Works Department (PWD) Maharashtra"
+  },
+  {
+    "name": "Nashik District Civil Hospital",
+    "category": "hospital",
+    "subcategory": "Apex Government Multi-Specialty Hospital",
+    "description": "Apex government multi-specialty hospital equipped with 24x7 trauma care, emergency triage, ICU, and Kumbh surge medical wing.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.785,
+        19.998
+      ]
+    },
+    "address": {
+      "area": "Trimbak Road, Near Police Headquarters",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 6106",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "24x7 Emergency Triage",
+      "ICU",
+      "Trauma Ward",
+      "Blood Bank",
+      "Free Pharmacy",
+      "Ambulance Bays"
+    ],
+    "services": [
+      "24x7 Emergency Trauma",
+      "Ambulance Hub",
+      "Blood Bank",
+      "Pharmacy",
+      "Special Heat Stroke Unit"
+    ],
+    "tags": [
+      "hospital",
+      "civil hospital",
+      "emergency",
+      "medical",
+      "icu",
+      "trauma",
+      "government",
+      "kumbh surge"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "District Civil Surgeon / Public Health Dept"
+  },
+  {
+    "name": "Trimbakeshwar Rural Hospital",
+    "category": "hospital",
+    "subcategory": "Government Rural Hospital",
+    "description": "Primary government medical center for Trimbakeshwar town and surrounding mountain tribal villages, upgraded with trauma facilities and heat-stroke beds for Kumbh.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5355,
+        19.936
+      ]
+    },
+    "address": {
+      "area": "Jawahar Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 244",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Emergency Ward",
+      "Labor Room",
+      "Ambulance",
+      "Free Pharmacy",
+      "Oxygen Supply"
+    ],
+    "services": [
+      "24x7 Emergency Care",
+      "Outpatient Treatments",
+      "First Aid",
+      "Ambulance Transfer"
+    ],
+    "tags": [
+      "hospital",
+      "rural hospital",
+      "trimbakeshwar",
+      "emergency",
+      "medical",
+      "government"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "District Health Office Nashik"
+  },
+  {
+    "name": "Bytco Hospital (NMC)",
+    "category": "hospital",
+    "subcategory": "Municipal Corporation General Hospital",
+    "description": "Major municipal tertiary hospital serving the dense eastern corridors of Nashik and Nashik Road railway hub with intensive care and burn units.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.834,
+        19.951
+      ]
+    },
+    "address": {
+      "area": "Bytco Point, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 246 5444",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "ICU",
+      "Trauma Center",
+      "Maternity Ward",
+      "Blood Storage Unit",
+      "24x7 Pharmacy"
+    ],
+    "services": [
+      "Emergency Care",
+      "Inpatient Treatment",
+      "Subsidized Healthcare"
+    ],
+    "tags": [
+      "hospital",
+      "bytco",
+      "nashik road",
+      "nmc",
+      "emergency"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Municipal Corporation Health Dept"
+  },
+  {
+    "name": "Apollo Hospitals Nashik",
+    "category": "hospital",
+    "subcategory": "Super-Specialty Hospital",
+    "description": "Leading tertiary super-specialty hospital featuring advanced cardiac care, critical care units, neurosurgery, and comprehensive diagnostic imaging.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7745,
+        19.9755
+      ]
+    },
+    "address": {
+      "area": "Mumbai-Agra Highway, Near Dwarka Circle",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 230 3000",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "24x7 Emergency Room",
+      "Cath Lab",
+      "Advanced ICU",
+      "CT/MRI Scans",
+      "Blood Bank"
+    ],
+    "services": [
+      "Cardiology",
+      "Trauma Resuscitation",
+      "Critical Care Medicine",
+      "Air Ambulance Coordination"
+    ],
+    "tags": [
+      "hospital",
+      "apollo",
+      "emergency",
+      "icu",
+      "super specialty"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Apollo Hospitals Group"
+  },
+  {
+    "name": "Wockhardt Hospitals Nashik",
+    "category": "hospital",
+    "subcategory": "Super-Specialty Hospital",
+    "description": "NABH-accredited multi-specialty healthcare facility at Mumbai Naka specializing in emergency cardiology, polytrauma, and neurology.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.768,
+        19.988
+      ]
+    },
+    "address": {
+      "area": "Wani House, Mumbai Naka",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 662 4444",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Trauma Center",
+      "24x7 Cardiac Emergency",
+      "ICU",
+      "Modern Pharmacy",
+      "Blood Bank"
+    ],
+    "services": [
+      "24x7 Stroke Care",
+      "Emergency Trauma Resuscitation",
+      "Intensive Care"
+    ],
+    "tags": [
+      "hospital",
+      "wockhardt",
+      "mumbai naka",
+      "emergency",
+      "icu"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Wockhardt Hospitals Ltd"
+  },
+  {
+    "name": "Panchavati Primary Health Centre (PHC)",
+    "category": "medical",
+    "subcategory": "Primary Health Care Center",
+    "description": "Municipal primary medical clinic serving Panchavati and Ram Kund with general OPD, fever clinics, first aid, and immunization.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.796,
+        20.012
+      ]
+    },
+    "address": {
+      "area": "Hirawadi Road, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 3499",
+    "openingHours": {
+      "open": "08:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "OPD Consultation",
+      "Basic Laboratory",
+      "Free Essential Drugs Dispenser"
+    ],
+    "services": [
+      "First Aid Treatment",
+      "Dehydration Triage",
+      "Basic Medical Care"
+    ],
+    "tags": [
+      "medical",
+      "phc",
+      "health center",
+      "panchavati",
+      "first aid"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Health Department"
+  },
+  {
+    "name": "Red Cross Blood Bank Nashik",
+    "category": "blood_bank",
+    "subcategory": "Authorized Blood Bank",
+    "description": "Premier charitable licensed blood bank providing component separation, packed RBCs, platelets, and emergency blood reserves during peak Kumbh surges.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.784,
+        19.997
+      ]
+    },
+    "address": {
+      "area": "Indian Red Cross Society, Old Agra Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 2828",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Blood Storage Cold Chain",
+      "Component Separator",
+      "Donation Apheresis Unit"
+    ],
+    "services": [
+      "24x7 Emergency Blood Supply",
+      "Voluntary Blood Donation"
+    ],
+    "tags": [
+      "blood_bank",
+      "medical",
+      "red cross",
+      "emergency",
+      "blood supply"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Indian Red Cross Society Nashik"
+  },
+  {
+    "name": "Civil Hospital Blood Bank",
+    "category": "blood_bank",
+    "subcategory": "Government Regional Blood Center",
+    "description": "Official government blood bank at Nashik District Civil Hospital supporting trauma surgeries and emergency admissions.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7852,
+        19.9982
+      ]
+    },
+    "address": {
+      "area": "Civil Hospital Compound, Trimbak Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 6108",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Component Separation",
+      "Plasma Storage",
+      "Cold Room"
+    ],
+    "services": [
+      "Emergency Cross Matching",
+      "Blood Bag Dispensing"
+    ],
+    "tags": [
+      "blood_bank",
+      "civil hospital",
+      "medical",
+      "emergency"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "State Blood Transfusion Council"
+  },
+  {
+    "name": "108 Emergency Ambulance Hub Civil Hospital",
+    "category": "ambulance",
+    "subcategory": "Emergency Medical Dispatch Hub",
+    "description": "Central nodal parking base and dispatch hub for the Maharashtra Emergency Medical Services (MEMS 108) with Advanced and Basic Life Support ambulances.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7848,
+        19.9985
+      ]
+    },
+    "address": {
+      "area": "Civil Hospital Premises, Trimbak Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "108",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "ALS Ambulances with Ventilators",
+      "BLS Ambulances",
+      "Emergency Paramedic Teams"
+    ],
+    "services": [
+      "24x7 Free Ambulance Emergency Response",
+      "Trauma Transfer"
+    ],
+    "tags": [
+      "ambulance",
+      "emergency",
+      "108",
+      "medical",
+      "trauma response"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maharashtra Emergency Medical Services (108)"
+  },
+  {
+    "name": "108 Emergency Ambulance Station Trimbakeshwar",
+    "category": "ambulance",
+    "subcategory": "Rural Emergency Ambulance Base",
+    "description": "Dedicated ambulance post stationed at Trimbakeshwar Rural Hospital for critical transport along the Trimbak-Nashik state highway.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.535,
+        19.9365
+      ]
+    },
+    "address": {
+      "area": "Rural Hospital Premises",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "108",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Life Support Equipment",
+      "Paramedic On Duty"
+    ],
+    "services": [
+      "Emergency Patient Evacuation",
+      "First Responder Triage"
+    ],
+    "tags": [
+      "ambulance",
+      "emergency",
+      "108",
+      "trimbakeshwar"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "MEMS 108"
+  },
+  {
+    "name": "24x7 Sanjeevani Day & Night Pharmacy",
+    "category": "pharmacy",
+    "subcategory": "Emergency Chemist & Druggist",
+    "description": "Round-the-clock licensed chemist store stocking critical life-saving medications, insulin, surgical supplies, and emergency antidotes near Civil Hospital.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.786,
+        19.9975
+      ]
+    },
+    "address": {
+      "area": "Opposite Civil Hospital Gate, Trimbak Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 8899",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Refrigerated Medicine Storage",
+      "Emergency Supplies Counter"
+    ],
+    "services": [
+      "Prescription Medicines",
+      "First Aid Supplies",
+      "Orthopedic Braces"
+    ],
+    "tags": [
+      "pharmacy",
+      "medical",
+      "chemist",
+      "24x7",
+      "emergency medicine"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "FDA Licensed Chemist Records"
+  },
+  {
+    "name": "Trimbakeshwar 24x7 Medical & Pharmacy",
+    "category": "pharmacy",
+    "subcategory": "Emergency Chemist",
+    "description": "Full-service pharmacy located on main temple approach road in Trimbakeshwar supplying emergency drugs, first-aid kits, and essential medications.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.532,
+        19.9335
+      ]
+    },
+    "address": {
+      "area": "Main Bazar Road, Near Kushavarta",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 600",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Cold Storage",
+      "Over-The-Counter Section"
+    ],
+    "services": [
+      "24x7 Medicine Supply",
+      "First Aid Products"
+    ],
+    "tags": [
+      "pharmacy",
+      "chemist",
+      "trimbakeshwar",
+      "medical",
+      "24x7"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Local Chemist Association"
+  },
+  {
+    "name": "Nashik District Emergency Operation Center",
+    "category": "emergency",
+    "subcategory": "Disaster Management Command Post",
+    "description": "Central disaster management command facility of the District Collectorate equipped with satellite telemetry, river flood monitoring sensors, and inter-agency coordination screens.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7865,
+        19.9995
+      ]
+    },
+    "address": {
+      "area": "District Collectorate Office Compound, Old Agra Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 5630",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Disaster Control Screens",
+      "Direct Hotline 1077",
+      "Radio Wireless Ham Center"
+    ],
+    "services": [
+      "Disaster Management",
+      "Flood Alerts",
+      "Kumbh Crowd Emergency Coordination"
+    ],
+    "tags": [
+      "emergency",
+      "disaster management",
+      "control room",
+      "collectorate",
+      "government"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "District Disaster Management Authority (DDMA)"
+  },
+  {
+    "name": "Panchavati Police Station",
+    "category": "police",
+    "subcategory": "Territorial Police Station",
+    "description": "Primary law enforcement and crowd security headquarters covering the Ramkund sacred ghat sector and Panchavati pilgrimage temples.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.791,
+        20.0065
+      ]
+    },
+    "address": {
+      "area": "Near Malegaon Stand, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 2233",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Helpdesk",
+      "CCTV Command Hub",
+      "Lockup Cells",
+      "Wireless Communications"
+    ],
+    "services": [
+      "24x7 Emergency Response",
+      "Missing Persons Registration",
+      "Crowd Regulation",
+      "CCTV Command Post"
+    ],
+    "tags": [
+      "police",
+      "panchavati",
+      "ramkund",
+      "security",
+      "emergency",
+      "law enforcement"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik City Police Commissionerate"
+  },
+  {
+    "name": "Bhadrakali Police Station",
+    "category": "police",
+    "subcategory": "Urban Police Station",
+    "description": "Core police station overseeing Old Nashik markets, Saraf Bazar, and the southern banks of the Godavari river.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.789,
+        20.0015
+      ]
+    },
+    "address": {
+      "area": "Bhadrakali Market Chowk, Old Nashik",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 3344",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Emergency Response Vehicle Post",
+      "Lost and Found Cell"
+    ],
+    "services": [
+      "Law and Order Maintenance",
+      "Traffic Diversion Control"
+    ],
+    "tags": [
+      "police",
+      "bhadrakali",
+      "old nashik",
+      "security"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik City Police"
+  },
+  {
+    "name": "Nashik Road Police Station",
+    "category": "police",
+    "subcategory": "Railway Suburban Police Station",
+    "description": "Major suburban police station overseeing security at Nashik Road railway hub, bus transit points, and eastern approach corridors.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.836,
+        19.9525
+      ]
+    },
+    "address": {
+      "area": "Jail Road / Station Road Junction, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 246 1122",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Transit Security Cell",
+      "Patrol Fleet"
+    ],
+    "services": [
+      "Station Security",
+      "Public Safety"
+    ],
+    "tags": [
+      "police",
+      "nashik road",
+      "railway station",
+      "security"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik City Police"
+  },
+  {
+    "name": "Mumbai Naka Police Station",
+    "category": "police",
+    "subcategory": "Highway Entry Police Station",
+    "description": "Strategic police station situated at Mumbai Naka junction regulating key highway entry gates from Mumbai and Pune into Nashik city.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.773,
+        19.986
+      ]
+    },
+    "address": {
+      "area": "Mumbai Naka Circle, Mumbai-Agra Highway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 250 5566",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Traffic Control Squad",
+      "Emergency Vehicles"
+    ],
+    "services": [
+      "Highway Patrol",
+      "Entry Point Surveillance"
+    ],
+    "tags": [
+      "police",
+      "mumbai naka",
+      "highway",
+      "security"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Police"
+  },
+  {
+    "name": "Trimbakeshwar Police Station",
+    "category": "police",
+    "subcategory": "Sub-Divisional Police Station",
+    "description": "Apex police station securing the Trimbakeshwar Jyotirlinga temple, Kushavarta Kund bathing zone, and Brahmagiri pilgrims.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5335,
+        19.9345
+      ]
+    },
+    "address": {
+      "area": "Main Road, Near Bus Stand",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 233",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Pilgrim Assistance Unit",
+      "CCTV Room",
+      "Lost & Found Post"
+    ],
+    "services": [
+      "Crowd Security",
+      "Shahi Snan Protection",
+      "24x7 Emergency Patrol"
+    ],
+    "tags": [
+      "police",
+      "trimbakeshwar",
+      "kushavarta",
+      "security",
+      "kumbh"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Rural Police"
+  },
+  {
+    "name": "Sarkarwada Police Station",
+    "category": "police",
+    "subcategory": "Central Heritage Precinct Police Station",
+    "description": "Police station covering central civic and commercial quarters including MG Road, CBS transit hub, and historic Sarkarwada.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.787,
+        20.0005
+      ]
+    },
+    "address": {
+      "area": "Ravivar Peth, Old Nashik",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 4433",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Control Cell",
+      "Beat Patrols"
+    ],
+    "services": [
+      "Public Safety",
+      "Crowd Surveillance"
+    ],
+    "tags": [
+      "police",
+      "sarkarwada",
+      "central nashik"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik City Police"
+  },
+  {
+    "name": "Panchavati Fire Station (NMC)",
+    "category": "fire_station",
+    "subcategory": "Municipal Fire Brigade Unit",
+    "description": "Modern municipal fire brigade station stationed in Panchavati equipped with quick-response water tenders and chemical foam units for ghat safety.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7975,
+        20.0105
+      ]
+    },
+    "address": {
+      "area": "Hirawadi Road, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "101",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Water Bowser Trucks",
+      "Inflatable Boats",
+      "Rescue Hydraulic Cutters",
+      "Life Jackets"
+    ],
+    "services": [
+      "Fire Extinguishment",
+      "River Drowning Rescue",
+      "Emergency Evacuation"
+    ],
+    "tags": [
+      "fire_station",
+      "panchavati",
+      "emergency",
+      "rescue",
+      "fire brigade",
+      "nmc"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Fire Brigade Department"
+  },
+  {
+    "name": "Main Fire Brigade Headquarters (NMC)",
+    "category": "fire_station",
+    "subcategory": "Central Fire Control Headquarters",
+    "description": "Central fire brigade control station of Nashik Municipal Corporation featuring high-rise ladder tenders, disaster rescue gear, and river rescue units.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.781,
+        19.996
+      ]
+    },
+    "address": {
+      "area": "Sharanpur Road, Near Old Agra Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 1010",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Turn Table Ladder",
+      "Multi-Capacity Water Tenders",
+      "Disaster Search Equipment"
+    ],
+    "services": [
+      "Major Fire Fighting",
+      "Disaster Response Command",
+      "Technical Rescue"
+    ],
+    "tags": [
+      "fire_station",
+      "headquarters",
+      "fire brigade",
+      "emergency",
+      "nmc"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Fire Department"
+  },
+  {
+    "name": "CIDCO Fire Station",
+    "category": "fire_station",
+    "subcategory": "Zonal Fire Station",
+    "description": "Zonal fire sub-station protecting the dense residential and industrial suburbs of south-western Nashik and Ambad.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.758,
+        19.972
+      ]
+    },
+    "address": {
+      "area": "Pawan Nagar, CIDCO",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 239 1010",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Foam Tenders",
+      "Water Units"
+    ],
+    "services": [
+      "Emergency Fire Fighting",
+      "Rescue"
+    ],
+    "tags": [
+      "fire_station",
+      "cidco",
+      "emergency",
+      "fire brigade"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Fire Dept"
+  },
+  {
+    "name": "Trimbakeshwar Municipal Fire Unit",
+    "category": "fire_station",
+    "subcategory": "Municipal Council Fire Service",
+    "description": "Dedicated fire tender and flood rescue station operated by Trimbakeshwar Nagar Parishad for the Jyotirlinga and Kushavarta Kund zones.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.536,
+        19.937
+      ]
+    },
+    "address": {
+      "area": "Near Nagar Parishad Office, Trimbak Bypass Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "101",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "All-Terrain Water Bowser",
+      "Flood Rescue Rafts",
+      "Searchlights"
+    ],
+    "services": [
+      "Fire Control",
+      "Kund Safety Inspection",
+      "Water Rescue"
+    ],
+    "tags": [
+      "fire_station",
+      "trimbakeshwar",
+      "emergency",
+      "rescue"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Municipal Council"
+  },
+  {
+    "name": "Panchavati Thali Restaurant",
+    "category": "restaurant",
+    "subcategory": "Pure Vegetarian Thali Restaurant",
+    "description": "Traditional pure vegetarian restaurant serving authentic unlimited Maharashtrian and Gujarati thalis for visiting devotees and pilgrims.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.793,
+        20.005
+      ]
+    },
+    "address": {
+      "area": "Vakil Wadi Road, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 2345",
+    "openingHours": {
+      "open": "11:00",
+      "close": "22:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Air Conditioned Dining",
+      "Family Seating",
+      "Clean Washrooms",
+      "Drinking Water Filter"
+    ],
+    "services": [
+      "Pure Vegetarian Dining",
+      "Clean Drinking Water",
+      "Takeaway Food Packets",
+      "Family Seating"
+    ],
+    "tags": [
+      "restaurant",
+      "food",
+      "pure veg",
+      "thali",
+      "maharashtrian",
+      "panchavati",
+      "vegetarian",
+      "jain options"
+    ],
+    "foodType": "vegetarian",
+    "budget": "budget",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Local Merchant Association"
+  },
+  {
+    "name": "Sadhana Chulivarchi Misal",
+    "category": "restaurant",
+    "subcategory": "Authentic Maharashtrian Eatery",
+    "description": "Famous rural garden restaurant serving traditional wood-fired (chulivarchi) Nashik Misal Pav with jalebis and buttermilk in agricultural ambiance.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.729,
+        20.024
+      ]
+    },
+    "address": {
+      "area": "Near Someshwar Temple, Bardan Phata, Gangapur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 98220 12345",
+    "openingHours": {
+      "open": "08:00",
+      "close": "16:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Sprawling Outdoor Seating",
+      "Ample Parking",
+      "Children Play Area"
+    ],
+    "services": [
+      "Breakfast & Lunch",
+      "Pure Veg Snacks",
+      "Fresh Sugarcane Juice"
+    ],
+    "tags": [
+      "restaurant",
+      "food",
+      "misal pav",
+      "maharashtrian",
+      "pure veg",
+      "breakfast",
+      "gangapur road"
+    ],
+    "foodType": "vegetarian",
+    "budget": "budget",
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Maharashtra Tourism Recommended Eateries"
+  },
+  {
+    "name": "Hotel Annapurna Pure Veg Trimbakeshwar",
+    "category": "restaurant",
+    "subcategory": "Devotee Bhojanalaya",
+    "description": "Renowned pure vegetarian dining hall situated a short walk from Kushavarta Kund serving wholesome thalis, South Indian breakfast, and Jain meals.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5312,
+        19.9328
+      ]
+    },
+    "address": {
+      "area": "Main Temple Bazar Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 400",
+    "openingHours": {
+      "open": "06:30",
+      "close": "22:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Clean Dining Hall",
+      "Jain Food Counter",
+      "Filtered Water"
+    ],
+    "services": [
+      "Bhojanalaya Thali",
+      "Breakfast",
+      "Fast Food for Devotees (Upvas Khichdi)"
+    ],
+    "tags": [
+      "restaurant",
+      "food",
+      "pure veg",
+      "jain food",
+      "thali",
+      "trimbakeshwar",
+      "fasting food"
+    ],
+    "foodType": "vegetarian",
+    "budget": "budget",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Traders Association"
+  },
+  {
+    "name": "Sai Palace Pure Veg Bhojanalaya",
+    "category": "restaurant",
+    "subcategory": "Pure Veg Multi-Cuisine Restaurant",
+    "description": "High-volume pure vegetarian restaurant near CBS bus stand providing fast breakfast, South Indian dishes, Punjabi meals, and travel food packs.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.779,
+        19.993
+      ]
+    },
+    "address": {
+      "area": "CBS Circle, Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 6677",
+    "openingHours": {
+      "open": "07:00",
+      "close": "23:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Air Conditioned Seating",
+      "Quick Takeaway Counter",
+      "Restrooms"
+    ],
+    "services": [
+      "All-Day Dining",
+      "Parcel Service for Bus Travelers"
+    ],
+    "tags": [
+      "restaurant",
+      "food",
+      "pure veg",
+      "cbs",
+      "breakfast",
+      "thali"
+    ],
+    "foodType": "vegetarian",
+    "budget": "budget",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Restaurant Guild"
+  },
+  {
+    "name": "Samarth Bhojanalaya (Maharashtrian Thali)",
+    "category": "restaurant",
+    "subcategory": "Traditional Marathi Dining Hall",
+    "description": "Decades-old humble eatery near Kalaram temple famous for home-style unlimited Maharashtrian Poli-Bhaji thali prepared with traditional spices.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7918,
+        20.007
+      ]
+    },
+    "address": {
+      "area": "Panchavati Karanja, Near Kalaram Temple",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "11:00",
+      "close": "21:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Clean Traditional Dining"
+    ],
+    "services": [
+      "Unlimited Thali Meal",
+      "Puran Poli Specials"
+    ],
+    "tags": [
+      "restaurant",
+      "food",
+      "pure veg",
+      "maharashtrian",
+      "thali",
+      "panchavati"
+    ],
+    "foodType": "vegetarian",
+    "budget": "budget",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Local Food Reviews"
+  },
+  {
+    "name": "Hotel Express Inn",
+    "category": "hotel",
+    "subcategory": "Luxury 5-Star Hotel",
+    "description": "Premier 5-star hotel in Nashik featuring panoramic views of Pandavleni caves, multi-cuisine restaurants, swimming pool, and corporate conference facilities.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.755,
+        19.968
+      ]
+    },
+    "address": {
+      "area": "Pathardi Phata, Mumbai-Agra Highway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 664 1111",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Swimming Pool",
+      "Spa",
+      "Multi-Cuisine Restaurants",
+      "Free Valet Parking",
+      "Wheelchair Ramps"
+    ],
+    "services": [
+      "Luxury Lodging",
+      "Airport / Station Shuttle",
+      "Concierge Tour Desk"
+    ],
+    "tags": [
+      "hotel",
+      "stay",
+      "luxury",
+      "express inn",
+      "pathardi",
+      "5-star"
+    ],
+    "budget": "upscale",
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "Federation of Hotel & Restaurant Associations of India"
+  },
+  {
+    "name": "The Gateway Hotel Ambad",
+    "category": "hotel",
+    "subcategory": "Luxury Heritage Hotel (IHCL)",
+    "description": "Sprawling 11-acre luxury resort property operated by IHCL Taj Group surrounded by gardens, wine tasting sessions, and premier wellness spa.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.748,
+        19.962
+      ]
+    },
+    "address": {
+      "area": "Ambad MIDC, Mumbai-Agra Highway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 669 2300",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Landscaped Gardens",
+      "Tennis Court",
+      "Pool",
+      "Fine Dining",
+      "EV Charger"
+    ],
+    "services": [
+      "Luxury Hospitality",
+      "Vineyard Tours",
+      "Chauffeur Car"
+    ],
+    "tags": [
+      "hotel",
+      "stay",
+      "gateway",
+      "taj",
+      "ambad",
+      "luxury"
+    ],
+    "budget": "upscale",
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "IHCL Taj Gateway"
+  },
+  {
+    "name": "Hotel Panchavati Yatri",
+    "category": "hotel",
+    "subcategory": "Mid-Scale Pilgrim Hotel",
+    "description": "Popular mid-scale business and pilgrim hotel in central Nashik offering clean modern rooms, pure veg restaurant, and travel helpdesk.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7855,
+        19.999
+      ]
+    },
+    "address": {
+      "area": "430 Vakil Wadi, Old Agra Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 2291",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Elevator",
+      "Restaurant",
+      "Parking",
+      "Free WiFi",
+      "Travel Desk"
+    ],
+    "services": [
+      "Room Service",
+      "Temple Tour Packages",
+      "Car Rental"
+    ],
+    "tags": [
+      "hotel",
+      "stay",
+      "panchavati yatri",
+      "vakil wadi",
+      "central nashik"
+    ],
+    "budget": "moderate",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Hoteliers Association"
+  },
+  {
+    "name": "Hotel Sai Yatri Trimbakeshwar",
+    "category": "hotel",
+    "subcategory": "Comfort Pilgrim Hotel",
+    "description": "Comfortable family lodging situated right near the Trimbakeshwar bus terminus with AC rooms, temple view terrace, and vegetarian food.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5325,
+        19.9338
+      ]
+    },
+    "address": {
+      "area": "Near MSRTC Bus Stand, Main Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 111",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Elevator",
+      "Hot Water",
+      "Restaurant",
+      "Luggage Room"
+    ],
+    "services": [
+      "24-Hour Front Desk",
+      "Pooja Arrangement Guidance"
+    ],
+    "tags": [
+      "hotel",
+      "stay",
+      "trimbakeshwar",
+      "accommodation",
+      "family hotel"
+    ],
+    "budget": "moderate",
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Lodge Registry"
+  },
+  {
+    "name": "MTDC Grape County Eco Resort",
+    "category": "hotel",
+    "subcategory": "Eco Resort & Nature Stay",
+    "description": "Eco-tourism luxury resort spread over 150 acres next to Anjaneri forest featuring lotus lakes, biodiversity trails, and luxury cottages.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.612,
+        19.954
+      ]
+    },
+    "address": {
+      "area": "Vadgaon Village, Trimbak Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 70309 15000",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Natural Lake",
+      "Horse Riding",
+      "Organic Farming",
+      "Eco Villas",
+      "Restaurant"
+    ],
+    "services": [
+      "Resort Stay",
+      "Nature Walk",
+      "Kayaking"
+    ],
+    "tags": [
+      "hotel",
+      "stay",
+      "grape county",
+      "eco resort",
+      "trimbak road",
+      "nature"
+    ],
+    "budget": "upscale",
+    "importance": 4,
+    "kumbhRelevant": false,
+    "verified": true,
+    "source": "MTDC Partner Resorts"
+  },
+  {
+    "name": "Nashik Road Railway Station",
+    "category": "railway",
+    "subcategory": "Major Central Railway Junction",
+    "description": "Principal Indian Railways junction on the Central Railway Mumbai-Howrah main line with 4 platforms, serving millions of incoming pilgrims from across India.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.839,
+        19.9545
+      ]
+    },
+    "address": {
+      "area": "Station Road, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "139",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Escalators",
+      "Lifts",
+      "IRCTC Executive Lounge",
+      "Cloakroom",
+      "Waiting Rooms",
+      "Prepaid Taxi Stand"
+    ],
+    "services": [
+      "Passenger Train Operations",
+      "Kumbh Mela Special Trains",
+      "Ticket Counters",
+      "Tourist Helpdesk"
+    ],
+    "tags": [
+      "transport",
+      "railway",
+      "train station",
+      "nashik road",
+      "central railway",
+      "kumbh transit"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Central Railway (Bhusawal Division)"
+  },
+  {
+    "name": "Deolali Railway Station",
+    "category": "railway",
+    "subcategory": "Heritage Railway Station",
+    "description": "Historic military cantonment railway station serving as a secondary passenger holding terminal to ease crowd pressure on Nashik Road station during Kumbh.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.845,
+        19.921
+      ]
+    },
+    "address": {
+      "area": "Deolali Cantonment Board Area",
+      "city": "Deolali",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "139",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Platform Benches",
+      "Ticket Windows",
+      "Waiting Shed"
+    ],
+    "services": [
+      "Passenger Train Stops",
+      "Military & Civilian Boarding"
+    ],
+    "tags": [
+      "transport",
+      "railway",
+      "deolali",
+      "train station",
+      "cantonment"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Central Railway"
+  },
+  {
+    "name": "CBS Bus Stand Nashik",
+    "category": "bus_stand",
+    "subcategory": "Central Intercity Bus Terminal",
+    "description": "Central bus terminal providing high-frequency feeder shuttles connecting Nashik city center, railway stations, and Trimbakeshwar.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.782,
+        19.994
+      ]
+    },
+    "address": {
+      "area": "Sharanpur Road / CBS Circle",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 5258",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Intercity Platforms",
+      "Inquiry Office",
+      "Cloakroom",
+      "Waiting Rooms",
+      "Food Stalls",
+      "Restrooms"
+    ],
+    "services": [
+      "Intercity MSRTC Buses",
+      "Trimbakeshwar Shuttle",
+      "Ticket Counters",
+      "Helpdesk",
+      "Cloak Room"
+    ],
+    "tags": [
+      "transport",
+      "bus_stand",
+      "cbs",
+      "msrtc",
+      "shuttle",
+      "central nashik"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "MSRTC Nashik Division"
+  },
+  {
+    "name": "Thakkar Bazaar MSRTC Bus Stand",
+    "category": "bus_stand",
+    "subcategory": "Inter-State & AC Bus Terminal",
+    "description": "Major state transport hub serving premium Shivshahi, AC Volvo, and inter-state bus services to Pune, Mumbai, Surat, and Indore.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.781,
+        19.9925
+      ]
+    },
+    "address": {
+      "area": "Canada Corner / Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 6555",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "AC Waiting Lounge",
+      "Electronic Reservation Counters",
+      "Food Court"
+    ],
+    "services": [
+      "Express AC Buses",
+      "Interstate Route Connections"
+    ],
+    "tags": [
+      "transport",
+      "bus_stand",
+      "thakkar bazaar",
+      "msrtc",
+      "shivshahi"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "MSRTC"
+  },
+  {
+    "name": "Trimbakeshwar MSRTC Bus Stand",
+    "category": "bus_stand",
+    "subcategory": "Pilgrim Town Bus Terminal",
+    "description": "Primary terminus in Trimbakeshwar running direct continuous shuttle buses to Nashik CBS, Nashik Road station, and surrounding regional routes.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5345,
+        19.9355
+      ]
+    },
+    "address": {
+      "area": "Nashik-Trimbak Main Entry Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 242",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Covered Bus Bays",
+      "MSRTC Reservation Window",
+      "Water Coolers",
+      "Public Toilets"
+    ],
+    "services": [
+      "Continuous Nashik Feeder Shuttles",
+      "Long-Distance Routes"
+    ],
+    "tags": [
+      "transport",
+      "bus_stand",
+      "trimbakeshwar",
+      "msrtc",
+      "shuttle"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "MSRTC"
+  },
+  {
+    "name": "Nashik Road MSRTC Bus Stand",
+    "category": "bus_stand",
+    "subcategory": "Railway Junction Feeder Bus Depot",
+    "description": "Key transit depot located directly outside the railway station connecting train passengers directly to Panchavati, Tapovan, and Trimbakeshwar.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8385,
+        19.9535
+      ]
+    },
+    "address": {
+      "area": "Opposite Railway Station, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 246 1239",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "City Bus Stops",
+      "Auto Stand",
+      "Information Booth"
+    ],
+    "services": [
+      "City Feeder Buses",
+      "Kumbh Shuttle Transit"
+    ],
+    "tags": [
+      "transport",
+      "bus_stand",
+      "nashik road",
+      "feeder"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "MSRTC / City Bus"
+  },
+  {
+    "name": "Nimani Bus Depot (Panchavati)",
+    "category": "bus_stand",
+    "subcategory": "City Bus Terminal",
+    "description": "Busiest city bus terminus on the north of Godavari river connecting the entire Panchavati and Ramkund pilgrimage belt with Nashik suburbs.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7945,
+        20.0095
+      ]
+    },
+    "address": {
+      "area": "Nimani Chowk, Malegaon Road, Panchavati",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 251 6789",
+    "openingHours": {
+      "open": "05:00",
+      "close": "23:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "City Bus Platforms",
+      "Ticket Counter",
+      "Toilets"
+    ],
+    "services": [
+      "NMC Citylink Bus Service",
+      "Suburban Transit"
+    ],
+    "tags": [
+      "transport",
+      "bus_stand",
+      "nimani",
+      "panchavati",
+      "city bus"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Citilinc NMC"
+  },
+  {
+    "name": "CBS Taxi & Auto Rickshaw Stand",
+    "category": "transport",
+    "subcategory": "Prepaid Taxi & Rickshaw Hub",
+    "description": "Central designated prepaid auto rickshaw and intercity tourist taxi rank with official fare meters and police prepaid booths.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7825,
+        19.9945
+      ]
+    },
+    "address": {
+      "area": "CBS Circle, Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Prepaid Traffic Police Booth",
+      "Taxi Bay"
+    ],
+    "services": [
+      "Prepaid Local Auto Rides",
+      "Outstation Cabs to Trimbakeshwar"
+    ],
+    "tags": [
+      "transport",
+      "taxi stand",
+      "auto stand",
+      "cbs",
+      "transit"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "RTO Nashik"
+  },
+  {
+    "name": "Tapovan Parking Grounds",
+    "category": "parking",
+    "subcategory": "Satellite Bus & Vehicle Holding Terminal",
+    "description": "Major satellite holding parking terminal for buses and private vehicles during peak Kumbh entry restrictions.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.805,
+        20.002
+      ]
+    },
+    "address": {
+      "area": "Tapovan Outer Ring Road, Near Kapil Dhara",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 259 8811",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "E-Shuttle Boarding",
+      "Rest Sheds",
+      "EV Charging",
+      "Security Surveillance",
+      "Sanitation Facilities"
+    ],
+    "services": [
+      "E-Shuttle Boarding",
+      "Rest Sheds",
+      "EV Charging",
+      "Security Surveillance",
+      "Sanitation Facilities"
+    ],
+    "tags": [
+      "parking",
+      "tapovan",
+      "bus parking",
+      "shuttle",
+      "kumbh holding terminal"
+    ],
+    "capacity": 5000,
+    "paid": false,
+    "vehicleType": [
+      "bus",
+      "car",
+      "two_wheeler"
+    ],
+    "shuttleAvailable": true,
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Kumbh Transport Plan"
+  },
+  {
+    "name": "Nilgiri Baug Satellite Parking",
+    "category": "parking",
+    "subcategory": "East Entry Vehicle Terminal",
+    "description": "Extensive holding parking ground on Aurangabad road intercepting incoming pilgrim vehicles from eastern and northern Maharashtra.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.815,
+        20.015
+      ]
+    },
+    "address": {
+      "area": "Aurangabad Road, Panchavati Periphery",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "High Mast Lighting",
+      "Shuttle Stop",
+      "Public Toilets",
+      "Drinking Water"
+    ],
+    "services": [
+      "Bus & Car Parking",
+      "Electric Shuttle Transfer to Ramkund"
+    ],
+    "tags": [
+      "parking",
+      "nilgiri baug",
+      "panchavati",
+      "shuttle available"
+    ],
+    "capacity": 3500,
+    "paid": false,
+    "vehicleType": [
+      "bus",
+      "car",
+      "two_wheeler"
+    ],
+    "shuttleAvailable": true,
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Traffic Cell"
+  },
+  {
+    "name": "Trimbakeshwar Main Pilgrim Parking",
+    "category": "parking",
+    "subcategory": "Town Entry Satellite Parking",
+    "description": "Designated official vehicle holding lot on the Nashik-Trimbak highway entry point, barring private vehicles inside the narrow temple streets.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5385,
+        19.9375
+      ]
+    },
+    "address": {
+      "area": "Entry Checkpost, Nashik-Trimbak Highway",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 555",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Holding Yard",
+      "E-Rickshaw Stand",
+      "Water Dispensers",
+      "Toilets"
+    ],
+    "services": [
+      "Vehicle Parking",
+      "E-Rickshaw Shuttle to Mandir"
+    ],
+    "tags": [
+      "parking",
+      "trimbakeshwar",
+      "pilgrim parking",
+      "shuttle available"
+    ],
+    "capacity": 4000,
+    "paid": false,
+    "vehicleType": [
+      "bus",
+      "car",
+      "two_wheeler"
+    ],
+    "shuttleAvailable": true,
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Nagar Parishad"
+  },
+  {
+    "name": "Dongre Vasti Ground Parking",
+    "category": "parking",
+    "subcategory": "Central City Event Parking",
+    "description": "Large civic open grounds in Gangapur Road / CBS perimeter used for regulated car and tourist bus parking during festival periods.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.776,
+        19.991
+      ]
+    },
+    "address": {
+      "area": "Near KTHM College, Gangapur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Gravel Paved Lot",
+      "Security Booth"
+    ],
+    "services": [
+      "Event & Festive Parking"
+    ],
+    "tags": [
+      "parking",
+      "dongre vasti",
+      "gangapur road",
+      "cbs"
+    ],
+    "capacity": 2000,
+    "paid": false,
+    "vehicleType": [
+      "car",
+      "two_wheeler"
+    ],
+    "shuttleAvailable": false,
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC"
+  },
+  {
+    "name": "Nashik Road Railway Station Parking",
+    "category": "parking",
+    "subcategory": "Railway Circulating Parking",
+    "description": "Regulated parking lot directly in front of Nashik Road railway station with separate bays for two-wheelers, private cars, and taxis.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.8395,
+        19.954
+      ]
+    },
+    "address": {
+      "area": "Station Circulating Area, Nashik Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Automated Boom Barriers",
+      "CCTV",
+      "Covered Two-Wheeler Shed"
+    ],
+    "services": [
+      "24x7 Paid Parking"
+    ],
+    "tags": [
+      "parking",
+      "railway",
+      "nashik road",
+      "paid"
+    ],
+    "capacity": 1500,
+    "paid": true,
+    "vehicleType": [
+      "car",
+      "two_wheeler"
+    ],
+    "shuttleAvailable": false,
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Central Railway Parking Registry"
+  },
+  {
+    "name": "Ramkund Sulabh Public Toilet Complex",
+    "category": "public_toilet",
+    "subcategory": "High-Capacity Sanitation Complex",
+    "description": "Major modern multi-seater sanitized toilet and bath complex operated by Sulabh International directly on the Ram Kund river promenade.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.7898,
+        20.0054
+      ]
+    },
+    "address": {
+      "area": "Ramkund Ghat Promenade",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Western & Indian Commodes",
+      "Separate Ladies Section",
+      "Bathing Showers",
+      "Continuous Water"
+    ],
+    "services": [
+      "Pay-and-use Restroom",
+      "Bathing Facility",
+      "Continuous Disinfection"
+    ],
+    "tags": [
+      "public_toilet",
+      "toilet",
+      "restroom",
+      "sulabh",
+      "ramkund",
+      "panchavati",
+      "sanitation"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Sulabh International / NMC"
+  },
+  {
+    "name": "Trimbakeshwar Temple Public Toilet Complex",
+    "category": "public_toilet",
+    "subcategory": "Devotee Sanitation Complex",
+    "description": "Clean municipal public washroom and shower facility located near the South Gate of the Trimbakeshwar Jyotirlinga temple.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5318,
+        19.932
+      ]
+    },
+    "address": {
+      "area": "South Gate Ring Road",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Ladies & Gents Sections",
+      "Handwash Sinks",
+      "Running Water"
+    ],
+    "services": [
+      "Public Restroom",
+      "Changing Space"
+    ],
+    "tags": [
+      "public_toilet",
+      "toilet",
+      "restroom",
+      "trimbakeshwar",
+      "sanitation"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Municipal Council"
+  },
+  {
+    "name": "Godavari Water Point",
+    "category": "water_point",
+    "subcategory": "Municipal RO Drinking Water Post",
+    "description": "Municipal high-capacity chilled RO drinking water station providing safe, continuous hydration for pilgrims along the ghat promenade.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.79,
+        20.0055
+      ]
+    },
+    "address": {
+      "area": "Ramkund Promenade Walkway",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "1800 233 0000",
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Multiple Water Taps",
+      "Cold Water Dispenser",
+      "UV Sterilization Unit"
+    ],
+    "services": [
+      "RO Purified Water",
+      "Cold Water Dispenser",
+      "Bottle Refilling Stations",
+      "Continuous Disinfection"
+    ],
+    "tags": [
+      "water_point",
+      "drinking water",
+      "ro water",
+      "ramkund",
+      "hydration",
+      "panchavati"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Water Supply Department"
+  },
+  {
+    "name": "Trimbakeshwar RO Water Station",
+    "category": "water_point",
+    "subcategory": "Pilgrim Drinking Water Dispenser",
+    "description": "High-volume chilled RO drinking water dispensing station situated adjacent to Kushavarta Kund offering free safe hydration for bathers.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.5322,
+        19.9327
+      ]
+    },
+    "address": {
+      "area": "Kushavarta Kund Entrance",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Push-Button Taps",
+      "Bottle Refill Section"
+    ],
+    "services": [
+      "Free Chilled Drinking Water"
+    ],
+    "tags": [
+      "water_point",
+      "drinking water",
+      "trimbakeshwar",
+      "kushavarta"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Nagar Parishad"
+  },
+  {
+    "name": "Sadhugram Help Center",
+    "category": "help_center",
+    "subcategory": "Kumbh Assistance & Lost Found Desk",
+    "description": "Administrative assistance post providing multilingual guidance, camp registration, and lost-and-found coordination for sadhus and pilgrims.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.81,
+        20.01
+      ]
+    },
+    "address": {
+      "area": "Sadhugram Sector 4, Tapovan Grounds",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 253 1077",
+    "openingHours": {
+      "open": "06:00",
+      "close": "23:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Public Address Loudspeakers",
+      "Lost & Found Computer Registry",
+      "First Aid Box"
+    ],
+    "services": [
+      "Multilingual Information",
+      "Akhara Coordination",
+      "Lost & Found Helpdesk",
+      "Emergency Public Address"
+    ],
+    "tags": [
+      "help_center",
+      "sadhugram",
+      "lost and found",
+      "information",
+      "tapovan",
+      "assistance"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik District Administration"
+  },
+  {
+    "name": "Trimbakeshwar Pilgrim Assistance & Lost Found",
+    "category": "help_center",
+    "subcategory": "Temple Helpdesk",
+    "description": "Official pilgrim facilitation counter located near Gate 1 offering lost-and-found tracking, pooja information, and wheelchair assistance.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.533,
+        19.9335
+      ]
+    },
+    "address": {
+      "area": "Main Gate 1, Trimbakeshwar Temple",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 300",
+    "openingHours": {
+      "open": "06:00",
+      "close": "22:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Wheelchair Desk",
+      "Public Announcement System"
+    ],
+    "services": [
+      "Lost Person Tracking",
+      "Darshan Pass Guidance",
+      "Senior Citizen Escort"
+    ],
+    "tags": [
+      "help_center",
+      "trimbakeshwar",
+      "lost and found",
+      "assistance",
+      "helpdesk"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Temple Trust"
+  },
+  {
+    "name": "MTDC Tourist Information Centre",
+    "category": "tourist_information",
+    "subcategory": "Official Tourism Guidance Office",
+    "description": "Official tourism guidance kiosk operated by MTDC providing maps, itinerary advice, approved guides, and information on regional forts and temples.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.783,
+        19.9935
+      ]
+    },
+    "address": {
+      "area": "Outside CBS Bus Stand, Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 0059",
+    "openingHours": {
+      "open": "09:30",
+      "close": "18:30"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Brochures & Maps",
+      "Computer Kiosk",
+      "Tourism Officers"
+    ],
+    "services": [
+      "Tourist Information",
+      "City Tour Booking",
+      "Fort Guide Registration"
+    ],
+    "tags": [
+      "tourist_information",
+      "mtdc",
+      "tourism office",
+      "cbs",
+      "travel info"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Maharashtra Tourism Development Corporation"
+  },
+  {
+    "name": "Nashik Municipal Corporation (Rajiv Gandhi Bhavan)",
+    "category": "government_facility",
+    "subcategory": "Municipal Headquarters",
+    "description": "Apex administrative headquarters of the Nashik Municipal Corporation coordinating civic infrastructure, sanitation, and water supply for Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.777,
+        19.999
+      ]
+    },
+    "address": {
+      "area": "Rajiv Gandhi Bhavan, Sharanpur Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 5631",
+    "openingHours": {
+      "open": "09:45",
+      "close": "18:15"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Civic Center",
+      "Meeting Chambers",
+      "Citizen Grievance Cell"
+    ],
+    "services": [
+      "Civic Administration",
+      "Kumbh Municipal Works Command"
+    ],
+    "tags": [
+      "government_facility",
+      "nmc",
+      "municipal corporation",
+      "civic",
+      "governance"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Nashik Municipal Corporation"
+  },
+  {
+    "name": "Nashik District Collectorate Office",
+    "category": "government_facility",
+    "subcategory": "District Administrative Headquarters",
+    "description": "Apex revenue, magisterial, and disaster management administration office for Nashik district, leading overall Simhastha Kumbh Mela governance.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.787,
+        19.999
+      ]
+    },
+    "address": {
+      "area": "Old Agra Road, Near Golf Club Ground",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 253 257 8500",
+    "openingHours": {
+      "open": "09:45",
+      "close": "18:15"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Magistrate Court",
+      "Disaster Control Room",
+      "Public Hall"
+    ],
+    "services": [
+      "District Administration",
+      "Kumbh Apex Coordination"
+    ],
+    "tags": [
+      "government_facility",
+      "collectorate",
+      "district administration",
+      "government"
+    ],
+    "importance": 5,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Collectorate Nashik"
+  },
+  {
+    "name": "Trimbakeshwar Municipal Council",
+    "category": "government_facility",
+    "subcategory": "Local Municipal Council (Nagar Parishad)",
+    "description": "Local government civic council governing Trimbakeshwar pilgrimage township and managing Kushavarta sanitation, street lighting, and parking.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.534,
+        19.935
+      ]
+    },
+    "address": {
+      "area": "Main Council Building, Trimbak",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "contact": "+91 2594 233 240",
+    "openingHours": {
+      "open": "09:45",
+      "close": "18:15"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Administrative Offices",
+      "Civic Helpdesk"
+    ],
+    "services": [
+      "Local Administration",
+      "Civic Sanitation Control"
+    ],
+    "tags": [
+      "government_facility",
+      "trimbakeshwar",
+      "nagar parishad",
+      "municipal council"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Nagar Parishad"
+  },
+  {
+    "name": "Tapovan Pilgrim Rest Sheds",
+    "category": "rest_area",
+    "subcategory": "Covered Pilgrim Rest Compound",
+    "description": "Extensive covered resting pavilions constructed by the administration in Tapovan equipped with wooden seating, fans, and mobile charging sockets for tired pilgrims.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.811,
+        20.0035
+      ]
+    },
+    "address": {
+      "area": "Tapovan Ring Road, Near Laxman Rekha",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Covered Tin Sheds",
+      "Benches",
+      "Water Cooler",
+      "Phone Charging Sockets"
+    ],
+    "services": [
+      "Day Rest",
+      "Night Transit Waiting"
+    ],
+    "tags": [
+      "rest_area",
+      "tapovan",
+      "pilgrim shelter",
+      "rest shed"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC Kumbh Works"
+  },
+  {
+    "name": "Trimbakeshwar Pilgrim Rest Shed",
+    "category": "rest_area",
+    "subcategory": "Covered Waiting Pavilions",
+    "description": "Large covered waiting sheds built along the entry bypass road to give visiting families shelter from rain and sun while awaiting queue turns.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.537,
+        19.936
+      ]
+    },
+    "address": {
+      "area": "Near Entry Parking Terminal",
+      "city": "Trimbakeshwar",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "00:00",
+      "close": "23:59"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Ceiling Fans",
+      "Concrete Benches",
+      "Drinking Water Tap"
+    ],
+    "services": [
+      "Free Public Rest Facility"
+    ],
+    "tags": [
+      "rest_area",
+      "trimbakeshwar",
+      "rest shed",
+      "shelter"
+    ],
+    "importance": 4,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "Trimbakeshwar Municipal Council"
+  },
+  {
+    "name": "Panchavati Community Cultural Hall",
+    "category": "other_public_facility",
+    "subcategory": "Public Community Hall",
+    "description": "Civic community hall used for public briefings, volunteer registrations, and cultural religious performances during Kumbh Mela.",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        73.795,
+        20.007
+      ]
+    },
+    "address": {
+      "area": "Panchavati Main Road",
+      "city": "Nashik",
+      "district": "Nashik",
+      "state": "Maharashtra"
+    },
+    "openingHours": {
+      "open": "08:00",
+      "close": "20:00"
+    },
+    "accessibility": {
+      "wheelchairAccessible": true,
+      "seniorFriendly": true
+    },
+    "facilities": [
+      "Stage",
+      "Public Seating",
+      "Restrooms"
+    ],
+    "services": [
+      "Community Gathering",
+      "Volunteer Center"
+    ],
+    "tags": [
+      "other_public_facility",
+      "community hall",
+      "panchavati",
+      "civic"
+    ],
+    "importance": 3,
+    "kumbhRelevant": true,
+    "verified": true,
+    "source": "NMC"
+  }
+]

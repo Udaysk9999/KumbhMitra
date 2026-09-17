@@ -1,138 +1,157 @@
-import { MOCK_PLACES, PLACE_CATEGORIES } from '../constants/mockPlaces.js';
+import { MOCK_PLACES } from '../constants/mockPlaces.js';
 import {
+  CATEGORY_DEFINITIONS,
+  FILTER_GROUPS,
   normalizePlace,
   searchPlaces as searchPlacesUtil,
   filterPlacesByCategory as filterPlacesUtil
 } from './placeUtils.js';
+import apiService from '../services/api.js';
 
 /**
  * Place Service Configuration
- * Set `useApi: true` (or import.meta.env.VITE_USE_API === 'true') when ready to connect to backend REST API.
+ * By default useApi is true to consume real backend endpoints.
  */
 export const placeServiceConfig = {
-  // Single configuration switch: defaults to false to guarantee offline / mock stability
-  useApi: import.meta.env?.VITE_USE_API === 'true' || false,
+  useApi: import.meta.env?.VITE_USE_API !== 'false',
   apiBaseUrl: import.meta.env?.VITE_API_BASE_URL || 'http://localhost:5000/api'
 };
 
-// Cache for normalized mock places
+// Cache for normalized mock places (fallback only if backend unavailable)
 const normalizedMockPlaces = MOCK_PLACES.map(normalizePlace);
 
 /**
  * Place Data Service
- * Provides a unified, normalized interface for fetching, searching, and filtering
- * places in Nashik and Trimbakeshwar.
+ * Provides a unified interface for fetching, searching, and filtering
+ * real database places across Nashik and Trimbakeshwar.
  */
 export const placeService = {
   /**
-   * Get all active categories
+   * Get all category filter groups
    */
   getCategories() {
-    return PLACE_CATEGORIES;
+    return FILTER_GROUPS;
   },
 
   /**
-   * Retrieve all places (from backend API if enabled, otherwise from normalized mock places)
-   *
-   * @param {object} [options]
-   * @param {boolean} [options.forceApi=false] - Force trying API call regardless of default switch
-   * @returns {Promise<{ places: Array, source: 'api' | 'mock', error: string | null }>}
+   * Retrieve all places from real backend API (with fallback if offline)
+   * Requests limit=500 to fetch all 130 database POIs.
    */
-  async getPlaces({ forceApi = false } = {}) {
+  async getPlaces({ category = '', search = '', limit = 500, forceApi = false } = {}) {
     const shouldFetchApi = forceApi || placeServiceConfig.useApi;
 
     if (shouldFetchApi) {
       try {
-        const response = await fetch(`${placeServiceConfig.apiBaseUrl}/places`, {
-          headers: { 'Accept': 'application/json' }
+        const json = await apiService.getPlaces({
+          category,
+          search,
+          limit
         });
 
-        if (!response.ok) {
-          throw new Error(`Places API responded with status ${response.status}`);
-        }
-
-        const json = await response.json();
         const rawPlaces = Array.isArray(json.data) ? json.data : (Array.isArray(json) ? json : []);
 
         if (rawPlaces.length > 0) {
           const normalizedApiPlaces = rawPlaces.map(normalizePlace).filter(Boolean);
           return {
             places: normalizedApiPlaces,
+            count: normalizedApiPlaces.length,
+            total: json.total || normalizedApiPlaces.length,
             source: 'api',
             error: null
           };
         }
       } catch (err) {
-        console.warn('[placeService] Backend API unavailable or failed. Falling back to verified mock data.', err.message);
+        console.warn('[placeService] Backend API unavailable or error. Using fallback dataset.', err.message);
         return {
           places: normalizedMockPlaces,
+          count: normalizedMockPlaces.length,
+          total: normalizedMockPlaces.length,
           source: 'mock',
           error: err.message
         };
       }
     }
 
-    // Default: use clean normalized mock dataset
+    // Fallback if offline
     return {
       places: normalizedMockPlaces,
+      count: normalizedMockPlaces.length,
+      total: normalizedMockPlaces.length,
       source: 'mock',
       error: null
     };
   },
 
   /**
-   * Synchronous getter returning normalized places directly for instant rendering
+   * Find places nearby given coordinates
+   */
+  async getNearbyPlaces({ lat, lng, radius = 5000, category = '' } = {}) {
+    try {
+      const json = await apiService.getNearbyPlaces({ lat, lng, radius, category });
+      const rawPlaces = Array.isArray(json.data) ? json.data : [];
+      const normalized = rawPlaces.map(normalizePlace).filter(Boolean);
+      return {
+        places: normalized,
+        count: normalized.length,
+        source: 'api',
+        error: null
+      };
+    } catch (err) {
+      console.warn('[placeService] Nearby API failed:', err.message);
+      return {
+        places: [],
+        count: 0,
+        source: 'mock',
+        error: err.message
+      };
+    }
+  },
+
+  /**
+   * Synchronous getter for initial render
    */
   getPlacesSync() {
     return normalizedMockPlaces;
   },
 
   /**
-   * Retrieve a single place by its identifier
-   *
-   * @param {string} id - Place ID
-   * @param {Array} [placesPool] - Optional local pool to search within
-   * @returns {Promise<object|null>}
+   * Retrieve a single place by ID
    */
   async getPlaceById(id, placesPool = null) {
     if (!id) return null;
 
-    // First search in local pool if provided
+    // Search in current in-memory pool first
     if (placesPool && Array.isArray(placesPool)) {
       const match = placesPool.find((p) => p.id === id || p._id === id);
       if (match) return normalizePlace(match);
     }
 
-    // Next search in mock dataset
-    const mockMatch = normalizedMockPlaces.find((p) => p.id === id);
-    if (mockMatch) return mockMatch;
-
-    // If API enabled, attempt to fetch from backend
+    // Fetch from backend
     if (placeServiceConfig.useApi) {
       try {
-        const res = await fetch(`${placeServiceConfig.apiBaseUrl}/places/${id}`);
-        if (res.ok) {
-          const json = await res.json();
-          const raw = json.data || json;
-          return normalizePlace(raw);
-        }
+        const json = await apiService.getPlaceById(id);
+        const raw = json.data || json;
+        if (raw) return normalizePlace(raw);
       } catch (err) {
-        console.warn(`[placeService] Failed to fetch place with ID ${id} from API:`, err.message);
+        console.warn(`[placeService] Failed to fetch place with ID ${id}:`, err.message);
       }
     }
+
+    const mockMatch = normalizedMockPlaces.find((p) => p.id === id);
+    if (mockMatch) return mockMatch;
 
     return null;
   },
 
   /**
-   * Search places using the normalized placeUtils engine
+   * Search places using the normalized search utility
    */
   searchPlaces(places, query) {
     return searchPlacesUtil(places, query);
   },
 
   /**
-   * Filter places by category using the normalized placeUtils engine
+   * Filter places by category
    */
   filterPlaces(places, categoryId) {
     return filterPlacesUtil(places, categoryId);

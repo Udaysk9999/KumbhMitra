@@ -33,6 +33,50 @@ const pointSchema = new mongoose.Schema(
 );
 
 /**
+ * Valid POI categories across Nashik & Trimbakeshwar for AI KumbhMitra
+ */
+export const VALID_CATEGORIES = [
+  'temple',
+  'ghat',
+  'kumbh_zone',
+  'akhada',
+  'ashram',
+  'dharamshala',
+  'bhakta_niwas',
+  'guest_house',
+  'hospital',
+  'medical',
+  'ambulance',
+  'blood_bank',
+  'pharmacy',
+  'police',
+  'fire_station',
+  'emergency',
+  'restaurant',
+  'hotel',
+  'transport',
+  'railway',
+  'bus_stand',
+  'parking',
+  'public_toilet',
+  'toilet', // alias for public_toilet
+  'water_point',
+  'help_center',
+  'tourist_spot',
+  'fort',
+  'cave',
+  'waterfall',
+  'museum',
+  'nature',
+  'viewpoint',
+  'government_facility',
+  'tourist_information',
+  'rest_area',
+  'other_public_facility',
+  'shop' // preserved for backward compatibility
+];
+
+/**
  * Place Schema
  * Represents points of interest (POIs) across Nashik and Trimbakeshwar for Kumbh Mela 2027.
  */
@@ -46,34 +90,25 @@ const placeSchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Place category is required'],
-      enum: [
-        'temple',
-        'ghat',
-        'tourist_spot',
-        'restaurant',
-        'hotel',
-        'hospital',
-        'parking',
-        'police',
-        'fire_station',
-        'transport',
-        'toilet',
-        'water_point',
-        'help_center',
-        'shop'
-      ]
+      lowercase: true,
+      trim: true,
+      enum: VALID_CATEGORIES
     },
-    location: {
-      type: pointSchema,
-      required: [true, 'GeoJSON location is required']
-    },
-    address: {
+    subcategory: {
       type: String,
       trim: true
     },
     description: {
       type: String,
       trim: true
+    },
+    location: {
+      type: pointSchema,
+      required: [true, 'GeoJSON location is required']
+    },
+    address: {
+      type: mongoose.Schema.Types.Mixed, // Supports structured { area, city, district, state } or formatted string
+      required: false
     },
     contact: {
       type: String,
@@ -99,12 +134,89 @@ const placeSchema = new mongoose.Schema(
         default: true
       }
     },
+    facilities: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
     services: [
       {
         type: String,
         trim: true
       }
-    ]
+    ],
+    tags: [
+      {
+        type: String,
+        trim: true,
+        lowercase: true
+      }
+    ],
+    importance: {
+      type: Number,
+      min: 1,
+      max: 5,
+      default: 3
+    },
+    kumbhRelevant: {
+      type: Boolean,
+      default: false
+    },
+    verified: {
+      type: Boolean,
+      default: true
+    },
+    source: {
+      type: String,
+      trim: true
+    },
+
+    // Category-specific fields
+    foodType: {
+      type: String,
+      trim: true
+    },
+    budget: {
+      type: String,
+      trim: true
+    },
+    emergency: {
+      type: Boolean,
+      default: false
+    },
+    twentyFourSeven: {
+      type: Boolean,
+      default: false
+    },
+    ICU: {
+      type: Boolean,
+      default: false
+    },
+    ambulance: {
+      type: Boolean,
+      default: false
+    },
+    bloodBank: {
+      type: Boolean,
+      default: false
+    },
+    capacity: {
+      type: Number
+    },
+    paid: {
+      type: Boolean
+    },
+    vehicleType: [
+      {
+        type: String,
+        trim: true
+      }
+    ],
+    shuttleAvailable: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true
@@ -114,8 +226,14 @@ const placeSchema = new mongoose.Schema(
 // Geospatial 2dsphere index for proximity/bounding box queries
 placeSchema.index({ location: '2dsphere' });
 
-// Compound text index for search across names and descriptions
-placeSchema.index({ name: 'text', description: 'text' });
+// Compound text index for search across names, descriptions, tags, and subcategory
+placeSchema.index({ name: 'text', description: 'text', tags: 'text', subcategory: 'text' });
+
+// Category index for filtering
+placeSchema.index({ category: 1 });
+
+// Kumbh relevance index
+placeSchema.index({ kumbhRelevant: 1 });
 
 const Place = mongoose.model('Place', placeSchema);
 

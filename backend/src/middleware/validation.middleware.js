@@ -1,23 +1,17 @@
 import mongoose from 'mongoose';
+import { VALID_CATEGORIES } from '../models/Place.js';
 
 /**
- * Valid POI Categories as defined in Place schema
+ * Valid POI Categories as defined in Place schema plus category groups
  */
 export const ALLOWED_CATEGORIES = [
-  'temple',
-  'ghat',
-  'tourist_spot',
-  'restaurant',
-  'hotel',
-  'hospital',
-  'parking',
-  'police',
-  'fire_station',
-  'transport',
-  'toilet',
-  'water_point',
-  'help_center',
-  'shop'
+  ...VALID_CATEGORIES,
+  'accommodation',
+  'railway_station',
+  'railway_stations',
+  'train_station',
+  'bus_station',
+  'drinking_water'
 ];
 
 /**
