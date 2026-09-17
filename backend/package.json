@@ -8,7 +8,7 @@
     "dev": "nodemon src/server.js",
     "start": "node src/server.js",
     "seed": "node data/seed.js",
-    "test": "node test-places-api.js && node test-routing-api.js"
+    "test": "node test-places-api.js && node test-routing-api.js && node test-ai-api.js"
   },
   "keywords": [
     "kumbh-mela",
