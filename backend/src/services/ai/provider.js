@@ -1,11 +1,13 @@
 /**
- * AI Provider Abstraction Layer for AI KumbhMitra
+ * AI Provider Abstraction Layer for Ask Mitra (AI KumbhMitra)
  *
- * Provides structured intent extraction and response generation with Google Gemini integration
- * and a deterministic RuleBasedAIProvider fallback.
+ * Provides structured intent extraction and response generation with Google Gemini integration,
+ * OpenAI integration, and a deterministic RuleBasedAIProvider.
  *
  * Strictly scoped to Nashik and Trimbakeshwar, Maharashtra, India.
  */
+import { buildGeminiPrompt } from './systemPrompt.js';
+import { OpenAIAIProvider } from './openaiProvider.js';
 
 /**
  * Common out-of-scope geographic locations outside Nashik and Trimbakeshwar
@@ -180,6 +182,12 @@ export class RuleBasedAIProvider extends AIProvider {
     if (lower.includes('panchavati')) {
       return knownPlaces.find((p) => p.name === 'Ram Kund Ghat') || knownPlaces.find((p) => p.name.includes('Panchavati'));
     }
+    if (lower.includes('muktidham')) {
+      return knownPlaces.find((p) => p.name.includes('Muktidham'));
+    }
+    if (lower.includes('pandavleni')) {
+      return knownPlaces.find((p) => p.name.includes('Pandavleni'));
+    }
     if (lower.includes('nashik road')) {
       return knownPlaces.find((p) => p.name.includes('Nashik Road Railway'));
     }
@@ -204,7 +212,6 @@ export class RuleBasedAIProvider extends AIProvider {
       cleanText = cleanText.replace(excludeText.toLowerCase(), '');
     }
 
-    // Order matters: check more specific multi-word categories first
     for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
       for (const kw of keywords) {
         const escaped = kw.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
@@ -217,7 +224,7 @@ export class RuleBasedAIProvider extends AIProvider {
     return null;
   }
 
-  async extractIntent(message, knownPlaces = []) {
+  async extractIntent(message, knownPlaces = [], context = {}) {
     const text = message.trim();
     const lower = text.toLowerCase();
 
@@ -249,13 +256,25 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // 3. Route Intent
+    // 3. Itinerary Intent
+    if (/\b(?:itinerary|plan|trip|one[- ]day|two[- ]day|1[- ]day|2[- ]day|day plan|tour)\b/i.test(text)) {
+      return {
+        intent: 'itinerary',
+        category: null,
+        placeName: null,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
+      };
+    }
+
+    // 4. Route Intent
     const isRoutePrompt =
-      /\b(?:routes?|directions?|navigate|navigation|how\s+to\s+go|drive)\b/i.test(text) ||
+      /\b(?:routes?|directions?|navigate|navigation|how\s+(?:do\s+i|to)\s+get|how\s+to\s+go|drive)\b/i.test(text) ||
       (/\b(?:walk|foot)\b/i.test(text) && /\b(?:to|from)\b/i.test(text)) ||
       (/\bway\b/i.test(text) && !/\b(?:railway|railways|subway|highway)\b/i.test(text));
     if (isRoutePrompt) {
-      // Check for "from X to Y"
       const fromToMatch = text.match(/(?:from)\s+([^,]+?)\s+(?:to|towards)\s+([^,?.!]+)/i);
       if (fromToMatch) {
         return {
@@ -270,7 +289,6 @@ export class RuleBasedAIProvider extends AIProvider {
         };
       }
 
-      // Check for "route from X" (missing destination)
       const fromMatch = text.match(/(?:from)\s+([^,?.!]+)/i);
       if (fromMatch && !/(?:to|towards)\s+/i.test(text)) {
         return {
@@ -285,7 +303,6 @@ export class RuleBasedAIProvider extends AIProvider {
         };
       }
 
-      // Check for "route to Y" (missing origin)
       const toMatch = text.match(/(?:to|towards)\s+([^,?.!]+)/i);
       if (toMatch && !/(?:from)\s+/i.test(text)) {
         return {
@@ -300,7 +317,6 @@ export class RuleBasedAIProvider extends AIProvider {
         };
       }
 
-      // Route with generic query
       return {
         intent: 'route',
         category: null,
@@ -312,13 +328,17 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // 4. Nearby Intent
+    // 5. Nearby Intent
     const isNearbyPrompt = /(?:near|around|close\s+to|nearby)\b/i.test(text);
     if (isNearbyPrompt) {
       const anchorMatch = text.match(/(?:near|around|close\s+to|nearby)\s+([^,?.!]+)/i);
       let anchorName = anchorMatch ? anchorMatch[1].trim() : null;
 
-      // If anchorName is general "nashik", treat as search_places (e.g. "forts near Nashik")
+      // Check if user refers to "here" with selectedLocation
+      if ((!anchorName || anchorName.toLowerCase() === 'here') && context.selectedLocation) {
+        anchorName = context.selectedLocation;
+      }
+
       if (anchorName && ['nashik', 'nashik city', 'the city'].includes(anchorName.toLowerCase())) {
         const category = this.detectCategory(text, anchorName);
         if (category) {
@@ -348,7 +368,20 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // 5. Place Info Intent
+    // 6. Place Info Intent
+    // Handle "What can I see here?" / "Tell me about this place" using context.selectedLocation
+    if ((/\b(?:here|this place)\b/i.test(text)) && context.selectedLocation) {
+      return {
+        intent: 'place_info',
+        category: null,
+        placeName: context.selectedLocation,
+        origin: null,
+        destination: null,
+        radius: 5000,
+        query: text
+      };
+    }
+
     const infoMatch = text.match(/(?:tell\s+me\s+about|information\s+(?:on|about)|info\s+(?:on|about)|details\s+(?:of|about|on)|what\s+is|where\s+is|when\s+does)\s+([^,?.!]+)/i);
     if (infoMatch) {
       const targetQuery = infoMatch[1].trim();
@@ -364,7 +397,7 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // Direct place name match without category keywords
+    // Direct place name match
     const directPlace = this.findPlaceMatch(text, knownPlaces);
     if (directPlace && !this.detectCategory(text, directPlace.name)) {
       return {
@@ -378,7 +411,7 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // 6. Search Places Intent
+    // 7. Search Places Intent
     const detectedCategory = this.detectCategory(text);
     if (detectedCategory) {
       return {
@@ -392,7 +425,7 @@ export class RuleBasedAIProvider extends AIProvider {
       };
     }
 
-    // 7. General Question or Unsupported
+    // 8. General Question
     return {
       intent: 'general_question',
       category: null,
@@ -404,34 +437,70 @@ export class RuleBasedAIProvider extends AIProvider {
     };
   }
 
-  async generateResponse({ message, intent, context = {} }) {
+  async generateResponse({ message, intent, context = {}, projectData = null, routeData = null }) {
     switch (intent) {
+      case 'itinerary': {
+        const places = Array.isArray(projectData) ? projectData : (context.places || []);
+        const p1 = places[0]?.name || 'Ram Kund Ghat';
+        const p2 = places[1]?.name || 'Kalaram Temple';
+        const p3 = places[2]?.name || 'Muktidham Temple';
+        const p4 = places[3]?.name || 'Godavari Riverbank Aarti';
+
+        return `Namaste! Here is a suggested one-day Nashik pilgrimage and heritage itinerary:
+
+Morning
+• Location: ${p1} (Panchavati)
+• Suggested duration: 1 to 1.5 hours
+• Why visit: Sacred bathing ghat on Godavari River; key Kumbh Mela Shahi Snan destination with rich spiritual history.
+
+Afternoon
+• Location: ${p2} & Sita Gufa
+• Suggested duration: 1.5 to 2 hours
+• Why visit: Historic black-stone temple dedicated to Lord Rama, followed by the nearby Sita Gufa associated with Ramayana exile.
+
+Evening
+• Location: ${p3} & ${p4}
+• Suggested duration: 1 to 1.5 hours
+• Why visit: Experience the peaceful evening atmosphere and participate in the sacred Godavari Aarti.
+
+Tip: Travel early to avoid crowds. Exact timings may vary during peak Kumbh dates; please verify local announcements with on-ground authorities.`;
+      }
+
       case 'route': {
-        const { route, originPlace, destPlace, mode } = context;
-        if (!route) {
+        const route = routeData || context.route;
+        const originPlace = context.originPlace;
+        const destPlace = context.destPlace;
+        const mode = context.mode || 'driving';
+
+        if (!route || !originPlace || !destPlace) {
           return `I could not calculate a route for your request. Please ensure both locations are verified sites in Nashik or Trimbakeshwar.`;
         }
         const modeLabel = mode === 'foot' ? 'walking' : 'driving';
-        return `The estimated ${modeLabel} distance from ${originPlace.name} to ${destPlace.name} is ${route.distanceKm} km (approx. ${route.durationMins} minutes). Turn-by-turn route steps are provided below.`;
+        return `The estimated ${modeLabel} distance from ${originPlace.name} to ${destPlace.name} is ${route.distanceKm} km (approx. ${route.durationMins} minutes). Take the Trimbak Road / NH-848 for direct connectivity. Turn-by-turn route steps are displayed on your map.`;
       }
 
       case 'nearby_places': {
-        const { places, anchorPlace, category } = context;
+        const places = Array.isArray(projectData) ? projectData : (context.places || []);
+        const anchorPlace = context.anchorPlace;
+        const category = context.category;
+
         if (!anchorPlace) {
-          return `I could not find the reference location in Nashik or Trimbakeshwar to search nearby places.`;
+          return `Please specify a reference location in Nashik or Trimbakeshwar to find nearby places.`;
         }
         if (!places || places.length === 0) {
           return `No verified ${category ? category.replace('_', ' ') + ' ' : ''}places were found within 5 km of ${anchorPlace.name} in Nashik/Trimbakeshwar.`;
         }
         const categoryNote = category ? ` (${category.replace('_', ' ')})` : '';
         const names = places.slice(0, 5).map((p) => p.name).join(', ');
-        return `Here are places${categoryNote} near ${anchorPlace.name}: ${names}.`;
+        return `Here are verified locations${categoryNote} near ${anchorPlace.name}: ${names}. You can select any place to view its location on the map.`;
       }
 
       case 'place_info': {
-        const { place, placeName } = context;
+        const place = projectData || context.place;
+        const placeName = context.placeName || (place ? place.name : 'that location');
+
         if (!place) {
-          return `I do not have verified information for '${placeName || 'that location'}'. AI KumbhMitra only provides verified information for places in Nashik and Trimbakeshwar.`;
+          return `I do not have verified information for '${placeName}'. AI KumbhMitra only provides verified information for places in Nashik and Trimbakeshwar.`;
         }
         const hours = place.openingHours?.open && place.openingHours?.close
           ? `Opening hours: ${place.openingHours.open} - ${place.openingHours.close}.`
@@ -441,20 +510,22 @@ export class RuleBasedAIProvider extends AIProvider {
           : (place.address || '');
         const address = addressStr ? `Address: ${addressStr}.` : '';
         const services = place.services?.length ? `Key services: ${place.services.join(', ')}.` : '';
-        return `${place.name} (${place.category.toUpperCase()}) located in Nashik/Trimbakeshwar. ${place.description || ''} ${address} ${hours} ${services}`.trim();
+        return `${place.name} (${(place.category || 'POI').toUpperCase()}) located in Nashik/Trimbakeshwar. ${place.description || ''} ${address} ${hours} ${services}`.trim();
       }
 
       case 'search_places': {
-        const { places, category } = context;
+        const places = Array.isArray(projectData) ? projectData : (context.places || []);
+        const category = context.category;
+
         if (!places || places.length === 0) {
           return `No verified ${category ? category.replace('_', ' ') : 'matching'} locations found in Nashik or Trimbakeshwar matching your request.`;
         }
-        const names = places.slice(0, 10).map((p) => p.name).join(', ');
+        const names = places.slice(0, 8).map((p) => p.name).join(', ');
         return `Found ${places.length} verified ${category ? category.replace('_', ' ') : 'matching'} location(s) in Nashik and Trimbakeshwar: ${names}.`;
       }
 
       case 'unsupported': {
-        const { reason } = context;
+        const reason = context.reason;
         if (reason === 'fabrication_request') {
           return `I cannot invent or fabricate places. AI KumbhMitra strictly provides verified, factual data for pilgrimage sites and services in Nashik and Trimbakeshwar from our official database.`;
         }
@@ -463,12 +534,16 @@ export class RuleBasedAIProvider extends AIProvider {
 
       case 'general_question':
       default: {
-        const { places } = context;
-        if (!places || places.length === 0) {
-          return `I could not find any verified locations matching your query in Nashik or Trimbakeshwar. AI KumbhMitra strictly covers verified pilgrimage locations and services in the Nashik and Trimbakeshwar region.`;
+        const lowerMsg = (message || '').toLowerCase();
+        if (lowerMsg.includes('hello') || lowerMsg.includes('namaste') || lowerMsg.includes('hi mitra')) {
+          return `Namaste! I am Mitra, your digital guide for Kumbh Mitra. I can help you discover holy temples, sacred bathing ghats, routes between pilgrimage spots, and plan itineraries across Nashik and Trimbakeshwar. How may I assist your visit today?`;
         }
-        const names = places.map((p) => p.name).join(', ');
-        return `Found ${places.length} matching place(s) in Nashik and Trimbakeshwar: ${names}.`;
+        const places = Array.isArray(projectData) ? projectData : (context.places || []);
+        if (places.length > 0) {
+          const names = places.slice(0, 6).map((p) => p.name).join(', ');
+          return `Here are relevant places in Nashik and Trimbakeshwar matching your query: ${names}.`;
+        }
+        return `Namaste! As your Kumbh Mitra guide, I can assist you with information about temples, ghats, routes, and itineraries across Nashik and Trimbakeshwar. Please let me know what you would like to explore!`;
       }
     }
   }
@@ -476,162 +551,70 @@ export class RuleBasedAIProvider extends AIProvider {
 
 /**
  * Gemini AI Provider
- * Connects to Google Gemini API when GEMINI_API_KEY is configured.
+ * Connects directly to Google Gemini REST API using GEMINI_API_KEY.
+ * Never falls back silently to rule-based when configured as gemini.
  */
 export class GeminiAIProvider extends RuleBasedAIProvider {
   constructor(apiKey) {
     super();
-    this.apiKey = apiKey;
-    this.modelName = process.env.GEMINI_MODEL || 'gemini-1.5-flash';
-  }
-
-  async extractIntent(message, knownPlaces = []) {
-    // Check first for explicit fabrication or out-of-scope attacks for fast rejection
-    if (this.isFabricationRequest(message)) {
-      return {
-        intent: 'unsupported',
-        category: null,
-        placeName: null,
-        origin: null,
-        destination: null,
-        radius: 5000,
-        query: message,
-        reason: 'fabrication_request'
-      };
+    if (!apiKey || !apiKey.trim()) {
+      throw new Error('Gemini API key is not configured');
     }
-
-    if (this.isOutOfScope(message)) {
-      return {
-        intent: 'unsupported',
-        category: null,
-        placeName: null,
-        origin: null,
-        destination: null,
-        radius: 5000,
-        query: message,
-        reason: 'out_of_scope'
-      };
-    }
-
-    try {
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
-      const prompt = `You are the NLU intent extractor for AI KumbhMitra (Nashik & Trimbakeshwar only).
-Extract the user intent and entities. Supported intents:
-- "search_places": finding places by category or keywords (e.g. temples, hospitals, parking)
-- "nearby_places": finding places near a specific reference place (e.g. near Ram Kund)
-- "place_info": asking about a specific place (e.g. tell me about Kalaram Temple)
-- "route": asking for directions/route between two places (e.g. route from X to Y)
-- "general_question": general inquiry about Kumbh Mela in Nashik/Trimbakeshwar
-- "unsupported": asking to invent/fabricate data, or asking about locations outside Nashik/Trimbakeshwar
-
-Known places in Nashik/Trimbakeshwar: ${knownPlaces.map((p) => p.name).join(', ')}.
-
-Respond ONLY with valid JSON in this exact structure without markdown or backticks:
-{
-  "intent": "search_places" | "nearby_places" | "place_info" | "route" | "general_question" | "unsupported",
-  "category": string or null,
-  "placeName": string or null,
-  "origin": string or null,
-  "destination": string or null,
-  "radius": 5000,
-  "query": string
-}
-
-User Message: "${message}"`;
-
-      const payload = {
-        contents: [{ role: 'user', parts: [{ text: prompt }] }],
-        generationConfig: {
-          temperature: 0.1,
-          responseMimeType: 'application/json'
-        }
-      };
-
-      const response = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) {
-        throw new Error(`Gemini API error: ${response.status}`);
-      }
-
-      const data = await response.json();
-      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (rawText) {
-        const cleaned = rawText.replace(/```json|```/g, '').trim();
-        const parsed = JSON.parse(cleaned);
-        if (parsed && parsed.intent) {
-          return {
-            intent: parsed.intent,
-            category: parsed.category || null,
-            placeName: parsed.placeName || null,
-            origin: parsed.origin || null,
-            destination: parsed.destination || null,
-            radius: parsed.radius || 5000,
-            query: parsed.query || message
-          };
-        }
-      }
-
-      return super.extractIntent(message, knownPlaces);
-    } catch (err) {
-      // Fallback to rule-based parser on any Gemini error or quota limit
-      return super.extractIntent(message, knownPlaces);
-    }
+    this.apiKey = apiKey.trim();
+    // Use gemini-3.6-flash or gemini-flash-latest for standard generation
+    this.modelName = process.env.GEMINI_MODEL || 'gemini-3.6-flash';
   }
 
   async generateResponse(params) {
-    try {
-      const { message, intent, context = {} } = params;
-      const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
+    const { message, intent, context = {}, projectData = null, routeData = null } = params;
+    const prompt = buildGeminiPrompt({ message, context, projectData, routeData });
 
-      const systemPrompt = `You are AI KumbhMitra, a verified pilgrimage assistant for Kumbh Mela 2027 in Nashik and Trimbakeshwar, Maharashtra, India.
-CRITICAL SAFETY & GROUNDING RULES:
-1. Treat database/API context as authoritative.
-2. NEVER invent, hallucinate, or fabricate places, coordinates, opening hours, or routes.
-3. If information does not exist in context, explicitly inform the user that it is unavailable in our Nashik & Trimbakeshwar database.
-4. If the user asks you to invent or make up a place, politely decline.
-Context: ${JSON.stringify(context)}
-Intent: ${intent}`;
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${this.modelName}:generateContent?key=${this.apiKey}`;
 
-      const payload = {
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              { text: `${systemPrompt}\n\nUser Question: ${message}\n\nPlease respond concisely and factually:` }
-            ]
-          }
-        ],
-        generationConfig: {
-          temperature: 0.2,
-          maxOutputTokens: 250
+    const payload = {
+      contents: [
+        {
+          role: 'user',
+          parts: [{ text: prompt }]
         }
-      };
+      ],
+      generationConfig: {
+        temperature: 0.3,
+        maxOutputTokens: 1024
+      }
+    };
 
-      const response = await fetch(url, {
+    let response;
+    try {
+      response = await fetch(url, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-
-      if (!response.ok) {
-        throw new Error(`Gemini API returned status ${response.status}`);
-      }
-
-      const data = await response.json();
-      const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-
-      if (generatedText && generatedText.trim()) {
-        return generatedText.trim();
-      }
-
-      return super.generateResponse(params);
-    } catch (error) {
-      return super.generateResponse(params);
+    } catch (networkErr) {
+      throw new Error(`Gemini network connection failed: ${networkErr.message}`);
     }
+
+    if (!response.ok) {
+      const errJson = await response.json().catch(() => ({}));
+      const errMsg = errJson?.error?.message || `Gemini API returned status ${response.status}`;
+      if (response.status === 400 || response.status === 401 || response.status === 403) {
+        throw new Error(`Gemini authentication or configuration error: ${errMsg}`);
+      }
+      if (response.status === 429) {
+        throw new Error(`Gemini rate limit exceeded. Please try again shortly.`);
+      }
+      throw new Error(`Gemini request failed: ${errMsg}`);
+    }
+
+    const data = await response.json();
+    const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!generatedText || !generatedText.trim()) {
+      throw new Error('Gemini returned an empty response.');
+    }
+
+    return generatedText.trim();
   }
 }
 
@@ -639,18 +622,100 @@ Intent: ${intent}`;
  * Factory to get active AI provider based on environment configuration
  */
 export const getAIProvider = () => {
-  const geminiKey = process.env.GEMINI_API_KEY || process.env.AI_API_KEY;
+  const provider = (process.env.AI_PROVIDER || 'gemini').toLowerCase().trim();
 
-  if (geminiKey && geminiKey.trim()) {
-    return new GeminiAIProvider(geminiKey.trim());
+  if (provider === 'gemini') {
+    const geminiKey = process.env.GEMINI_API_KEY || process.env.AI_API_KEY;
+    if (!geminiKey || !geminiKey.trim()) {
+      throw new Error('Gemini API key is not configured');
+    }
+    return {
+      provider: 'gemini',
+      instance: new GeminiAIProvider(geminiKey.trim())
+    };
   }
 
-  return new RuleBasedAIProvider();
+  if (provider === 'openai') {
+    const openaiKey = process.env.OPENAI_API_KEY || process.env.AI_API_KEY;
+    if (!openaiKey || !openaiKey.trim()) {
+      throw new Error('OpenAI API key is not configured');
+    }
+    return {
+      provider: 'openai',
+      instance: new OpenAIAIProvider(openaiKey.trim())
+    };
+  }
+
+  if (provider === 'rule_based') {
+    return {
+      provider: 'rule_based',
+      instance: new RuleBasedAIProvider()
+    };
+  }
+
+  throw new Error(`Unsupported AI_PROVIDER: '${provider}'. Must be 'gemini', 'openai', or 'rule_based'.`);
+};
+
+/**
+ * Diagnostic health check for AI service
+ */
+export const getAIHealth = () => {
+  const provider = (process.env.AI_PROVIDER || 'gemini').toLowerCase().trim();
+
+  if (provider === 'gemini') {
+    const hasKey = Boolean((process.env.GEMINI_API_KEY || process.env.AI_API_KEY)?.trim());
+    if (!hasKey) {
+      return {
+        success: false,
+        provider: 'gemini',
+        configured: false,
+        error: 'Gemini API key is not configured'
+      };
+    }
+    return {
+      success: true,
+      provider: 'gemini',
+      configured: true
+    };
+  }
+
+  if (provider === 'openai') {
+    const hasKey = Boolean((process.env.OPENAI_API_KEY || process.env.AI_API_KEY)?.trim());
+    if (!hasKey) {
+      return {
+        success: false,
+        provider: 'openai',
+        configured: false,
+        error: 'OpenAI API key is not configured'
+      };
+    }
+    return {
+      success: true,
+      provider: 'openai',
+      configured: true
+    };
+  }
+
+  if (provider === 'rule_based') {
+    return {
+      success: true,
+      provider: 'rule_based',
+      configured: true
+    };
+  }
+
+  return {
+    success: false,
+    provider,
+    configured: false,
+    error: `Unsupported AI provider: ${provider}`
+  };
 };
 
 export default {
   AIProvider,
   RuleBasedAIProvider,
   GeminiAIProvider,
-  getAIProvider
+  getAIProvider,
+  getAIHealth
 };

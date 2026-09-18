@@ -44,16 +44,18 @@ const extractSpecificSearchTerm = (query, category) => {
 };
 
 /**
- * Process user natural language chat message and return factual information strictly
- * scoped to Nashik and Trimbakeshwar.
+ * Process user natural language chat message with project database context
+ * and return factual information strictly scoped to Nashik and Trimbakeshwar.
  *
  * @param {string} message - User query message
- * @returns {Promise<{ reply: string, places: Array, route: object|null }>}
+ * @param {object} context - Active client context (e.g. selectedLocation, language, itinerary)
+ * @returns {Promise<{ reply: string, provider: string, places: Array, route: object|null }>}
  */
-export const processUserMessage = async (message) => {
+export const processUserMessage = async (message, context = {}) => {
   if (!message || typeof message !== 'string' || !message.trim()) {
     return {
       reply: 'Please ask a question about pilgrimage sites, facilities, or routes in Nashik and Trimbakeshwar.',
+      provider: process.env.AI_PROVIDER || 'gemini',
       places: [],
       route: null
     };
@@ -64,8 +66,11 @@ export const processUserMessage = async (message) => {
   // Retrieve all known places in DB for authoritative entity matching
   const allPlaces = await Place.find({}).lean();
 
-  const provider = getAIProvider();
-  const extraction = await provider.extractIntent(trimmedMessage, allPlaces);
+  const providerObj = getAIProvider();
+  const provider = providerObj.instance;
+  const providerName = providerObj.provider;
+
+  const extraction = await provider.extractIntent(trimmedMessage, allPlaces, context);
   const { intent, category, placeName, origin, destination, radius = 5000, query, mode = 'driving', reason } = extraction;
 
   let reply = '';
@@ -79,7 +84,30 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'unsupported',
-        context: { reason, query }
+        context: { ...context, reason, query }
+      });
+      break;
+    }
+
+    case 'itinerary': {
+      // Retrieve key pilgrimage and heritage places to ground the itinerary
+      const itineraryPlaces = await Place.find({
+        $or: [
+          { kumbhRelevant: true },
+          { category: { $in: ['temple', 'ghat', 'tourist_spot', 'cave'] } }
+        ]
+      })
+        .sort({ importance: -1 })
+        .limit(10)
+        .lean();
+
+      resultPlaces = itineraryPlaces.slice(0, 5);
+
+      reply = await provider.generateResponse({
+        message: trimmedMessage,
+        intent: 'itinerary',
+        context,
+        projectData: itineraryPlaces
       });
       break;
     }
@@ -147,7 +175,9 @@ export const processUserMessage = async (message) => {
         reply = await provider.generateResponse({
           message: trimmedMessage,
           intent: 'route',
-          context: { route, originPlace, destPlace, mode }
+          context: { ...context, route, originPlace, destPlace, mode },
+          routeData: resultRoute,
+          projectData: [originPlace, destPlace]
         });
       } catch (err) {
         reply = `Failed to calculate route between ${originPlace.name} and ${destPlace.name}: ${err.message}`;
@@ -179,7 +209,8 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'nearby_places',
-        context: { places: nearbyPlaces, anchorPlace, category }
+        context: { ...context, places: nearbyPlaces, anchorPlace, category },
+        projectData: nearbyPlaces
       });
       break;
     }
@@ -202,13 +233,13 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'place_info',
-        context: { place, placeName: place.name }
+        context: { ...context, place, placeName: place.name },
+        projectData: place
       });
       break;
     }
 
     case 'search_places': {
-      // Ensure category is detected if missed
       const effectiveCategory = category || provider.detectCategory(trimmedMessage);
       const searchFilter = extractSpecificSearchTerm(query || trimmedMessage, effectiveCategory);
 
@@ -218,7 +249,6 @@ export const processUserMessage = async (message) => {
         limit: 20
       });
 
-      // If specific searchFilter returned 0 but effectiveCategory has places, fallback to category places
       if ((!places || places.length === 0) && effectiveCategory) {
         const fallback = await fetchAllPlaces({
           category: effectiveCategory,
@@ -232,7 +262,8 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'search_places',
-        context: { places, category: effectiveCategory }
+        context: { ...context, places, category: effectiveCategory },
+        projectData: places.slice(0, 10)
       });
       break;
     }
@@ -254,7 +285,8 @@ export const processUserMessage = async (message) => {
       reply = await provider.generateResponse({
         message: trimmedMessage,
         intent: 'general_question',
-        context: { places }
+        context: { ...context, places },
+        projectData: places.slice(0, 8)
       });
       break;
     }
@@ -262,6 +294,7 @@ export const processUserMessage = async (message) => {
 
   return {
     reply,
+    provider: providerName,
     places: resultPlaces,
     route: resultRoute
   };

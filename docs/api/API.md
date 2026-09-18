@@ -355,3 +355,185 @@ curl -X POST http://localhost:5000/api/routes \
   "error": "OSRM routing request timed out after 12 seconds"
 }
 ```
+
+---
+
+### 2.6 Itinerary Planner
+
+Generates a multi-day itinerary across selected Nashik and Trimbakeshwar points of interest using spatial clustering and nearest-neighbor route ordering, with real-road OSRM distances and durations.
+
+- **Method**: `POST`
+- **URL**: `/api/itinerary`
+- **Headers**: `Content-Type: application/json`
+
+#### Parameters:
+
+| Field | Type | Required | Constraints | Description |
+| :--- | :--- | :---: | :--- | :--- |
+| `days` | `number` | No | Integer $1 \le \text{days} \le 7$, $\text{days} \le \text{placeIds.length}$ | Number of itinerary days (default: 1) |
+| `placeIds` | `string[]` | Yes | Non-empty array of valid 24-character hexadecimal MongoDB ObjectIds | Unique place IDs to include in the itinerary |
+| `startLocation` | `object` | No | `{ latitude: Number, longitude: Number }` | Optional starting coordinates |
+
+#### Example Request:
+```bash
+curl -X POST http://localhost:5000/api/itinerary \
+  -H "Content-Type: application/json" \
+  -d '{
+    "days": 2,
+    "placeIds": [
+      "6aac2a46ec17e8ecf98834b8",
+      "6aac2a46ec17e8ecf98834b9",
+      "6aac2a46ec17e8ecf98834c3",
+      "6aac2a46ec17e8ecf98834c4"
+    ],
+    "startLocation": {
+      "latitude": 20.0059,
+      "longitude": 73.7904
+    }
+  }'
+```
+
+#### Example Success Response (`200 OK`):
+```json
+{
+  "success": true,
+  "count": 2,
+  "data": {
+    "days": [
+      {
+        "day": 1,
+        "places": [
+          {
+            "order": 1,
+            "place": {
+              "_id": "6aac2a46ec17e8ecf98834b8",
+              "name": "Ram Kund Ghat",
+              "category": "ghat",
+              "subcategory": "Sacred Ghat",
+              "description": "The central holy bathing ghat on the banks of Godavari...",
+              "location": {
+                "type": "Point",
+                "coordinates": [73.7904, 20.0059]
+              },
+              "address": { "city": "Nashik", "area": "Panchavati" },
+              "importance": 5
+            },
+            "visitDuration": 60,
+            "travelFromPrevious": {
+              "distance": 0,
+              "duration": 0
+            }
+          },
+          {
+            "order": 2,
+            "place": {
+              "_id": "6aac2a46ec17e8ecf98834b9",
+              "name": "Kalaram Temple",
+              "category": "temple",
+              "subcategory": "Ancient Temple",
+              "description": "Historic black stone temple dedicated to Lord Rama...",
+              "location": {
+                "type": "Point",
+                "coordinates": [73.7938, 20.0067]
+              },
+              "address": { "city": "Nashik", "area": "Panchavati" },
+              "importance": 5
+            },
+            "visitDuration": 45,
+            "travelFromPrevious": {
+              "distance": 0.8,
+              "duration": 3
+            }
+          }
+        ],
+        "totalTravelDistance": 0.8,
+        "totalTravelDuration": 3,
+        "totalVisitDuration": 105
+      },
+      {
+        "day": 2,
+        "places": [
+          {
+            "order": 1,
+            "place": {
+              "_id": "6aac2a46ec17e8ecf98834c4",
+              "name": "Kushavarta Kund",
+              "category": "ghat",
+              "subcategory": "Sacred Water Tank",
+              "location": {
+                "type": "Point",
+                "coordinates": [73.5305, 19.9328]
+              },
+              "importance": 5
+            },
+            "visitDuration": 60,
+            "travelFromPrevious": {
+              "distance": 29.8,
+              "duration": 26
+            }
+          },
+          {
+            "order": 2,
+            "place": {
+              "_id": "6aac2a46ec17e8ecf98834c3",
+              "name": "Trimbakeshwar Jyotirlinga Temple",
+              "category": "temple",
+              "subcategory": "Jyotirlinga",
+              "location": {
+                "type": "Point",
+                "coordinates": [73.5308, 19.9325]
+              },
+              "importance": 5
+            },
+            "visitDuration": 45,
+            "travelFromPrevious": {
+              "distance": 0.4,
+              "duration": 2
+            }
+          }
+        ],
+        "totalTravelDistance": 30.2,
+        "totalTravelDuration": 28,
+        "totalVisitDuration": 105
+      }
+    ],
+    "summary": {
+      "totalDays": 2,
+      "totalPlaces": 4,
+      "totalDistanceKm": 31.0,
+      "totalTravelDurationMins": 31
+    }
+  }
+}
+```
+
+#### Example Error Responses:
+- **`400 Bad Request`** (Empty or invalid place list):
+```json
+{
+  "success": false,
+  "error": "Field 'placeIds' cannot be empty. Please select at least one place."
+}
+```
+- **`400 Bad Request`** (Invalid ObjectId):
+```json
+{
+  "success": false,
+  "error": "Invalid place ID format at index 0: 'xyz123'. Must be a 24-character hexadecimal string."
+}
+```
+- **`400 Bad Request`** (Duplicate place IDs):
+```json
+{
+  "success": false,
+  "error": "Duplicate place IDs detected in 'placeIds'. Each place can only be selected once."
+}
+```
+- **`400 Bad Request`** (Days exceeds selected places count):
+```json
+{
+  "success": false,
+  "error": "Field 'days' (3) cannot exceed the number of selected places (2)."
+}
+```
+
