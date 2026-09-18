@@ -51,7 +51,8 @@ export const apiService = {
     });
 
     if (!response.ok) {
-      throw new Error(`Places API responded with status ${response.status}`);
+      const errJson = await response.json().catch(() => ({}));
+      throw new Error(errJson.error || errJson.message || `Places API responded with status ${response.status}`);
     }
 
     return await response.json();
@@ -67,7 +68,8 @@ export const apiService = {
     });
 
     if (!response.ok) {
-      throw new Error(`Place lookup failed with status ${response.status}`);
+      const errJson = await response.json().catch(() => ({}));
+      throw new Error(errJson.error || errJson.message || `Place lookup failed with status ${response.status}`);
     }
 
     return await response.json();
@@ -104,7 +106,8 @@ export const apiService = {
     });
 
     if (!response.ok) {
-      throw new Error(`Nearby places API responded with status ${response.status}`);
+      const errJson = await response.json().catch(() => ({}));
+      throw new Error(errJson.error || errJson.message || `Nearby places API responded with status ${response.status}`);
     }
 
     return await response.json();
@@ -173,6 +176,44 @@ export const apiService = {
     if (!response.ok) {
       const errJson = await response.json().catch(() => ({}));
       throw new Error(errJson.error || `AI Chat API failed with status ${response.status}`);
+    }
+
+    return await response.json();
+  },
+
+  /**
+   * Generate deterministic multi-day itinerary across selected places
+   * POST /api/itinerary
+   */
+  async generateItinerary({ days = 1, placeIds = [], startLocation = null } = {}) {
+    if (!placeIds || placeIds.length === 0) {
+      throw new Error('Please select at least one place for your itinerary.');
+    }
+
+    const payload = {
+      days: Number(days) || 1,
+      placeIds
+    };
+
+    if (startLocation && (startLocation.lat != null || startLocation.latitude != null)) {
+      payload.startLocation = {
+        latitude: Number(startLocation.latitude ?? startLocation.lat),
+        longitude: Number(startLocation.longitude ?? startLocation.lng)
+      };
+    }
+
+    const response = await fetch(`${API_BASE_URL}/itinerary`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    if (!response.ok) {
+      const errJson = await response.json().catch(() => ({}));
+      throw new Error(errJson.error || errJson.message || `Itinerary generation failed with status ${response.status}`);
     }
 
     return await response.json();

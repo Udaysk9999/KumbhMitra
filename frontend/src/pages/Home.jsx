@@ -7,9 +7,11 @@ import PlaceInfoPanel from '../components/PlaceInfoPanel';
 import RoutePanel from '../routes/RoutePanel';
 import AIAssistant from '../components/AIAssistant';
 import EmergencyPanel from '../components/EmergencyPanel';
+import ItineraryPanel from '../components/ItineraryPanel';
 import { PlacesLoadingView, PlacesEmptyView, ApiUnavailableNotice } from '../components/PlaceStateView';
 import { placeService, filterPlacesByCategory, EXPLORE_MODE_CATEGORIES } from '../places';
 import { routeService } from '../services/routeService';
+import itineraryService from '../services/itineraryService';
 import { NASHIK_CENTER } from '../maps/mapConfig';
 import useMapCamera from '../hooks/useMapCamera';
 
@@ -25,18 +27,24 @@ export default function Home() {
 
   const [mapMode, setMapMode] = useState('2D');
   const [experienceMode, setExperienceMode] = useState('kumbh'); // 'kumbh' | 'explore'
-  const [places, setPlaces] = useState(() => placeService.getPlacesSync());
-  const [loading, setLoading] = useState(false);
+  const [places, setPlaces] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [apiError, setApiError] = useState(null);
   const [showNotice, setShowNotice] = useState(false);
-  /** 'api' when connected to live backend, 'mock' when using demo fallback, null until resolved */
-  const [dataSource, setDataSource] = useState(null);
 
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isEmergencyOpen, setIsEmergencyOpen] = useState(false);
+
+  // Itinerary Planning State
+  const [isItineraryOpen, setIsItineraryOpen] = useState(false);
+  const [selectedItineraryPlaceIds, setSelectedItineraryPlaceIds] = useState([]);
+  const [generatedItinerary, setGeneratedItinerary] = useState(null);
+  const [activeItineraryDayIndex, setActiveItineraryDayIndex] = useState(0);
+  const [itineraryLoading, setItineraryLoading] = useState(false);
+  const [itineraryError, setItineraryError] = useState(null);
 
   // Route Planning State
   const [isRouteOpen, setIsRouteOpen] = useState(false);
@@ -47,7 +55,7 @@ export default function Home() {
   const [routeLoading, setRouteLoading] = useState(false);
   const [routeError, setRouteError] = useState(null);
 
-  // Load all places from backend REST API (GET /api/places?limit=500)
+  // Load places from backend REST API (GET /api/places?limit=500 or GET /api/places?category=...&limit=500)
   useEffect(() => {
     let isMounted = true;
 
@@ -55,10 +63,10 @@ export default function Home() {
       setLoading(true);
       setApiError(null);
       try {
-        const result = await placeService.getPlaces({ limit: 500 });
+        const categoryParam = selectedCategory && selectedCategory !== 'all' ? selectedCategory : '';
+        const result = await placeService.getPlaces({ category: categoryParam, limit: 500 });
         if (isMounted) {
           setPlaces(result.places);
-          setDataSource(result.source || 'mock');
           if (result.error) {
             setApiError(result.error);
             setShowNotice(true);
@@ -68,7 +76,6 @@ export default function Home() {
         if (isMounted) {
           setApiError(err.message || 'Unable to load places. Please try again.');
           setShowNotice(true);
-          setDataSource('mock');
         }
       } finally {
         if (isMounted) {
@@ -82,15 +89,13 @@ export default function Home() {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [selectedCategory]);
 
   // Filter places based on active category and experience mode
   const visiblePlaces = useMemo(() => {
     let filtered = places;
 
-    if (selectedCategory && selectedCategory !== 'all') {
-      filtered = filterPlacesByCategory(places, selectedCategory);
-    } else if (experienceMode === 'explore') {
+    if (experienceMode === 'explore' && selectedCategory === 'all') {
       // In Explore Nashik mode with 'all', prioritize forts, tourist spots, caves, waterfalls, museums, nature
       filtered = places.filter((p) => EXPLORE_MODE_CATEGORIES.has(p.category));
     }
@@ -113,8 +118,8 @@ export default function Home() {
     return filtered;
   }, [places, selectedCategory, experienceMode, selectedPlace, activeRoute, routeStartPlace, routeDestPlace]);
 
-  // Marker click handler on map
-  const handleSelectPlaceFromMap = (place) => {
+  // Marker click handler on map - loads full place details via GET /api/places/:id
+  const handleSelectPlaceFromMap = async (place) => {
     if (!place) return;
 
     if (isRouteOpen) {
@@ -131,10 +136,22 @@ export default function Home() {
     setSelectedPlace(place);
     setIsDetailsOpen(false);
     panToPlace(place);
+
+    const placeId = place._id || place.id;
+    if (placeId) {
+      try {
+        const detailed = await placeService.getPlaceById(placeId);
+        if (detailed) {
+          setSelectedPlace((curr) => (curr && (curr.id === place.id || curr._id === place._id) ? detailed : curr));
+        }
+      } catch (err) {
+        console.warn('[Home] Failed to load full place details:', err.message);
+      }
+    }
   };
 
-  // Search selection handler -> opens details panel directly & pans map
-  const handleSelectPlaceFromSearch = (place) => {
+  // Search selection handler -> opens details panel directly, pans map, and fetches GET /api/places/:id
+  const handleSelectPlaceFromSearch = async (place) => {
     if (!place) return;
 
     if (isRouteOpen) {
@@ -148,17 +165,30 @@ export default function Home() {
     setSelectedPlace(place);
     setIsDetailsOpen(true);
     panToPlace(place);
+
+    const placeId = place._id || place.id;
+    if (placeId) {
+      try {
+        const detailed = await placeService.getPlaceById(placeId);
+        if (detailed) {
+          setSelectedPlace((curr) => (curr && (curr.id === place.id || curr._id === place._id) ? detailed : curr));
+        }
+      } catch (err) {
+        console.warn('[Home] Failed to load full place details:', err.message);
+      }
+    }
   };
 
-  // Nearby search handler using GET /api/places/nearby
+  // Nearby search handler using GET /api/places/nearby?lat=...&lng=...&radius=5000
   const handleNearbySearch = useCallback(async (category = '') => {
     setLoading(true);
+    setApiError(null);
     try {
-      // Determine center coordinates (from navigator.geolocation or default center)
-      let centerLat = NASHIK_CENTER.lat;
-      let centerLng = NASHIK_CENTER.lng;
+      // Determine center coordinates (selected place, navigator.geolocation, or Nashik center)
+      let centerLat = selectedPlace?.latitude || NASHIK_CENTER.lat;
+      let centerLng = selectedPlace?.longitude || NASHIK_CENTER.lng;
 
-      if (navigator.geolocation) {
+      if (!selectedPlace && navigator.geolocation) {
         try {
           const position = await new Promise((resolve, reject) => {
             navigator.geolocation.getCurrentPosition(resolve, reject, { timeout: 3000 });
@@ -166,7 +196,6 @@ export default function Home() {
           centerLat = position.coords.latitude;
           centerLng = position.coords.longitude;
         } catch {
-          // Graceful fallback: use Nashik map center
           centerLat = NASHIK_CENTER.lat;
           centerLng = NASHIK_CENTER.lng;
         }
@@ -175,7 +204,7 @@ export default function Home() {
       const result = await placeService.getNearbyPlaces({
         lat: centerLat,
         lng: centerLng,
-        radius: 10000,
+        radius: 5000,
         category: category || ''
       });
 
@@ -187,13 +216,18 @@ export default function Home() {
         if (mapRef.current?.fitPlaces) {
           mapRef.current.fitPlaces();
         }
+      } else if (result.error) {
+        setApiError(result.error);
+        setShowNotice(true);
       }
     } catch (err) {
       console.warn('[Home] Nearby search error:', err.message);
+      setApiError(err.message || 'Nearby search failed.');
+      setShowNotice(true);
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [selectedPlace]);
 
   // Route calculation helper using backend routeService (POST /api/routes)
   const calculateActiveRoute = useCallback(async (start, dest, mode) => {
@@ -278,6 +312,72 @@ export default function Home() {
     fitRoute(aiRoute);
   }, [fitRoute]);
 
+  // Toggle place in itinerary selection
+  const handleToggleItineraryPlace = useCallback((placeOrId) => {
+    const id = typeof placeOrId === 'string' ? placeOrId : (placeOrId?._id || placeOrId?.id);
+    if (!id) return;
+    setSelectedItineraryPlaceIds((prev) =>
+      prev.includes(id) ? prev.filter((pId) => pId !== id) : [...prev, id]
+    );
+  }, []);
+
+  // Display itinerary day route on map
+  const handleShowDayRouteOnMap = useCallback((dayData) => {
+    if (!dayData || !dayData.places || dayData.places.length === 0) return;
+
+    const allCoords = [];
+    dayData.places.forEach((p) => {
+      if (p.travelFromPrevious?.geometry?.coordinates) {
+        allCoords.push(...p.travelFromPrevious.geometry.coordinates);
+      } else if (p.place?.location?.coordinates) {
+        allCoords.push(p.place.location.coordinates);
+      }
+    });
+
+    const dayRoute = {
+      id: `itinerary_day_${dayData.day}`,
+      start: dayData.places[0]?.place,
+      destination: dayData.places[dayData.places.length - 1]?.place,
+      distanceKm: dayData.totalTravelDistance,
+      durationMinutes: dayData.totalTravelDuration,
+      geometry: {
+        type: 'LineString',
+        coordinates: allCoords
+      },
+      steps: dayData.places.map((p, idx) => ({
+        stepIndex: idx + 1,
+        instruction: `Stop ${p.order}: ${p.place.name} (${p.visitDuration} min visit)`
+      }))
+    };
+
+    setActiveRoute(dayRoute);
+    if (dayRoute.geometry.coordinates.length > 0) {
+      fitRoute(dayRoute);
+    }
+  }, [fitRoute]);
+
+  // Generate multi-day itinerary via backend POST /api/itinerary
+  const handleGenerateItinerary = useCallback(async ({ days, placeIds, startLocation }) => {
+    setItineraryLoading(true);
+    setItineraryError(null);
+    try {
+      const result = await itineraryService.generateItinerary({ days, placeIds, startLocation });
+      if (result.success && result.data) {
+        setGeneratedItinerary(result.data);
+        setActiveItineraryDayIndex(0);
+        if (result.data.days?.[0]) {
+          handleShowDayRouteOnMap(result.data.days[0]);
+        }
+      } else {
+        setItineraryError(result.error || 'Failed to create itinerary.');
+      }
+    } catch (err) {
+      setItineraryError(err.message || 'An error occurred while generating itinerary.');
+    } finally {
+      setItineraryLoading(false);
+    }
+  }, [handleShowDayRouteOnMap]);
+
   return (
     <div className="relative w-screen h-screen flex flex-col overflow-hidden bg-stone-100 text-stone-900">
       
@@ -290,7 +390,7 @@ export default function Home() {
         onNearbySearch={handleNearbySearch}
         onOpenAI={() => setIsAIOpen(true)}
         onOpenEmergency={() => setIsEmergencyOpen(true)}
-        dataSource={dataSource}
+        onOpenItinerary={() => setIsItineraryOpen(true)}
       />
 
       {/* Floating Category Filter Chips with Mode Switcher & 6 Groups */}
@@ -344,7 +444,18 @@ export default function Home() {
       {selectedPlace && !isDetailsOpen && !isRouteOpen && (
         <PlacePreviewCard
           place={selectedPlace}
-          onViewDetails={() => setIsDetailsOpen(true)}
+          onViewDetails={async () => {
+            setIsDetailsOpen(true);
+            const pid = selectedPlace._id || selectedPlace.id;
+            if (pid) {
+              try {
+                const detailed = await placeService.getPlaceById(pid);
+                if (detailed) setSelectedPlace(detailed);
+              } catch (err) {
+                console.warn('[Home] Failed to fetch full details:', err.message);
+              }
+            }
+          }}
           onGetDirections={handleStartRoute}
           onClose={() => setSelectedPlace(null)}
         />
@@ -355,6 +466,8 @@ export default function Home() {
         <PlaceInfoPanel
           place={selectedPlace}
           onGetDirections={handleStartRoute}
+          onToggleItinerary={handleToggleItineraryPlace}
+          isInItinerary={selectedPlace ? selectedItineraryPlaceIds.includes(selectedPlace._id || selectedPlace.id) : false}
           onClose={() => {
             setIsDetailsOpen(false);
             setSelectedPlace(null);
@@ -428,6 +541,34 @@ export default function Home() {
       <EmergencyPanel
         isOpen={isEmergencyOpen}
         onClose={() => setIsEmergencyOpen(false)}
+      />
+
+      {/* Itinerary Planner Modal / Panel */}
+      <ItineraryPanel
+        isOpen={isItineraryOpen}
+        onClose={() => setIsItineraryOpen(false)}
+        places={places}
+        onGenerateItinerary={handleGenerateItinerary}
+        generatedItinerary={generatedItinerary}
+        activeDayIndex={activeItineraryDayIndex}
+        onSelectDay={(idx) => {
+          setActiveItineraryDayIndex(idx);
+          if (generatedItinerary?.days?.[idx]) {
+            handleShowDayRouteOnMap(generatedItinerary.days[idx]);
+          }
+        }}
+        onSelectPlace={(place) => {
+          setSelectedPlace(place);
+          setIsDetailsOpen(true);
+          panToPlace(place);
+        }}
+        onShowRouteOnMap={handleShowDayRouteOnMap}
+        selectedPlaceIds={selectedItineraryPlaceIds}
+        onTogglePlaceId={handleToggleItineraryPlace}
+        onClearSelectedPlaces={() => setSelectedItineraryPlaceIds([])}
+        isLoading={itineraryLoading}
+        error={itineraryError}
+        mapCenter={NASHIK_CENTER}
       />
 
     </div>

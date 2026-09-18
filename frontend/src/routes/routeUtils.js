@@ -282,6 +282,8 @@ export function normalizeRoute(raw, fallbackStart = null, fallbackDest = null, f
   let durationMinutes = 0;
   if (typeof raw.durationMinutes === 'number') {
     durationMinutes = raw.durationMinutes;
+  } else if (typeof raw.durationMins === 'number') {
+    durationMinutes = raw.durationMins;
   } else if (raw.duration && typeof raw.duration.valueMinutes === 'number') {
     durationMinutes = raw.duration.valueMinutes;
   } else if (raw.duration && typeof raw.duration.valueSeconds === 'number') {
@@ -362,6 +364,7 @@ export function normalizeRoute(raw, fallbackStart = null, fallbackDest = null, f
     distanceKm: Number(distanceKm.toFixed(1)),
     distanceText: formatDistance(distanceKm),
     durationMinutes: Math.round(durationMinutes),
+    durationMins: Math.round(durationMinutes),
     durationText: formatDuration(durationMinutes),
     geometry: {
       type: 'LineString',
