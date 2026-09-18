@@ -156,13 +156,18 @@ export const apiService = {
   },
 
   /**
-   * Natural-language conversational guidance with AI KumbhMitra
+   * Natural-language conversational guidance with Ask Mitra AI assistant
    * POST /api/ai/chat
    */
-  async chatWithAI(message) {
+  async chatWithAI(message, context = {}) {
     if (!message || typeof message !== 'string' || !message.trim()) {
       throw new Error('Message is required');
     }
+
+    const payload = {
+      message: message.trim(),
+      context: (context && typeof context === 'object') ? context : {}
+    };
 
     const response = await fetch(`${API_BASE_URL}/ai/chat`, {
       method: 'POST',
@@ -170,7 +175,7 @@ export const apiService = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ message: message.trim() })
+      body: JSON.stringify(payload)
     });
 
     if (!response.ok) {
@@ -179,6 +184,19 @@ export const apiService = {
     }
 
     return await response.json();
+  },
+
+  /**
+   * Diagnostic check for AI provider status
+   * GET /api/ai/health
+   */
+  async getAIHealth() {
+    try {
+      const response = await fetch(`${API_BASE_URL}/ai/health`);
+      return await response.json();
+    } catch (err) {
+      return { success: false, configured: false, error: err.message };
+    }
   },
 
   /**

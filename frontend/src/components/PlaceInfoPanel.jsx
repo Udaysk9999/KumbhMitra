@@ -12,7 +12,8 @@ export default function PlaceInfoPanel({
   onClose,
   onGetDirections,
   onToggleItinerary,
-  isInItinerary = false
+  isInItinerary = false,
+  onAskMitra
 }) {
   // Close on Escape key press
   useEffect(() => {
@@ -179,6 +180,18 @@ export default function PlaceInfoPanel({
             >
               <span>{isInItinerary ? '✓' : '➕'}</span>
               <span>{isInItinerary ? 'Added to Itinerary' : 'Add to Itinerary'}</span>
+            </button>
+          )}
+
+          {onAskMitra && (
+            <button
+              type="button"
+              onClick={() => onAskMitra(place)}
+              className="w-full py-2.5 px-4 mt-2 font-semibold text-xs rounded-xl border border-amber-300/80 bg-amber-50/90 hover:bg-amber-100 text-amber-900 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-xs"
+              aria-label={`Ask Mitra about ${place.name}`}
+            >
+              <span>🕉️</span>
+              <span>Ask Mitra about this place</span>
             </button>
           )}
         </div>

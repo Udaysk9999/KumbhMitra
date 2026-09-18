@@ -468,6 +468,9 @@ export default function Home() {
           onGetDirections={handleStartRoute}
           onToggleItinerary={handleToggleItineraryPlace}
           isInItinerary={selectedPlace ? selectedItineraryPlaceIds.includes(selectedPlace._id || selectedPlace.id) : false}
+          onAskMitra={(place) => {
+            setIsAIOpen(true);
+          }}
           onClose={() => {
             setIsDetailsOpen(false);
             setSelectedPlace(null);
@@ -524,10 +527,12 @@ export default function Home() {
         />
       )}
 
-      {/* AI Assistant Modal */}
+      {/* Ask Mitra AI Assistant Modal */}
       <AIAssistant
         isOpen={isAIOpen}
         onClose={() => setIsAIOpen(false)}
+        contextLocation={selectedPlace?.name || null}
+        onClearContextLocation={() => {}}
         onSelectPlace={(place) => {
           setSelectedPlace(place);
           setIsDetailsOpen(true);

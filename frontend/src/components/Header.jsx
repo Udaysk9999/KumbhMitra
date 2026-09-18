@@ -94,15 +94,15 @@ export default function Header({
             <span>Itinerary</span>
           </button>
 
-          {/* AI Assistant Button */}
+          {/* Ask Mitra Button */}
           <button
             type="button"
             onClick={onOpenAI}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-stone-700 bg-stone-100/90 hover:bg-stone-200/90 rounded-xl border border-stone-200 transition-colors shadow-sm cursor-pointer"
-            aria-label="Ask KumbhMitra AI Assistant"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-stone-700 bg-stone-100/90 hover:bg-amber-100/80 rounded-xl border border-stone-200 hover:border-amber-300 transition-colors shadow-sm cursor-pointer"
+            aria-label="Ask Mitra AI Guide"
           >
-            <span>🤖</span>
-            <span>Ask KumbhMitra</span>
+            <span>🕉️</span>
+            <span>Ask Mitra</span>
           </button>
 
           {/* Emergency Button */}
