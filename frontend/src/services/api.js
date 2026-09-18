@@ -177,32 +177,6 @@ export const apiService = {
 
     return await response.json();
   }
-
-  /**
-   * AI itinerary planning with KumbhMitra
-   * POST /api/ai/itinerary
-   */
-  async itineraryWithAI(message) {
-    if (!message || typeof message !== 'string' || !message.trim()) {
-      throw new Error('Message is required');
-    }
-
-    const response = await fetch(`${API_BASE_URL}/ai/itinerary`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message: message.trim() })
-    });
-
-    if (!response.ok) {
-      const errJson = await response.json().catch(() => ({}));
-      throw new Error(errJson.error || `AI Itinerary API failed with status ${response.status}`);
-    }
-
-    return await response.json();
-  }
 };
 
 export default apiService;

@@ -37,9 +37,6 @@ export default function Home() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [isAIOpen, setIsAIOpen] = useState(false);
   const [isEmergencyOpen, setIsEmergencyOpen] = useState(false);
-  const [itinerary, setItinerary] = useState(null);
-  const [isItineraryLoading, setIsItineraryLoading] = useState(false);
-  const [itineraryError, setItineraryError] = useState(null);
 
   // Route Planning State
   const [isRouteOpen, setIsRouteOpen] = useState(false);
