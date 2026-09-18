@@ -1,7 +1,6 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import ModeToggle from './ModeToggle';
-import BackendStatus from './BackendStatus';
 
 /**
  * Main Top Header Component
@@ -16,7 +15,7 @@ export default function Header({
   onNearbySearch,
   onOpenAI,
   onOpenEmergency,
-  dataSource
+  onOpenItinerary
 }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-md border-b border-stone-200/80 shadow-sm transition-all">
@@ -36,7 +35,6 @@ export default function Header({
                 <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-100/80 text-amber-800 border border-amber-200/60">
                   2027
                 </span>
-                <BackendStatus source={dataSource} />
               </div>
               <p className="text-[11px] font-semibold text-stone-500 tracking-wide">
                 Nashik <span className="text-amber-600">•</span> Trimbakeshwar
@@ -47,6 +45,15 @@ export default function Header({
           {/* Mobile Quick Action Bar & 2D/3D Toggle (Small Screens) */}
           <div className="flex items-center gap-1.5 md:hidden">
             <ModeToggle mode={mode} onToggle={onToggleMode} />
+            <button
+              type="button"
+              onClick={onOpenItinerary}
+              className="p-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold"
+              aria-label="Open Itinerary Planner"
+              title="Itinerary Planner"
+            >
+              📅
+            </button>
             <button
               type="button"
               onClick={onOpenAI}
@@ -71,10 +78,21 @@ export default function Header({
           <SearchBar places={places} onSelectPlace={onSelectPlace} onNearbySearch={onNearbySearch} />
         </div>
 
-        {/* Right: Mode Toggle + AI + Emergency Buttons (Desktop & Tablet) */}
+        {/* Right: Mode Toggle + Itinerary + AI + Emergency Buttons (Desktop & Tablet) */}
         <div className="hidden md:flex items-center gap-2.5">
           {/* 2D / 3D Toggle */}
           <ModeToggle mode={mode} onToggle={onToggleMode} />
+
+          {/* Itinerary Planner Button */}
+          <button
+            type="button"
+            onClick={onOpenItinerary}
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-bold text-amber-900 bg-amber-50 hover:bg-amber-100/90 rounded-xl border border-amber-200 transition-colors shadow-sm cursor-pointer"
+            aria-label="Open Itinerary Planner"
+          >
+            <span>📅</span>
+            <span>Itinerary</span>
+          </button>
 
           {/* AI Assistant Button */}
           <button

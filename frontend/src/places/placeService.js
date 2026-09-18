@@ -48,14 +48,14 @@ export const placeService = {
           limit
         });
 
-        const rawPlaces = Array.isArray(json.data) ? json.data : (Array.isArray(json) ? json : []);
+        const rawPlaces = Array.isArray(json.data) ? json.data : (Array.isArray(json) ? json : null);
 
-        if (rawPlaces.length > 0) {
+        if (rawPlaces !== null) {
           const normalizedApiPlaces = rawPlaces.map(normalizePlace).filter(Boolean);
           return {
             places: normalizedApiPlaces,
             count: normalizedApiPlaces.length,
-            total: json.total || normalizedApiPlaces.length,
+            total: typeof json.total === 'number' ? json.total : normalizedApiPlaces.length,
             source: 'api',
             error: null
           };
@@ -115,18 +115,12 @@ export const placeService = {
   },
 
   /**
-   * Retrieve a single place by ID
+   * Retrieve a single place by ID from backend (GET /api/places/:id)
    */
   async getPlaceById(id, placesPool = null) {
     if (!id) return null;
 
-    // Search in current in-memory pool first
-    if (placesPool && Array.isArray(placesPool)) {
-      const match = placesPool.find((p) => p.id === id || p._id === id);
-      if (match) return normalizePlace(match);
-    }
-
-    // Fetch from backend
+    // 1. Fetch latest details from backend
     if (placeServiceConfig.useApi) {
       try {
         const json = await apiService.getPlaceById(id);
@@ -135,6 +129,12 @@ export const placeService = {
       } catch (err) {
         console.warn(`[placeService] Failed to fetch place with ID ${id}:`, err.message);
       }
+    }
+
+    // 2. Search in current in-memory pool if offline or backend failed
+    if (placesPool && Array.isArray(placesPool)) {
+      const match = placesPool.find((p) => p.id === id || p._id === id);
+      if (match) return normalizePlace(match);
     }
 
     const mockMatch = normalizedMockPlaces.find((p) => p.id === id);

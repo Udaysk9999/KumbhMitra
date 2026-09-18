@@ -7,7 +7,13 @@ import { formatOpeningHours, formatAccessibility } from '../places/placeUtils';
  * Shows Name, Category, Subcategory, Description, Address, Contact, Opening Hours,
  * Accessibility, Facilities, Services, Tags, Importance, Kumbh Relevance, and Verified Source.
  */
-export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
+export default function PlaceInfoPanel({
+  place,
+  onClose,
+  onGetDirections,
+  onToggleItinerary,
+  isInItinerary = false
+}) {
   // Close on Escape key press
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -160,6 +166,21 @@ export default function PlaceInfoPanel({ place, onClose, onGetDirections }) {
             <span>🧭</span>
             <span>Get Directions / Plan Route</span>
           </button>
+
+          {onToggleItinerary && (
+            <button
+              type="button"
+              onClick={() => onToggleItinerary(place)}
+              className={`w-full py-2.5 px-4 mt-2 font-semibold text-xs rounded-xl border transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                isInItinerary
+                  ? 'bg-amber-100/90 border-amber-300 text-amber-900 hover:bg-amber-200/80'
+                  : 'bg-stone-50 hover:bg-stone-100 border-stone-200 text-stone-700'
+              }`}
+            >
+              <span>{isInItinerary ? '✓' : '➕'}</span>
+              <span>{isInItinerary ? 'Added to Itinerary' : 'Add to Itinerary'}</span>
+            </button>
+          )}
         </div>
 
         {/* Key Information Section */}
