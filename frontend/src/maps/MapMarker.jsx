@@ -6,7 +6,7 @@ import { getCategoryTheme } from './mapConfig';
  * Displays interactive place pin with category styling, hover interactions,
  * keyboard accessibility, and selected/highlighted visual emphasis.
  */
-export default function MapMarker({ place, isSelected, highlighted = false, onClick }) {
+export default function MapMarker({ place, isSelected, highlighted = false, badgeNumber, onClick }) {
   if (!place) return null;
 
   const theme = getCategoryTheme(place.category);
