@@ -29,6 +29,8 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const [apiError, setApiError] = useState(null);
   const [showNotice, setShowNotice] = useState(false);
+  /** 'api' when connected to live backend, 'mock' when using demo fallback, null until resolved */
+  const [dataSource, setDataSource] = useState(null);
 
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [isDetailsOpen, setIsDetailsOpen] = useState(false);
@@ -56,6 +58,7 @@ export default function Home() {
         const result = await placeService.getPlaces({ limit: 500 });
         if (isMounted) {
           setPlaces(result.places);
+          setDataSource(result.source || 'mock');
           if (result.error) {
             setApiError(result.error);
             setShowNotice(true);
@@ -65,6 +68,7 @@ export default function Home() {
         if (isMounted) {
           setApiError(err.message || 'Unable to load places. Please try again.');
           setShowNotice(true);
+          setDataSource('mock');
         }
       } finally {
         if (isMounted) {
@@ -286,6 +290,7 @@ export default function Home() {
         onNearbySearch={handleNearbySearch}
         onOpenAI={() => setIsAIOpen(true)}
         onOpenEmergency={() => setIsEmergencyOpen(true)}
+        dataSource={dataSource}
       />
 
       {/* Floating Category Filter Chips with Mode Switcher & 6 Groups */}

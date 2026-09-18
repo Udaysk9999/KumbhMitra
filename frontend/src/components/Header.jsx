@@ -1,6 +1,7 @@
 import React from 'react';
 import SearchBar from './SearchBar';
 import ModeToggle from './ModeToggle';
+import BackendStatus from './BackendStatus';
 
 /**
  * Main Top Header Component
@@ -14,7 +15,8 @@ export default function Header({
   onSelectPlace,
   onNearbySearch,
   onOpenAI,
-  onOpenEmergency
+  onOpenEmergency,
+  dataSource
 }) {
   return (
     <header className="fixed top-0 left-0 right-0 z-30 bg-white/90 backdrop-blur-md border-b border-stone-200/80 shadow-sm transition-all">
@@ -34,6 +36,7 @@ export default function Header({
                 <span className="hidden sm:inline-block text-[10px] font-bold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-100/80 text-amber-800 border border-amber-200/60">
                   2027
                 </span>
+                <BackendStatus source={dataSource} />
               </div>
               <p className="text-[11px] font-semibold text-stone-500 tracking-wide">
                 Nashik <span className="text-amber-600">•</span> Trimbakeshwar
